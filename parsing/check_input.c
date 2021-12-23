@@ -6,17 +6,23 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 15:22:11 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:57:23 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft/libft.h"
 
+int	ret_int_free(int ret, char *tofree)
+{
+	free(tofree);
+	return (ret);
+}
+
 int	good_id(char *str)
 {
 	if (ft_strcmp(str, "NO") != 0 && ft_strcmp(str, "SO") != 0
-		&& ft_strcmp(str, "ES") != 0 && ft_strcmp(str, "WE") != 0
+		&& ft_strcmp(str, "EA") != 0 && ft_strcmp(str, "WE") != 0
 		&& ft_strcmp(str, "F") != 0 && ft_strcmp(str, "C") != 0)
 		return (0);
 	return (1);
@@ -83,13 +89,52 @@ int	second_args(char *str, char *id)
 	return (ret);
 }
 
+int	isonlyset(char *str, char *set)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (j < ft_strlen(set))
+		{
+			if (str[i] == set[j])
+				break;
+			j++;
+		}
+		if (j == ft_strlen(set))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+
 int	check_map(char *str, int fd)
 {
+	int ret;
+
 	if (str[0] != '1')
 		return (1);
-	(void)fd;
-	return (1);/////regarder si la map es bonne
-	return (0);
+	if (isonlyset(str, " 10NSWE") == 0)
+		return (0);
+	while (1)
+	{
+		ret = get_next_line(fd, &str);
+		if (ret > 0)
+		{
+			if (isonlyset(str, " 10NSWE") == 0)
+				return (0);
+			free(str);
+		}
+		else
+			break;
+	}
+	if (isonlyset(str, " 10NSWE") == 0)
+		return (0);
+	return (1);
 }
 
 int	parse_line(char *str, int fd)
@@ -115,12 +160,6 @@ int	parse_line(char *str, int fd)
 	}
 	ft_free_3dtab(args);
 	return (1);
-}
-
-int	ret_int_free(int ret, char *tofree)
-{
-	free(tofree);
-	return (ret);
 }
 
 int	check_lines(int fd)
