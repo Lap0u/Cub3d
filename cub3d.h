@@ -6,11 +6,11 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 11:27:56 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 13:09:44 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <fcntl.h>
 
 typedef struct s_data
 {
@@ -24,3 +24,16 @@ typedef struct s_data
 }			t_data;
 
 /*main.c*/
+
+/*parsing/check_arg.c*/
+
+int		check_extension(char *str);
+int		try_open(char *str);
+int		check_arg(char *av, int ac);
+
+/*parsing/check_input.c*/
+int		check_input(char *file);
+int		check_lines(int fd);
+
+
+/*parsing/get_data.c*/

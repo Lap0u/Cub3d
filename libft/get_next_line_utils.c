@@ -6,11 +6,11 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:28:05 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/09/22 11:20:01 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 13:11:24 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 char	*ft_strcpy(const char *src)
 {

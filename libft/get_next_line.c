@@ -6,11 +6,10 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:27:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/09/29 10:44:47 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 13:14:49 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "libft.h"
 
 int	ft_error_case(int read_bytes, char *str, char **line)
@@ -24,7 +23,7 @@ int	ft_error_case(int read_bytes, char *str, char **line)
 			return (-1);
 		return (0);
 	}
-	return (ft_solve(str, line));
+	return (ft_solve_gnl(str, line));
 }
 
 char	*ft_realoc_cat(char *dst, const char *src)
