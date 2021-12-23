@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 15:16:15 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:22:11 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 int	good_id(char *str)
 {
-	if (ft_strcmp(str, "NO") != 0 && ft_strcmp(str, "SO") != 0 &&
-		ft_strcmp(str, "ES") != 0 && ft_strcmp(str, "WE") != 0 &&
-		ft_strcmp(str, "F") != 0 && ft_strcmp(str, "C") != 0)
+	if (ft_strcmp(str, "NO") != 0 && ft_strcmp(str, "SO") != 0
+		&& ft_strcmp(str, "ES") != 0 && ft_strcmp(str, "WE") != 0
+		&& ft_strcmp(str, "F") != 0 && ft_strcmp(str, "C") != 0)
 		return (0);
 	return (1);
 }
 
 int	tab_len(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -73,7 +73,7 @@ int	check_colour(char *str)
 
 int	second_args(char *str, char *id)
 {
-	int ret;
+	int	ret;
 
 	ret = 1;
 	if (ft_strlen(id) == 1)
@@ -128,7 +128,7 @@ int	check_lines(int fd)
 	char	*str;
 	int		counter;
 	int		ret;
-	
+
 	counter = 1;
 	while (1)
 	{

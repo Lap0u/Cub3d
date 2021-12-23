@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:58:29 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 13:13:34 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:21:06 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,20 +158,20 @@ void			ft_free_3dtab(char **tab);
 
 /*gnl*/
 
-int		get_next_line(int fd, char **line);
+int				get_next_line(int fd, char **line);
 
-int		ft_count_endl(const char *str);
+int				ft_count_endl(const char *str);
 
-char	*ft_strcpy(const char *src);
+char			*ft_strcpy(const char *src);
 
-char	*ft_realoc_cat(char *dst, const char *src);
+char			*ft_realoc_cat(char *dst, const char *src);
 
-int		ft_return(int read_bytes, char *str, char **line);
+int				ft_return(int read_bytes, char *str, char **line);
 
-char	*ft_save_next(char *str, int return_value);
+char			*ft_save_next(char *str, int return_value);
 
-int		ft_solve(char *str, char **line);
+int				ft_solve(char *str, char **line);
 
-char	*ft_return_free(char *str);
+char			*ft_return_free(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:04:06 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 13:04:07 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:21:21 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_extension(char *str)
 
 int	try_open(char *str)
 {
-	int ret;
+	int	ret;
 
 	ret = ft_open_file_read(str);
 	if (ret < 0)
