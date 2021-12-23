@@ -3,10 +3,11 @@
 
 
 
-
-SO test_file
-F 0,0,200,0
-
+SO main.c
+F 0,0,200
 
 
-re
+
+
+11
+R

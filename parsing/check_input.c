@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 14:33:26 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:16:15 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,23 @@ int	second_args(char *str, char *id)
 	return (ret);
 }
 
-int	parse_line(char *str)
+int	check_map(char *str, int fd)
+{
+	if (str[0] != '1')
+		return (1);
+	(void)fd;
+	return (1);/////regarder si la map es bonne
+	return (0);
+}
+
+int	parse_line(char *str, int fd)
 {
 	char	**args;
 
 	if (str[0] == 0)
 		return (1);
+	if (str[0] == '1')
+		return (check_map(str, fd));
 	args = ft_split(str, ' ');
 	if (!args)
 		return (0);
@@ -106,31 +117,35 @@ int	parse_line(char *str)
 	return (1);
 }
 
+int	ret_int_free(int ret, char *tofree)
+{
+	free(tofree);
+	return (ret);
+}
+
 int	check_lines(int fd)
 {
 	char	*str;
-	int		ret;
 	int		counter;
-
+	int		ret;
+	
 	counter = 1;
 	while (1)
 	{
 		ret = get_next_line(fd, &str);
 		if (ret > 0)
-		{
-			if (parse_line(str) == 0)
-			{
-				free(str);
-				close(fd);
-				return (counter);
-			}
+		{		
+			if (parse_line(str, fd) == 0)
+				return (ret_int_free(counter, str));
 			free(str);
 		}
 		else
 			break ;
 		counter++;
-	}
-	close(fd);
+	}			
+	if (parse_line(str, fd) == 0)
+		return (ret_int_free(counter, str));
+	free(str);
 	return (-1);
 }
 
@@ -146,6 +161,7 @@ int	check_input(char *file)
 		return (0);
 	}
 	err = check_lines(fd);
+	close(fd);
 	if (err != -1)
 	{
 		ft_putstr_fd("Error\nWrong map configuration at line ", 2);

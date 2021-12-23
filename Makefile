@@ -6,7 +6,7 @@
 #    By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/23 11:12:25 by cbeaurai          #+#    #+#              #
-#    Updated: 2021/12/23 13:15:23 by cbeaurai         ###   ########.fr        #
+#    Updated: 2021/12/23 14:47:24 by cbeaurai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ RM			= rm -rf
 
 LFT			= ./libft
 
-CFLAGS		= -Wall -Werror -Wextra -no-pie -g -I.
+CFLAGS		= -Wall -Werror -Wextra -no-pie -g -I. -fsanitize=address
 
 LIBS		= -L ./libft -lft -L ./mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lbsd
 
