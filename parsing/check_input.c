@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 15:57:23 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 12:27:59 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ int	check_map(char *str, int fd)
 			break;
 	}
 	if (isonlyset(str, " 10NSWE") == 0)
-		return (0);
-	return (1);
+		return(ret_int_free(0, str));
+	return (ret_int_free(1, str));
 }
 
 int	parse_line(char *str, int fd)

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   store_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 13:03:59 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 12:47:35 by cbeaurai         ###   ########.fr       */
+/*   Created: 2021/12/29 12:38:47 by cbeaurai          #+#    #+#             */
+/*   Updated: 2021/12/29 13:32:43 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft/libft.h"
+#include "../cub3d.h"
+#include "../libft/libft.h"
 
-int main(int ac, char **av)
+t_data	*get_data(char *str)
 {
 	t_data	*data;
+	int		fd;
 	
-	if (check_arg(av[1], ac) == 0)
-		return (1);
-	if (check_input(av[1]) == 0)
-		return (1);
-	data = get_data(av[1]);
+	data = NULL;
+	fd = ft_open_file_read(str);
+	if (fd < 0)
+		exit (bad_fd());
+	data = malloc(sizeof(t_data));
 	if (data == NULL)
-		return (bad_malloc());
-	return (0);
+		return (NULL);
+	ft_bzero(data, sizeof(t_data));
+	get_values(data, fd);
+	get_map(data, fd);
+	close(fd);
+	check_data(data); //exit si pb
+	return (data);
 }
