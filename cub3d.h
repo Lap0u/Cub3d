@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 13:19:35 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:00:54 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,13 @@ int		parse_line(char *str, int fd);
 
 /*parsing/store_data.c*/
 t_data	*get_data(char *str);
+void	init_data(t_data **data);
 
 /*parsing/exit_utils.c*/
 int		bad_malloc();
 int		bad_fd();
+void	free_data(t_data *data);
+
 
 /*parsing/parse_value.c*/
 void	get_values(t_data *data, int fd);
@@ -64,6 +67,8 @@ void	add_col(t_data *data, char *val, char c);
 
 /*parsing/parse_map.c*/
 void	get_map(t_data *data, int fd);
+void	add_map(char *first_line, int fd, t_data *data);
+void	add_map_line(char ***map, char *new);
 
 /*parsing/check_data.c*/
 void	check_data(t_data *data);

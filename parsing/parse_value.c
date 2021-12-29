@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:46 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 13:32:13 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:02:05 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ void	get_values(t_data *data, int fd)
 	{
 		ret = get_next_line(fd, &line);
 		if (line[0] != 0)
+		{
 			add_line(data, line);
+			count++;
+		}
 		free(line);
 	}
 }

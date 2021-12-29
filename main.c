@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:59 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 12:47:35 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:51:41 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int main(int ac, char **av)
 	data = get_data(av[1]);
 	if (data == NULL)
 		return (bad_malloc());
+	free_data(data);
 	return (0);
 }

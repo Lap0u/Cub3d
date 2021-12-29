@@ -6,12 +6,26 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:38:47 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 13:32:43 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:00:04 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../libft/libft.h"
+
+void	init_data(t_data **data)
+{
+	*data = malloc(sizeof(t_data));
+	if (*data == NULL)
+		return ;
+	ft_bzero(*data, sizeof(t_data));
+	(*data)->ceiling_col[0] = -1;
+	(*data)->ceiling_col[1] = -1;
+	(*data)->ceiling_col[2] = -1;
+	(*data)->floor_col[0] = -1;
+	(*data)->floor_col[1] = -1;
+	(*data)->floor_col[2] = -1;
+}
 
 t_data	*get_data(char *str)
 {
@@ -22,12 +36,15 @@ t_data	*get_data(char *str)
 	fd = ft_open_file_read(str);
 	if (fd < 0)
 		exit (bad_fd());
-	data = malloc(sizeof(t_data));
+	init_data(&data);
 	if (data == NULL)
+	{
+		close(fd);
 		return (NULL);
-	ft_bzero(data, sizeof(t_data));
+	}
 	get_values(data, fd);
 	get_map(data, fd);
+	print_data(data);
 	close(fd);
 	check_data(data); //exit si pb
 	return (data);

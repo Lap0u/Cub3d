@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:36:12 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 12:47:49 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:52:07 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,21 @@ int	bad_fd()
 {
 	ft_putstr_fd("Can't open the map, exiting...\n" , 2);
 	return (1);
+}
+
+void	free_data(t_data *data)
+{
+	int i;
+
+	if (data->map)
+	{
+		while (data->map[i])
+			free(data->map[i++]);
+		free(data->map);
+	}
+	free(data->ea_path);
+	free(data->so_path);
+	free(data->no_path);
+	free(data->we_path);
+	free(data);
 }
