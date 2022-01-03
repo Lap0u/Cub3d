@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 16:00:54 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:22:41 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,16 @@ void	add_map_line(char ***map, char *new);
 
 /*parsing/check_data.c*/
 void	check_data(t_data *data);
+int		check_player(t_data *data);
+int		check_walls(t_data *data);
+int		check_inside(t_data *data);
+
+
+/*parsing/check_data_utils.c*/
+int		char_inset(char c, char *set);
+int		full_line(char *str);
+int		check_surround(char *check, char *prev, char *next);
+
 /*parsing/print_data.c*/
 void	print_data(t_data *data);
 
