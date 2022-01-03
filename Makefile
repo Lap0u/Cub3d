@@ -6,7 +6,7 @@
 #    By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/23 11:12:25 by cbeaurai          #+#    #+#              #
-#    Updated: 2021/12/29 13:19:46 by cbeaurai         ###   ########.fr        #
+#    Updated: 2022/01/03 14:31:19 by cbeaurai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= cub3D
 
 SRCS		= main.c parsing/check_arg.c parsing/check_input.c parsing/exit_utils.c \
 				parsing/store_data.c parsing/parse_map.c parsing/parse_value.c \
-				parsing/check_data.c parsing/print_data.c
+				parsing/check_data.c parsing/print_data.c parsing/check_data_utils.c
 
 
 OBJS		= $(SRCS:.c=.o)

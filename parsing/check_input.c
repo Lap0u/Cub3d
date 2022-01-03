@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 12:27:59 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:37:54 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_colour(char *str)
 	while (i < 3)
 	{
 		ret = ft_atoi(val[i]);
-		if (ret < 0 || ret > 255)
+		if (ret < 0 || ret > 255 || isonlyset(val[i], "0123456789") == 0)
 		{
 			ft_free_3dtab(val);
 			return (0);
