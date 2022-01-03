@@ -45,6 +45,7 @@ t_data	*get_data(char *str)
 	get_values(data, fd);
 	get_map(data, fd);
 	print_data(data);
+	// printf("HAHAHAHAH NO : %s\n", data->no_path);
 	close(fd);
 	check_data(data); //exit si pb
 	return (data);

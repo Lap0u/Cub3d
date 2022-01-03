@@ -16,6 +16,7 @@
 int main(int ac, char **av)
 {
 	t_data	*data;
+	t_app	my_app;
 	
 	if (check_arg(av[1], ac) == 0)
 		return (1);
@@ -24,6 +25,13 @@ int main(int ac, char **av)
 	data = get_data(av[1]);
 	if (data == NULL)
 		return (bad_malloc());
+	my_app.data = *(data);
+	init_app(&my_app, "Cub3D",
+			34, 13);
+	mlx_key_hook(my_app.win, &player_input, &my_app);
+	mlx_hook(my_app.win, 17, 0, destroy_game_data, &my_app);
+	mlx_loop_hook(my_app.mlx, &routine, &my_app);
+	mlx_loop(my_app.mlx);
 	free_data(data);
 	return (0);
 }

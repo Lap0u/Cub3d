@@ -79,6 +79,8 @@ void	get_values(t_data *data, int fd)
 	int		ret;
 
 	count = 0;
+	line = NULL;
+	ret = -1;
 	while (count < 6 && ret != 0)
 	{
 		ret = get_next_line(fd, &line);
