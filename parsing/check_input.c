@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/03 13:37:54 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:38:15 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	second_args(char *str, char *id)
 {
 	int	ret;
 
+	printf("id = %s\tval = %s\n", id, str);
 	ret = 1;
 	if (ft_strlen(id) == 1)
 		ret = check_colour(str);
@@ -137,19 +138,46 @@ int	check_map(char *str, int fd)
 	return (ret_int_free(1, str));
 }
 
+char	*get_colours(char **args)
+{
+	int		i;
+	char	*temp;
+
+	temp = ft_strdup("");
+	if (temp == NULL)
+		return (NULL);
+	i = 1;
+	while (args[i])
+	{
+		temp = ft_strjoin(temp, args[i]);
+		free(args[i]);
+		args[i] = NULL;
+		if (temp == NULL)
+			return (NULL);
+		i++;
+	}
+	printf("%s\n", temp);
+	return (temp);
+
+}
+
 int	parse_line(char *str, int fd)
 {
-	char	**args;
-
+	char		**args;
+	static int	i = 0;
+	
 	if (str[0] == 0)
 		return (1);
-	if (str[0] == '1')
+	if (i == 6)
 		return (check_map(str, fd));
 	args = ft_split(str, ' ');
 	if (!args)
 		return (0);
-	if (tab_len(args) != 2)
+	if (args[0][0] == 'C' || args[0][0] == 'F')
+		args[1] = get_colours(args);
+	if (tab_len(args) != 2 || !args[1])
 	{
+		printf("noright\n");
 		ft_free_3dtab(args);
 		return (0);
 	}
@@ -159,6 +187,7 @@ int	parse_line(char *str, int fd)
 		return (0);
 	}
 	ft_free_3dtab(args);
+	i++;
 	return (1);
 }
 

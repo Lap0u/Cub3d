@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:46 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 15:02:05 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:31:22 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	add_col(t_data *data, char *val, char c)
 {
 	char **tab;
 
+	printf("val = %s\n", val);
 	tab = ft_split(val, ',');
 	if (tab == NULL)
 		return ;
@@ -41,11 +42,23 @@ char	*skip_id(char *str)
 {
 	char	**tab;
 	char	*res;
+	int		i;
 
+	i = 1;
+	res = ft_strdup("");
+	if (res == NULL)
+		return (NULL);
 	tab = ft_split(str, ' ');
 	if (tab == NULL)
-		return (NULL);
-	res = tab[1];
+		return (free(res), NULL);
+	while (tab[i])
+	{
+		res = ft_strjoin(res, tab[i]);
+		free(tab[i]);
+		if (res == NULL)
+			return (NULL);
+		i++;
+	}
 	free(tab[0]);
 	free(tab);
 	return (res);

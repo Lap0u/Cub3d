@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 11:58:29 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/23 15:21:06 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:33:22 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char			*ft_strchr(const char *s, int c);
 
 char			*ft_strdup(const char *s1);
 
-char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char *s1, char const *s2);
 
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
