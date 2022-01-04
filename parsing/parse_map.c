@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 15:52:42 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/03 14:37:58 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	get_map(t_data *data, int fd)
 			add_map(line, fd, data);
 			return ;
 		}
+		free(line);
 	}
 }

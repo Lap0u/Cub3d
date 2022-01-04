@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:38:47 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 16:00:04 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:53:00 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ t_data	*get_data(char *str)
 	// printf("HAHAHAHAH NO : %s\n", data->no_path);
 	close(fd);
 	check_data(data); //exit si pb
+	print_data(data);
 	return (data);
 }

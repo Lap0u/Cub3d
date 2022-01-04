@@ -21,7 +21,6 @@ SRCS		=	main.c parsing/check_arg.c parsing/check_input.c parsing/exit_utils.c \
 				#map_init_and_check/clear_map_list.c map_init_and_check/fonctions_list.c \
 				#smap_init_and_check/read_map.c \
 
-
 OBJS		= $(SRCS:.c=.o)
 
 CC			= gcc
