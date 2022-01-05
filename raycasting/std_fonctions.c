@@ -20,30 +20,40 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	}
 }
 
-void	my_mlx_pixel_put_sp(t_data *data, int x, int y, int color)
+float modul(float n)
+{
+	if (n < 0)
+	{
+		n = n * -1;
+	}
+	return (n);
+}
+void	my_mlx_pixel_put_line(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 	int		i;
 	int		j;
+	float	pdy;
+	float	pdx;
+	float	k;
+	int		m;
 
 	i = 0;
-	while (i < (data->h / 2))
+	j = 0;
+	pdy = data->game_state.delta_y;
+	pdx = data->game_state.delta_x;
+	k = (data->h + (int)pdy);
+	m = (data->w + (int)pdx);
+	printf("k = %f, data->h = %d\n", k, data->h);
+	while (i < (data->h + (int)pdy))
 	{
-		j = 0;
-		while (j < (data->w / 2))
-		{
-			dst = data->addr + ((y + i) * data->line_length + (x + j) * (data->bits_per_pixel / 8));
-			*(unsigned int*)dst = color;
-			j++;
-		}
-		i++;
-	}
-	while (i < (data->h))
-	{
-		dst = data->addr + ((y + i) * data->line_length + (x + j) * (data->bits_per_pixel / 8));
+		dst = data->addr + (y + (int)((pdy)/(k))) * 3 * data->line_length + (x + (int)((pdx/(k))))* 3 * (data->bits_per_pixel / 8);
 		*(unsigned int*)dst = color;
+		printf("1k = %f, data->h = %d\n", k, data->h);
 		j++;
 		i++;
+		k--;
+		m--;
 	}
 }
 
@@ -57,22 +67,49 @@ void	init_sprite(t_app *app)
 	app->sp.game_state.delta_y = 0;
 	app->sp.game_state.pa = 0;
 	app->image_is_destroyed = 0;
+
+	app->ray.game_state.player_x = 9;
+	app->ray.game_state.player_y = 9;
+	app->ray.game_state.player_old_x = 0;
+	app->ray.game_state.player_old_y = 0;
+	app->ray.game_state.delta_x = 0;
+	app->ray.game_state.delta_y = 0;
+	app->ray.game_state.pa = 0;
+	app->image_is_destroyed = 0;
+}
+
+void	draw_line(t_app *app)
+{
+	float x;
+	float y;
+
+	app->ray.w = 50;
+	app->ray.h = 50;	
+	x = app->ray.game_state.player_x;
+	y = app->ray.game_state.player_y;
+	app->ray.img  = mlx_new_image(app->mlx, app->ray.w, app->ray.h);
+	app->ray.addr = mlx_get_data_addr(app->ray.img, &(app->ray.bits_per_pixel),
+			&(app->ray.line_length), &(app->ray.endian));
+	my_mlx_pixel_put_line(&(app->ray), 5, 5, 0x00FF0101);
+	draw_img_at_pos(app, &(app->ray), x * 10, y * 10);
 }
 
 void	draw_sprite(t_app *app)
 {
 	float x;
 	float y;
-	app->sp.w = 20;
-	app->sp.h = 20;	
+
+	app->sp.w = 10;
+	app->sp.h = 10;	
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
-	// printf("app->sp.w = %d, app->sp.h = %d",  app->sp.w, app->sp.h);
 	app->sp.img  = mlx_new_image(app->mlx, app->sp.w, app->sp.h);
 	app->sp.addr = mlx_get_data_addr(app->sp.img, &(app->sp.bits_per_pixel),
 			&(app->sp.line_length), &(app->sp.endian));
-	my_mlx_pixel_put_sp(&(app->sp), 0, 0, 0x00FF0101);
+	// my_mlx_pixel_put(&(app->sp), 0, 0, 0x00FF0101);
+	// my_mlx_pixel_put_line(&(app->sp), 5, 5, 0x00FF0101);
 	draw_img_at_pos(app, &(app->sp), x * 10, y * 10);
+	draw_line(app);
 }
 
 

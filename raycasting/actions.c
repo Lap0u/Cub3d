@@ -25,40 +25,56 @@ int	player_input_body(int key, t_app *app)
 		if (key == FL_LEFT)
 		{
 			app->sp.game_state.pa -= 0.1;
-			printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+			app->ray.game_state.pa -= 0.1;
 			if (app->sp.game_state.pa < 0)
 			{
 				app->sp.game_state.pa += 2.0 * PI;
-				app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
-				app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
+				app->ray.game_state.pa += 2.0 * PI;
 			}
+			app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
+			app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
+			app->ray.game_state.delta_x = cosf(app->ray.game_state.pa) * 5;
+			app->ray.game_state.delta_y = sinf(app->ray.game_state.pa) * 5;
 		}
 		else if (key == FL_RIGHT)
 		{
 			app->sp.game_state.pa += 0.1;
-			printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+			app->ray.game_state.pa += 0.1;
 			if (app->sp.game_state.pa > 2.0 * PI)
 			{
-				app->sp.game_state.pa -= 2.0 * PI;
-				app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
-				app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
+				app->ray.game_state.pa -= 2.0 * PI;
+				app->ray.game_state.pa -= 2.0 * PI;
 			}
+			app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
+			app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
+			app->ray.game_state.delta_x = cosf(app->ray.game_state.pa) * 5;
+			app->ray.game_state.delta_y = sinf(app->ray.game_state.pa) * 5;
 		}
 		else if (key == LEFT)
+		{
 			app->sp.game_state.player_x += -1;
+			app->ray.game_state.player_x += -1;
+		}
 		else if (key == RIGHT)
+		{
 			app->sp.game_state.player_x += 1;
+			app->ray.game_state.player_x += 1;
+		}
 		else if (key == DOWN)
 		{
 			// app->sp.game_state.player_y += 1;
 			app->sp.game_state.player_x += (app->sp.game_state.delta_x);
-			app->sp.game_state.player_y += (app->sp.game_state.delta_y + 1);
+			app->sp.game_state.player_y += (app->sp.game_state.delta_y);
+			app->ray.game_state.player_x += (app->ray.game_state.delta_x);
+			app->ray.game_state.player_y += (app->ray.game_state.delta_y);
 		}
 		else if (key == UP)
 		{
 			// app->sp.game_state.player_y += -1;
 			app->sp.game_state.player_x -= (app->sp.game_state.delta_x);
-			app->sp.game_state.player_y -= (app->sp.game_state.delta_y + 1);
+			app->sp.game_state.player_y -= (app->sp.game_state.delta_y);
+			app->ray.game_state.player_x -= (app->ray.game_state.delta_x);
+			app->ray.game_state.player_y -= (app->ray.game_state.delta_y);
 		}
 		// if (check_pos_player(app))
 		// {
