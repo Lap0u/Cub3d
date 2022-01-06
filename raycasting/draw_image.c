@@ -5,8 +5,8 @@ void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y)
 	int	st;
 	int	bpp;
 
-	bpp = txr->bits_per_pixel / 8;
-	st = (txr->bits_per_pixel / 8) * (x + y * app->x);
+	bpp = txr->bpp / 8;
+	st = (txr->bpp / 8) * (x + y * app->x);
 	draw_img_at_pos_body(app, txr, st, bpp);
 }
 
@@ -39,11 +39,11 @@ int	check_pixel(t_data *txr, int line, int col)
 {
 	int	bpp;
 
-	bpp = txr->bits_per_pixel / 8;
-	if ((txr->addr[line * txr->line_length + col * bpp + 0] != 0)
-		&& (txr->addr[line * txr->line_length + col * bpp + 1] != 0)
-		&& (txr->addr[line * txr->line_length + col * bpp + 2] != 0)
-		&& (txr->addr[line * txr->line_length + col * bpp + 3] != -1))
+	bpp = txr->bpp / 8;
+	if ((txr->addr[line * txr->size + col * bpp + 0] != 0)
+		&& (txr->addr[line * txr->size + col * bpp + 1] != 0)
+		&& (txr->addr[line * txr->size + col * bpp + 2] != 0)
+		&& (txr->addr[line * txr->size + col * bpp + 3] != -1))
 		return (1);
 	else
 		return (0);
@@ -61,4 +61,3 @@ void	*bit_copy(void *dst, const void *src, int j)
 	*(p_dst + j) = *(p_src + j);
 	return (dst);
 }
-

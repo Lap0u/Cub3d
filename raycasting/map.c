@@ -16,24 +16,18 @@ int map[] =
 	1, 1, 1, 1, 1, 1, 1, 1,
 };
 
-void init_wall(t_app *app)
+void	drow_element(t_app *app, int x, int y, int color)
 {
-	app->wall.img = mlx_new_image(app->mlx, 64, 64);
-	app->wall.w = 64;
-	app->wall.h = 64;
-	app->wall.addr = mlx_get_data_addr(app->wall.img, &(app->wall.bits_per_pixel), 
-			&(app->wall.line_length), &(app->wall.endian));
-	my_mlx_pixel_put(&(app->wall), 0, 0, 0x00AAAAAA);
-}
+	int	i;
+	int	j;
 
-void init_space(t_app *app)
-{
-	app->space.img = mlx_new_image(app->mlx, 64, 64);
-	app->space.w = 64;
-	app->space.h = 64;
-	app->space.addr = mlx_get_data_addr(app->space.img, &(app->space.bits_per_pixel), 
-			&(app->space.line_length), &(app->space.endian));
-	my_mlx_pixel_put(&(app->space), 0, 0, 0x00010101);
+	i = -1;
+	while (++i < 64)
+	{
+		j = -1;
+		while (++j < 64)
+			my_mlx_pixel_put(&(app->img), j + (x * 65), i + (y *65), color);
+	}
 }
 
 void draw_map(t_app *app)
@@ -43,8 +37,6 @@ void draw_map(t_app *app)
 	int xo;
 	int yo;
 
-	init_wall(app);
-	init_space(app);
 	y = 0;
 	while (y < map_y)
 	{
@@ -52,10 +44,10 @@ void draw_map(t_app *app)
 		while (x < map_x)
 		{
 			if (map[y * map_x + x] == 1)
-				draw_img_at_pos(app, &(app->wall), x * 66, y * 66);
+				drow_element(app, x, y, 0x00AAAAAA);
 
 			else
-				draw_img_at_pos(app, &(app->space), x * 66, y * 66);
+				drow_element(app, x, y, 0x00010101);
 			x++;
 		}
 		y++;

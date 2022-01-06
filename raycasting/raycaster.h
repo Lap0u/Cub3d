@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/03 15:22:41 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RAYCASTER_H
 # define RAYCASTER_H
 
@@ -33,8 +45,8 @@ typedef struct	s_data
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		size;
 	int		endian;
 	int		w;
 	int		h;
@@ -58,6 +70,7 @@ typedef struct s_app
 {
 	void		*mlx;
 	void		*win;
+	t_data		img;
 	t_data		brouillon;
 	t_data		sp;
 	t_data		wall;
@@ -76,7 +89,7 @@ typedef struct s_app
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	my_mlx_pixel_put_sp(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
 void	init_app(t_app *app, char *title, int w, int h);
 int		destroy_game_data(void *data);
 void	draw_sprite(t_app *app);
@@ -96,8 +109,9 @@ int		check_pixel(t_data *txr, int line, int col);
 void	*bit_copy(void *dst, const void *src, int j);
 
 /*map.c*/
-void init_wall(t_app *app);
-void init_space(t_app *app);
-void draw_map(t_app *app);
+void	drow_element(t_app *app, int x, int y, int color);
+void	draw_map(t_app *app);
 
+/*draw_3dray.c*/
+void	draw_rays_3d(t_app *app);
 #endif
