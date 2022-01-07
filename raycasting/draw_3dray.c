@@ -19,7 +19,7 @@ void	draw_rays_3d(t_app *app)
 	i = 0;
 	mp = 0;
 	
-	while (r < 60)
+	while (r < 30)
 	{
 		// Check Horizontal Lines
 		dof = 0; // nbr des cases que l'on regarde
