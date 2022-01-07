@@ -31,6 +31,8 @@
 #  define PI 3.14159265359
 #  define PI2 PI/2
 #  define PI3 3*PI/2
+#  define DR 0.0174533 // one degree in radians
+
 
 typedef struct s_state
 {

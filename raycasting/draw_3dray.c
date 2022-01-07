@@ -8,14 +8,18 @@ void	draw_rays_3d(t_app *app)
 	extern int map_y;
 	extern int map[];
 	
-	ra = app->ray.game_state.pa;
+	ra = app->ray.game_state.pa - DR * 30;
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	r = 0;
 	i = 0;
 	mp = 0;
 	
-	while (r < 1)
+	while (r < 30)
 	{
 		// Check Horizontal Lines
 		dof = 0; // nbr des cases que l'on regarde
@@ -129,9 +133,14 @@ void	draw_rays_3d(t_app *app)
 		while (i < (int)vdist &&i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
 		{
 			my_mlx_pixel_put(&(app->img), (x + 5) + (i * cos(ra)), 
-			(y + 5) + (i * sin(ra)), 0x00FFFFFF);
+			(y + 5) + (i * sin(ra)), 0x003AB0A7);
 			i++;
 		}
 		r++;
+		ra += 2 * DR;
+		if (ra < 0)
+			ra += 2 * PI;
+		if (ra > 2 * PI)
+			ra -= 2 * PI;
 	}
 }
