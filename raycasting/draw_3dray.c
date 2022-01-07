@@ -3,7 +3,7 @@
 void	draw_rays_3d(t_app *app)
 {
 	int	i, r, mx, my, mp, dof;
-	float	rx, ry, ra, xo, yo, a_tan, n_tan, x, y, hdist, vdist;
+	float	rx, ry, ra, xo, yo, a_tan, n_tan, x, y, hdist, vdist, dis_ta;
 	extern int map_x;
 	extern int map_y;
 	extern int map[];
@@ -123,17 +123,16 @@ void	draw_rays_3d(t_app *app)
 				dof += 1; // next line
 				mp = 100;
 			}
-		}+
-
+		}
 		printf("%d : mp_vert\n", mp);
 		printf("pox sp : %f %f\n", x, y);
 		// // printf("%d : case\n", map[mp]);
 		vdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
 		int i = 0;
-		while (i < (int)vdist &&i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
+		while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
 		{
-			my_mlx_pixel_put(&(app->img), (x + 5) + (i * cos(ra)), 
-			(y + 5) + (i * sin(ra)), 0x003AB0A7);
+			my_mlx_pixel_put(&(app->img), (x) + (i * cos(ra)), 
+			(y) + (i * sin(ra)), 0x003AB0A7);
 			i++;
 		}
 		r++;
