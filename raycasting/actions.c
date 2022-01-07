@@ -52,13 +52,13 @@ int	player_input_body(int key, t_app *app)
 			app->sp.game_state.player_x += 1;
 		else if (key == DOWN)
 		{
-			app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 5;
-			app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 5;
+			app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 5;
+			app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 5;
 		}
 		else if (key == UP)
 		{
-			app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 5;
-			app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 5;
+			app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 5;
+			app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 5;
 		}
 		// if (check_pos_player(app))
 		// {
