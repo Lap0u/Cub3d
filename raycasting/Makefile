@@ -9,7 +9,7 @@ OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
 NAME			= raycasting
 
-CC			= gcc -g 
+CC			= gcc -g -fsanitize=address
 
 CFLAGS		= 
 # -fsanitize=address
