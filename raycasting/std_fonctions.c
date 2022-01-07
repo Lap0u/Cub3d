@@ -20,11 +20,11 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = 10;
-	app->sp.game_state.player_y = 10;
+	app->sp.game_state.player_x = 100;
+	app->sp.game_state.player_y = 100;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
-	app->sp.game_state.pa = PI / 2;
+	app->sp.game_state.pa = PI / -2;
 	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
 	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
 	app->ray.game_state.pa = PI / -2;
@@ -41,8 +41,8 @@ void	draw_line(t_app *app)
 	i = 0;
 	while (i < 30)
 	{
-		my_mlx_pixel_put(&(app->img), (x * 10 + 5) + (i * cos(app->ray.game_state.pa)/2), 
-		(y * 10 + 5) + (i * sin(app->ray.game_state.pa)/2), 0x00FF00FF);
+		my_mlx_pixel_put(&(app->img), (x + 5) + (i * cos(app->ray.game_state.pa)/2), 
+		(y + 5) + (i * sin(app->ray.game_state.pa)/2), 0x00FF00FF);
 		i++;
 	}
 }
@@ -61,7 +61,7 @@ void	draw_sprite(t_app *app)
 	{
 		j = -1;
 		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), j + (x * 10), i + (y * 10), 0x00FF0000);
+			my_mlx_pixel_put(&(app->img), j + (x), i + (y), 0x00FF0000);
 	}
 	draw_rays_3d(app);
 	draw_line(app);

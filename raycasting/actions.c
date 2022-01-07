@@ -40,7 +40,7 @@ int	player_input_body(int key, t_app *app)
 			app->ray.game_state.pa += 0.1;
 			if (app->sp.game_state.pa > 2.0 * PI)
 			{
-				app->ray.game_state.pa -= 2.0 * PI;
+				app->sp.game_state.pa -= 2.0 * PI;
 				app->ray.game_state.pa -= 2.0 * PI;
 			}
 			app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
@@ -52,13 +52,13 @@ int	player_input_body(int key, t_app *app)
 			app->sp.game_state.player_x += 1;
 		else if (key == DOWN)
 		{
-			app->sp.game_state.player_x += (app->sp.game_state.delta_x);
-			app->sp.game_state.player_y += (app->sp.game_state.delta_y);
+			app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 5;
+			app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 5;
 		}
 		else if (key == UP)
 		{
-			app->sp.game_state.player_x -= (app->sp.game_state.delta_x);
-			app->sp.game_state.player_y -= (app->sp.game_state.delta_y);
+			app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 5;
+			app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 5;
 		}
 		// if (check_pos_player(app))
 		// {
