@@ -18,7 +18,20 @@ void	draw_rays_3d(t_app *app)
 	r = 0;
 	i = 0;
 	mp = 0;
-	
+
+	/*draw floor and ceiling*/
+	int color;
+	for (int k = app->x / 2; k < app->x; k++)
+	{
+		for (int l = 0; l < app->y; l++)
+		{
+			if (l < app->y / 2)
+				color = 0x00FF00FF;
+			else
+				color = 0x00000F0F;
+			my_mlx_pixel_put(&(app->img), k, l, color);
+		}
+	}
 	while (r < 60)
 	{
 		// Check Horizontal Lines
