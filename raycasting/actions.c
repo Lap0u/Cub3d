@@ -25,13 +25,13 @@ int	player_input_body(int key, t_app *app)
 	int posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
 
 	if (app->sp.game_state.delta_x < 0)
-		xo = -20; //modifier ces valeurs pour choisir l'ecart min avec le mur 
+		xo = -10; //modifier ces valeurs pour choisir l'ecart min avec le mur 
 	else
-		xo = 20;
+		xo = 10;
 	if (app->sp.game_state.delta_y < 0)
-		yo = -20;
+		yo = -10;
 	else
-		yo = 20;
+		yo = 10;
 	//
 	posx = app->sp.game_state.player_x / 64.0;
 	posx_add_xo = (app->sp.game_state.player_x + xo) / 64.0;
@@ -76,15 +76,17 @@ int	player_input_body(int key, t_app *app)
 		}
 		else if (key == LEFT)
 		{
-			if (map[posx_add_yo * map_x + posx] != 1)
+			if (map[posy * map_x + posx_add_yo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
-			if (map[posy * map_x + posy_sub_xo] != 1)
+			if (map[posy_sub_xo * map_x + posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == RIGHT)
 		{
-			app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
-			app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
+			if (map[posy * map_x + posx_sub_yo] != 1)
+				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
+			if (map[posy_add_xo * map_x + posx] != 1)
+				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)
 		{

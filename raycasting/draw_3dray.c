@@ -26,9 +26,9 @@ void	draw_rays_3d(t_app *app)
 		for (int l = 0; l < app->y; l++)
 		{
 			if (l < app->y / 2)
-				color = 0x00FF00FF;
+				color = 0x000000FF;
 			else
-				color = 0x00000F0F;
+				color = 0x00FF0000;
 			my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
@@ -175,7 +175,7 @@ void	draw_rays_3d(t_app *app)
 			while (j < 8) // j simule la largeur de 8 pixel
 			{
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				i + (app->y / 2 - lineH / 2), 0x003AB0A7);
+				i + (app->y / 2 - lineH / 2), 0x00FFFFFF);
 				j+=0.1;
 			}
 			i++;
