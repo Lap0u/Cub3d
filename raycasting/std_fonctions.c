@@ -20,8 +20,8 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = 100;
-	app->sp.game_state.player_y = 100;
+	app->sp.game_state.player_x = 200;
+	app->sp.game_state.player_y = 200;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = PI / -2;

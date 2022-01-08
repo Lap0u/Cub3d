@@ -135,11 +135,37 @@ void	draw_rays_3d(t_app *app)
 			(y) + (i * sin(ra)), 0x003AB0A7);
 			i++;
 		}
-		r++;
+		/*draw 3D*/
+		if (vdist < hdist)
+			dis_ta = vdist;
+		else
+			dis_ta = hdist;
+		app->x;//
+		app->y;//
+		float lineH;
+
+		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
+		if (lineH > ((app->x / 2)))
+			lineH = ((app->x / 2));
+		i = 0;
+		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
+		while (i < lineH)
+		{	
+			float j =  -4;
+			while (j < 5) // j simule la largeur de 8 pixel
+			{
+				my_mlx_pixel_put(&(app->img), ((j + r + app->x / 2) * 1.5), 
+				app->y / 2 - (i), 0x003AB0A7);
+				j+=0.1;
+			}
+			i++;
+		}
+		/*loop for all rays*/
 		ra += 2 * DR;
 		if (ra < 0)
 			ra += 2 * PI;
 		if (ra > 2 * PI)
 			ra -= 2 * PI;
+		r++;
 	}
 }
