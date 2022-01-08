@@ -18,6 +18,7 @@ int	player_input(int key, void *data)
 
 int	player_input_body(int key, t_app *app)
 {
+	extern int map[];
 	printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
@@ -46,8 +47,9 @@ int	player_input_body(int key, t_app *app)
 			app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
 			app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
 		}
-		else if (key == LEFT)
+		else if (key == LEFT && map[(int)(((app->sp.game_state.player_y - (app->sp.game_state.delta_x)) / 64) * 8 + (app->sp.game_state.player_x + (app->sp.game_state.delta_y)) / 64)] != 1)
 		{
+			printf("%d : case_bloc\n", (int)((app->sp.game_state.player_y - (app->sp.game_state.delta_x)) / 64 * 8 + (app->sp.game_state.player_x + (app->sp.game_state.delta_y)) / 64));
 			app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
 			app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
 		}
