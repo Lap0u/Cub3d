@@ -19,7 +19,7 @@ void	draw_rays_3d(t_app *app)
 	i = 0;
 	mp = 0;
 	
-	while (r < 30)
+	while (r < 60)
 	{
 		// Check Horizontal Lines
 		dof = 0; // nbr des cases que l'on regarde
@@ -142,8 +142,15 @@ void	draw_rays_3d(t_app *app)
 			dis_ta = hdist;
 		app->x;//
 		app->y;//
-		float lineH;
+		float lineH, ca;
 
+		/*fix fish-eye ne marche pas
+		ca = app->sp.game_state.pa -ra;
+		if (ca < 0)
+			ca += (2* PI);
+		if (ca > 2*PI)
+			ca -= (2*PI);
+		dis_ta = dis_ta * cos(ca);*/
 		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
 		if (lineH > ((app->x / 2)))
 			lineH = ((app->x / 2));
@@ -154,7 +161,7 @@ void	draw_rays_3d(t_app *app)
 			float j =  -4;
 			while (j < 5) // j simule la largeur de 8 pixel
 			{
-				my_mlx_pixel_put(&(app->img), ((j + r + app->x / 2) * 1.5), 
+				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
 				app->y / 2 - (i), 0x003AB0A7);
 				j+=0.1;
 			}
