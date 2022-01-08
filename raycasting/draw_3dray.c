@@ -144,31 +144,31 @@ void	draw_rays_3d(t_app *app)
 		app->y;//
 		float lineH, ca;
 
-		/*fix fish-eye ne marche pas
+		//fix fish-eye*/
 		ca = app->sp.game_state.pa -ra;
 		if (ca < 0)
 			ca += (2* PI);
 		if (ca > 2*PI)
 			ca -= (2*PI);
-		dis_ta = dis_ta * cos(ca);*/
+		dis_ta = dis_ta * cos(ca);
 		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
-		if (lineH > ((app->x / 2)))
-			lineH = ((app->x / 2));
+		if (lineH > ((app->y / 2)))
+			lineH = ((app->y/ 2));
 		i = 0;
 		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
 		while (i < lineH)
 		{	
-			float j =  -4;
-			while (j < 5) // j simule la largeur de 8 pixel
+			float j =  0;
+			while (j < 8) // j simule la largeur de 8 pixel
 			{
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				app->y / 2 - (i), 0x003AB0A7);
+				i + (app->y / 2 - lineH / 2), 0x003AB0A7);
 				j+=0.1;
 			}
 			i++;
 		}
 		/*loop for all rays*/
-		ra += 2 * DR;
+		ra += DR;
 		if (ra < 0)
 			ra += 2 * PI;
 		if (ra > 2 * PI)
