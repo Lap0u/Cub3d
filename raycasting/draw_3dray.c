@@ -165,8 +165,8 @@ void	draw_rays_3d(t_app *app)
 			ca -= (2*PI);
 		dis_ta = dis_ta * cos(ca);
 		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
-		if (lineH > ((app->y / 2)))
-			lineH = ((app->y/ 2));
+		if (lineH > ((app->x / 2)))
+			lineH = ((app->x/ 2));
 		i = 0;
 		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
 		while (i < lineH)
