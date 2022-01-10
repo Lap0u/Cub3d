@@ -6,10 +6,10 @@ int	get_pixel_col(t_data *txr, int line, int col)
 	// char	*str;
 
 	// bpp = txr->bpp / 8;
-	// // str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], bpp, 10);
+	// str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], bpp, 10);
 	// if (txr->addr[line * txr->size + col * bpp + 0] != 0)
 	// 	printf("lu");
-	// // free(str);
+	// free(str);
 	return (0x00FFFFFF);
 }
 
@@ -17,12 +17,30 @@ int		get_color(t_app *app, int x, int y)
 {
 	int		st;
 	int		bpp;
+	int		color;
+	int		color1;
+	int		color2;
+	int		color3;
+	int		new;
 
+	new = 0;
+	bpp = app->north.bpp / 8;
+	color = app->north.addr[2 * app->north.size + 4 * bpp + 0 ];
+	color1 = app->north.addr[2 * app->north.size + 4 * bpp  + 1];
+	color2 = app->north.addr[2 * app->north.size + 4* bpp  + 2];
+	color3 = app->north.addr[2 * app->north.size + 4* bpp + 3];
 
-	bpp = app->wall.bpp / 8;
-	st = (app->wall.bpp / 8) * (x + y * app->x);
-	get_pixel_col(&app->north, x, y);
-	return (0x00FFFFFF);
+	new |= color3 << 24;
+	new |= color2 << 16;
+	new |= color1 << 8;
+	new |= color;
+
+	
+	// printf("color: %d, color1: %d, color2: %d, color3: %d\n", color, color1, color2, color3);
+	// bpp = app->wall.bpp / 8;
+	// st = (app->wall.bpp / 8) * (x + y * app->x);
+	// get_pixel_col(&app->north, x, y);
+	return (new);
 }
 
 void	draw_rays_3d(t_app *app)
@@ -211,6 +229,7 @@ void	draw_rays_3d(t_app *app)
 			float j =  0;
 			while (j < 8) // j simule la largeur de 8 pixel
 			{
+				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
 				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2)));
 				j+=0.1;
