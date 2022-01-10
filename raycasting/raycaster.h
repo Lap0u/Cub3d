@@ -109,6 +109,7 @@ void	drow_background(t_app *app);
 int	player_input(int key, void *data);
 int	player_input_body(int key, t_app *app);
 int	routine(void *data);
+char	*copy_size(char *str, int bpp, int size);
 
 /* draw_image.c*/
 void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);

@@ -124,7 +124,7 @@ char	*copy_size(char *str, int bpp, int size)
 	temp = malloc(sizeof(char) * ((size + 1) * bpp));
 	if (temp == NULL)
 		return (NULL);
-	while (i * bpp < size * bpp && str[i * bpp])
+	while ((i * bpp) < (size * bpp) && str[i * bpp])
 	{
 		temp[i] = str[i * bpp];
 		i++;
@@ -139,13 +139,13 @@ void	open_images(t_app *app) ///retour de fonctions a check ->img = NULL
 	app->north.addr = mlx_get_data_addr(app->north.img, &app->north.bpp, &app->north.size, &app->north.endian);
 	
 	
-	int		bpp;
-	char	*str;
+	// int		bpp;
+	// char	*str;
 
-	bpp = app->north.bpp / 8;
-	str = copy_size(&app->north.addr[3 * app->north.size + 3 * bpp + 0], bpp, 5);
-	printf("code = [%s]\n", str);
-	free(str);
+	// bpp = app->north.bpp / 8;
+	// str = copy_size(&app->north.addr[3 * app->north.size + 3 * bpp + 0], bpp, 5);
+	// printf("code = [%s]\n", str);
+	// free(str);
 	
 	
 	app->south.img = mlx_xpm_file_to_image(app->mlx, "../textures/south.xpm", &app->south.w, &app->south.h);
