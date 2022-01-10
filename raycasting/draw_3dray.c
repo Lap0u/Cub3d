@@ -1,38 +1,27 @@
 #include "raycaster.h"
 
-char	*copy_size(char *str, int size)
-{
-	int		i;
-	char	*temp;
-
-	temp = malloc(sizeof(char) * (size + 1));
-	if (str == NULL)
-		return (NULL);
-	
-}
-
 int	get_pixel_col(t_data *txr, int line, int col)
 {
-	int		bpp;
-	char	*str;
+	// int		bpp;
+	// char	*str;
 
-	bpp = txr->bpp / 8;
-	str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], 10);
-	free(str);
+	// bpp = txr->bpp / 8;
+	// // str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], bpp, 10);
+	// if (txr->addr[line * txr->size + col * bpp + 0] != 0)
+	// 	printf("lu");
+	// // free(str);
 	return (0x00FFFFFF);
 }
 
 int		get_color(t_app *app, int x, int y)
 {
-	t_data	txr;
 	int		st;
 	int		bpp;
 
-	txr.img = mlx_xpm_file_to_image(app->mlx, "../textures/north.xpm", &txr.w, &txr.h);////pb ici
-	txr.addr = mlx_get_data_addr(txr.img, &txr.bpp, &txr.size, &txr.endian);///// ou la
-	bpp = txr.bpp / 8;
-	st = (txr.bpp / 8) * (x + y * app->x);
-	// return (get_pixel_col(&txr, x, y));
+
+	bpp = app->wall.bpp / 8;
+	st = (app->wall.bpp / 8) * (x + y * app->x);
+	get_pixel_col(&app->north, x, y);
 	return (0x00FFFFFF);
 }
 

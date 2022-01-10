@@ -115,6 +115,55 @@ int	player_input_body(int key, t_app *app)
 	return (1);
 }
 
+char	*copy_size(char *str, int bpp, int size)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = malloc(sizeof(char) * ((size + 1) * bpp));
+	if (temp == NULL)
+		return (NULL);
+	while (i * bpp < size * bpp && str[i * bpp])
+	{
+		temp[i] = str[i * bpp];
+		i++;
+	}
+	temp[i] = '\0';
+	return (temp);
+}
+
+void	open_images(t_app *app) ///retour de fonctions a check ->img = NULL
+{
+	app->north.img = mlx_xpm_file_to_image(app->mlx, "../textures/north.xpm", &app->north.w, &app->north.h);
+	app->north.addr = mlx_get_data_addr(app->north.img, &app->north.bpp, &app->north.size, &app->north.endian);
+	
+	
+	int		bpp;
+	char	*str;
+
+	bpp = app->north.bpp / 8;
+	str = copy_size(&app->north.addr[3 * app->north.size + 3 * bpp + 0], bpp, 5);
+	printf("code = [%s]\n", str);
+	free(str);
+	
+	
+	app->south.img = mlx_xpm_file_to_image(app->mlx, "../textures/south.xpm", &app->south.w, &app->south.h);
+	app->south.addr = mlx_get_data_addr(app->south.img, &app->south.bpp, &app->south.size, &app->south.endian);
+	app->east.img = mlx_xpm_file_to_image(app->mlx, "../textures/east.xpm", &app->east.w, &app->east.h);
+	app->east.addr = mlx_get_data_addr(app->east.img, &app->east.bpp, &app->east.size, &app->east.endian);
+	app->west.img = mlx_xpm_file_to_image(app->mlx, "../textures/west.xpm", &app->west.w, &app->west.h);
+	app->west.addr = mlx_get_data_addr(app->west.img, &app->west.bpp, &app->west.size, &app->west.endian);
+}
+
+void	close_images(t_app *app)
+{
+	mlx_destroy_image(app->mlx, app->north.img);
+	mlx_destroy_image(app->mlx, app->south.img);
+	mlx_destroy_image(app->mlx, app->east.img);
+	mlx_destroy_image(app->mlx, app->west.img);
+}
+
 int	routine(void *data)
 {
 	t_app		*app;
@@ -126,12 +175,14 @@ int	routine(void *data)
 	app->img.img = mlx_new_image(app->mlx, app->x, app->y);
 	app->img.addr = mlx_get_data_addr(app->img.img,
 			&app->img.bpp, &app->img.size, &app->img.endian);
+	open_images(app);
 	app->image_is_destroyed = 0;
 	drow_background(app);
 	draw_map(app);
 	draw_sprite(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	mlx_destroy_image(app->mlx, app->img.img);
+	close_images(app);
 	app->img.img = NULL;
 	app->image_is_destroyed = 1;
 	return (0);
