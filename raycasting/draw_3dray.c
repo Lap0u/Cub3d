@@ -13,22 +13,24 @@ int	get_pixel_col(t_data *txr, int line, int col)
 	return (0x00FFFFFF);
 }
 
-int		get_color(t_app *app, int x, int y)
+int		get_color(t_app *app, int x, int y, int scale)
 {
 	int		st;
 	int		bpp;
-	int		color;
-	int		color1;
-	int		color2;
-	int		color3;
+	unsigned char	color;
+	unsigned char	color1;
+	unsigned char	color2;
+	unsigned char	color3;
 	int		new;
 
 	new = 0;
+	x %= 64;
+	y %= 64;
 	bpp = app->north.bpp / 8;
-	color = app->north.addr[2 * app->north.size + 4 * bpp + 0 ];
-	color1 = app->north.addr[2 * app->north.size + 4 * bpp  + 1];
-	color2 = app->north.addr[2 * app->north.size + 4* bpp  + 2];
-	color3 = app->north.addr[2 * app->north.size + 4* bpp + 3];
+	color = app->north.addr[x * app->north.size + y * bpp + 0 ];
+	color1 = app->north.addr[x * app->north.size + y * bpp  + 1];
+	color2 = app->north.addr[x * app->north.size + y * bpp  + 2];
+	color3 = app->north.addr[x * app->north.size + y * bpp + 3];
 
 	new |= color3 << 24;
 	new |= color2 << 16;
@@ -231,7 +233,7 @@ void	draw_rays_3d(t_app *app)
 			{
 				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2)));
+				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), lineH));
 				j+=0.1;
 			}
 			i++;
