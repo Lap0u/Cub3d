@@ -1,5 +1,30 @@
 #include "raycaster.h"
 
+int	get_pixel_col(t_data *txr, int line, int col)
+{
+	// int		bpp;
+	// char	*str;
+
+	// bpp = txr->bpp / 8;
+	// // str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], bpp, 10);
+	// if (txr->addr[line * txr->size + col * bpp + 0] != 0)
+	// 	printf("lu");
+	// // free(str);
+	return (0x00FFFFFF);
+}
+
+int		get_color(t_app *app, int x, int y)
+{
+	int		st;
+	int		bpp;
+
+
+	bpp = app->wall.bpp / 8;
+	st = (app->wall.bpp / 8) * (x + y * app->x);
+	get_pixel_col(&app->north, x, y);
+	return (0x00FFFFFF);
+}
+
 void	draw_rays_3d(t_app *app)
 {
 	int	i, r, mx, my, mp, dof;
@@ -164,18 +189,30 @@ void	draw_rays_3d(t_app *app)
 		if (ca > 2*PI)
 			ca -= (2*PI);
 		dis_ta = dis_ta * cos(ca);
+		//
 		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
 		if (lineH > ((app->x / 2)))
 			lineH = ((app->x/ 2));
 		i = 0;
 		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
-		while (i < lineH)
+		// while (i < lineH)//old 
+		// {	
+		// 	float j =  0;
+		// 	while (j < 8) // j simule la largeur de 8 pixel
+		// 	{
+		// 		my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
+		// 		i + (app->y / 2 - lineH / 2), 0x00FFFFFF);
+		// 		j+=0.1;
+		// 	}
+		// 	i++;
+		// }
+		while (i < lineH) //new
 		{	
 			float j =  0;
 			while (j < 8) // j simule la largeur de 8 pixel
 			{
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				i + (app->y / 2 - lineH / 2), 0x00FFFFFF);
+				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2)));
 				j+=0.1;
 			}
 			i++;
