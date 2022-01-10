@@ -17,18 +17,20 @@ int		get_color(t_app *app, int x, int y)
 {
 	int		st;
 	int		bpp;
-	int		color;
-	int		color1;
-	int		color2;
-	int		color3;
-	int		new;
+	unsigned char		color;
+	unsigned char		color1;
+	unsigned char		color2;
+	unsigned char		color3;
+	unsigned int		new;
 
 	new = 0;
 	bpp = app->north.bpp / 8;
-	color = app->north.addr[2 * app->north.size + 4 * bpp + 0 ];
-	color1 = app->north.addr[2 * app->north.size + 4 * bpp  + 1];
-	color2 = app->north.addr[2 * app->north.size + 4* bpp  + 2];
-	color3 = app->north.addr[2 * app->north.size + 4* bpp + 3];
+	x %= 64;
+	y %= 64;
+	color = app->north.addr[y * app->north.size + x * bpp + 0 ];
+	color1 = app->north.addr[y * app->north.size + x * bpp  + 1];
+	color2 = app->north.addr[y * app->north.size + x* bpp  + 2];
+	color3 = app->north.addr[y * app->north.size + x* bpp + 3];
 
 	new |= color3 << 24;
 	new |= color2 << 16;
