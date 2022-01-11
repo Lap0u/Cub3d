@@ -26,6 +26,8 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	new = 0;
 	// x %= 64;
+	if (scale > app->y)
+		i = i + (scale / 2 - app->y / 2);
 	i = i * 64 / scale;
 	x = rx % 64;
 	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
