@@ -186,7 +186,6 @@ void	draw_rays_3d(t_app *app)
 			rx = x;
 			ry = y;
 			dof = 8;
-			printf("nope\n");
 		}
 		/*print la map*/
 		// for (int i =0; i < 64;i++)
@@ -234,7 +233,7 @@ void	draw_rays_3d(t_app *app)
 		if (vdist < hdist)
 		{
 			dis_ta = vdist;
-			rx = vx;
+			rx = vy;
 			ry = vy;
 			if (ra > PI2 && ra < PI3)
 				mod = 0; //look left
