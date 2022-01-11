@@ -13,7 +13,7 @@ int	get_pixel_col(t_data *txr, int line, int col)
 	return (0x00FFFFFF);
 }
 
-int		get_color(t_app *app, int x, int y, int scale)
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r)
 {
 	int		st;
 	int		bpp;
@@ -25,12 +25,13 @@ int		get_color(t_app *app, int x, int y, int scale)
 
 	new = 0;
 	x %= 64;
-	y %= 64;
+	i = i * 64 / scale;
+	x = rx % 64;
 	bpp = app->north.bpp / 8;
-	color = app->north.addr[x * app->north.size + y * bpp + 0 ];
-	color1 = app->north.addr[x * app->north.size + y * bpp  + 1];
-	color2 = app->north.addr[x * app->north.size + y * bpp  + 2];
-	color3 = app->north.addr[x * app->north.size + y * bpp + 3];
+	color = app->north.addr[x * app->north.size + i * bpp + 0 ];
+	color1 = app->north.addr[x * app->north.size + i * bpp  + 1];
+	color2 = app->north.addr[x * app->north.size + i * bpp  + 2];
+	color3 = app->north.addr[x * app->north.size + i * bpp + 3];
 
 	new |= color3 << 24;
 	new |= color2 << 16;
@@ -48,7 +49,7 @@ int		get_color(t_app *app, int x, int y, int scale)
 void	draw_rays_3d(t_app *app)
 {
 	int	i, r, mx, my, mp, dof;
-	float	rx, ry, ra, xo, yo, a_tan, n_tan, x, y, hdist, vdist, dis_ta;
+	float	rx, ry, ra, xo, hx, hy, vx, vy, yo, a_tan, n_tan, x, y, hdist, vdist, dis_ta;
 	extern int map_x;
 	extern int map_y;
 	extern int map[];
@@ -131,6 +132,8 @@ void	draw_rays_3d(t_app *app)
 			// printf("dof = %d\n", dof);
 		}
 		// printf("%d : case\n", map[mp]);
+		hx = rx;
+		hy = ry;
 		hdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
 		printf("%d : mp_hor, hdist = %f, my = %d, map_x = %d, int mx = %d\n", mp, hdist, my, map_x, mx);
 		/*check vertical line*/
@@ -182,6 +185,8 @@ void	draw_rays_3d(t_app *app)
 				mp = 100;
 			}
 		}
+		vx = rx;
+		vy = ry;
 		printf("%d : mp_vert\n", mp);
 		printf("pox sp : %f %f\n", x, y);
 		// // printf("%d : case\n", map[mp]);
@@ -194,10 +199,20 @@ void	draw_rays_3d(t_app *app)
 			i++;
 		}
 		/*draw 3D*/
+		// printf("rx1 v h = %f %f %f\t", rx, vx, hx);
 		if (vdist < hdist)
+		{
 			dis_ta = vdist;
+			rx = vx;
+			ry = vy;
+		}
 		else
+		{
 			dis_ta = hdist;
+			rx = hx;
+			ry = hy;
+		}
+		// printf("rx2 v h = %f %f %f\t", rx, vx, hx);
 		app->x;//
 		app->y;//
 		float lineH, ca;
@@ -228,13 +243,13 @@ void	draw_rays_3d(t_app *app)
 		// }
 		while (i < lineH) //new
 		{	
-			float j =  0;
+			int j =  0;
 			while (j < 8) // j simule la largeur de 8 pixel
 			{
 				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
 				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), lineH));
-				j+=0.1;
+				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), lineH, rx , i, r));
+				j++;
 			}
 			i++;
 		}
