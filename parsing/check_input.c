@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/04 13:38:15 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/11 22:15:43 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	second_args(char *str, char *id)
 {
 	int	ret;
 
-	printf("id = %s\tval = %s\n", id, str);
+	// printf("id = %s\tval = %s\n", id, str);
 	ret = 1;
 	if (ft_strlen(id) == 1)
 		ret = check_colour(str);
@@ -156,7 +156,7 @@ char	*get_colours(char **args)
 			return (NULL);
 		i++;
 	}
-	printf("%s\n", temp);
+	// printf("%s\n", temp);
 	return (temp);
 
 }
@@ -177,7 +177,7 @@ int	parse_line(char *str, int fd)
 		args[1] = get_colours(args);
 	if (tab_len(args) != 2 || !args[1])
 	{
-		printf("noright\n");
+		// printf("noright\n");
 		ft_free_3dtab(args);
 		return (0);
 	}

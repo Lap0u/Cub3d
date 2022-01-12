@@ -13,7 +13,7 @@ int	get_pixel_col(t_data *txr, int line, int col)
 	return (0x00FFFFFF);
 }
 
-int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r)
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
 {
 	int		st;
 	int		bpp;
@@ -23,16 +23,46 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r)
 	unsigned char	color3;
 	int		new;
 
+	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	new = 0;
-	x %= 64;
+	// x %= 64;
+	if (scale > app->y)
+		i = i + (scale / 2 - app->y / 2);
 	i = i * 64 / scale;
 	x = rx % 64;
-	bpp = app->north.bpp / 8;
-	color = app->north.addr[x * app->north.size + i * bpp + 0 ];
-	color1 = app->north.addr[x * app->north.size + i * bpp  + 1];
-	color2 = app->north.addr[x * app->north.size + i * bpp  + 2];
-	color3 = app->north.addr[x * app->north.size + i * bpp + 3];
-
+	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
+	if (mod == 3)
+	{
+		bpp = app->north.bpp / 8;
+		color = app->north.addr[x * app->north.size + i * bpp + 0 ];
+		color1 = app->north.addr[x * app->north.size + i * bpp  + 1];
+		color2 = app->north.addr[x * app->north.size + i * bpp  + 2];
+		color3 = app->north.addr[x * app->north.size + i * bpp + 3];
+	}
+	else if (mod == 2)
+	{
+		bpp = app->south.bpp / 8;
+		color = app->south.addr[x * app->south.size + i * bpp + 0 ];
+		color1 = app->south.addr[x * app->south.size + i * bpp  + 1];
+		color2 = app->south.addr[x * app->south.size + i * bpp  + 2];
+		color3 = app->south.addr[x * app->south.size + i * bpp + 3];
+	}
+	else if (mod == 1)
+	{
+		bpp = app->east.bpp / 8;
+		color = app->east.addr[x * app->east.size + i * bpp + 0 ];
+		color1 = app->east.addr[x * app->east.size + i * bpp  + 1];
+		color2 = app->east.addr[x * app->east.size + i * bpp  + 2];
+		color3 = app->east.addr[x * app->east.size + i * bpp + 3];
+	}
+	else if (mod == 0)
+	{
+		bpp = app->west.bpp / 8;
+		color = app->west.addr[x * app->west.size + i * bpp + 0 ];
+		color1 = app->west.addr[x * app->west.size + i * bpp  + 1];
+		color2 = app->west.addr[x * app->west.size + i * bpp  + 2];
+		color3 = app->west.addr[x * app->west.size + i * bpp + 3];
+	}
 	new |= color3 << 24;
 	new |= color2 << 16;
 	new |= color1 << 8;
@@ -54,7 +84,7 @@ void	draw_rays_3d(t_app *app)
 	extern int map_y;
 	extern int map[];
 	
-	ra = app->ray.game_state.pa - DR * 30;
+	ra = app->ray.game_state.pa - DR * 30 * 8;
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
@@ -78,7 +108,7 @@ void	draw_rays_3d(t_app *app)
 			my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
-	while (r < 60)
+	while (r < 60 * 8)
 	{
 		// Check Horizontal Lines
 		dof = 0; // nbr des cases que l'on regarde
@@ -135,7 +165,7 @@ void	draw_rays_3d(t_app *app)
 		hx = rx;
 		hy = ry;
 		hdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
-		printf("%d : mp_hor, hdist = %f, my = %d, map_x = %d, int mx = %d\n", mp, hdist, my, map_x, mx);
+		// printf("%d : mp_hor, hdist = %f, my = %d, map_x = %d, int mx = %d\n", mp, hdist, my, map_x, mx);
 		/*check vertical line*/
 		dof = 0;
 		n_tan = -tan(ra);
@@ -187,8 +217,9 @@ void	draw_rays_3d(t_app *app)
 		}
 		vx = rx;
 		vy = ry;
-		printf("%d : mp_vert\n", mp);
-		printf("pox sp : %f %f\n", x, y);
+		printf("%f vx\n", vx);
+		// printf("%d : mp_vert\n", mp);
+		// printf("pox sp : %f %f\n", x, y);
 		// // printf("%d : case\n", map[mp]);
 		vdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
 		int i = 0;
@@ -200,18 +231,29 @@ void	draw_rays_3d(t_app *app)
 		}
 		/*draw 3D*/
 		// printf("rx1 v h = %f %f %f\t", rx, vx, hx);
+		int mod;
 		if (vdist < hdist)
 		{
 			dis_ta = vdist;
-			rx = vx;
+			rx = vy;
 			ry = vy;
+			if (ra > PI2 && ra < PI3)
+				mod = 0; //look left
+			else
+				mod = 1; //look right
 		}
 		else
 		{
 			dis_ta = hdist;
 			rx = hx;
 			ry = hy;
+			// printf("%d rboucle?\n", r);
+			if (ra > PI)//look north
+				mod = 3;
+			else
+				mod = 2;//look south
 		}
+		printf("%d %f ter\n", mod, rx);
 		// printf("rx2 v h = %f %f %f\t", rx, vx, hx);
 		app->x;//
 		app->y;//
@@ -226,6 +268,7 @@ void	draw_rays_3d(t_app *app)
 		dis_ta = dis_ta * cos(ca);
 		//
 		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
+		float saveH = lineH;
 		if (lineH > ((app->x / 2)))
 			lineH = ((app->x/ 2));
 		i = 0;
@@ -244,11 +287,11 @@ void	draw_rays_3d(t_app *app)
 		while (i < lineH) //new
 		{	
 			int j =  0;
-			while (j < 8) // j simule la largeur de 8 pixel
+			while (j < 1) // j simule la largeur de 8 pixel
 			{
 				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
-				my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), lineH, rx , i, r));
+				my_mlx_pixel_put(&(app->img), ((j + r + app->x / 2)), 
+				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), saveH,  rx , i, r, mod));
 				j++;
 			}
 			i++;

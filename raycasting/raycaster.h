@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/10 14:58:43 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/11 21:16:44 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #  define PI 3.14159265359
 #  define PI2 PI/2
 #  define PI3 3*PI/2
-#  define DR 0.0174533 // one degree in radians
+#  define DR (0.0174533 / 8) // one degree in radians
 
 
 typedef struct s_state
