@@ -78,6 +78,7 @@ void	drow_background(t_app *app)
 	{
 		j = -1;
 		while (++j < app->x)
+		if (j <= 64 * SCALING && i <= 64 * SCALING)
 			my_mlx_pixel_put(&(app->img), j, i, 0x00876962);
 	}
 }

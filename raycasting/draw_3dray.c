@@ -26,8 +26,8 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	new = 0;
 	// x %= 64;
-	if (scale > app->y)
-		i = i + (scale / 2 - app->y / 2);
+	if (scale > RES_Y)
+		i = i + (scale / 2 - RES_Y / 2);
 	i = i * 64 / scale;
 	x = rx % 64;
 	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
@@ -71,7 +71,7 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	
 	// printf("color: %d, color1: %d, color2: %d, color3: %d\n", color, color1, color2, color3);
 	// bpp = app->wall.bpp / 8;
-	// st = (app->wall.bpp / 8) * (x + y * app->x);
+	// st = (app->wall.bpp / 8) * (x + y * RES_X);
 	// get_pixel_col(&app->north, x, y);
 	return (new);
 }
@@ -84,7 +84,7 @@ void	draw_rays_3d(t_app *app)
 	extern int map_y;
 	extern int map[];
 	
-	ra = app->ray.game_state.pa - DR * 30 * 8;
+	ra = app->ray.game_state.pa - DR * SCALING;
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
@@ -97,15 +97,15 @@ void	draw_rays_3d(t_app *app)
 
 	/*draw floor and ceiling*/
 	int color;
-	for (int k = 0; k < app->x; k++)
+	for (int k = 0; k < RES_X; k++)
 	{
-		for (int l = 0; l < app->y; l++)
+		for (int l = 0; l < RES_Y; l++)
 		{
-			if (l < app->y / 2)
+			if (l < RES_Y / 2)
 				color = 0x000000FF;
 			else
 				color = 0x00FF0000;
-			if (k >= 192 || l >= 192)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+			if (k >= 64 * SCALING || l >= 64 * SCALING)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
 				my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
@@ -256,8 +256,8 @@ void	draw_rays_3d(t_app *app)
 		}
 		printf("%d %f ter\n", mod, rx);
 		// printf("rx2 v h = %f %f %f\t", rx, vx, hx);
-		app->x;//
-		app->y;//
+		RES_X;//
+		RES_Y;//
 		float lineH, ca;
 
 		//fix fish-eye*/
@@ -279,8 +279,8 @@ void	draw_rays_3d(t_app *app)
 		// 	float j =  0;
 		// 	while (j < 8) // j simule la largeur de 8 pixel
 		// 	{
-		// 		my_mlx_pixel_put(&(app->img), ((j + r * 8 + app->x / 2)), 
-		// 		i + (app->y / 2 - lineH / 2), 0x00FFFFFF);
+		// 		my_mlx_pixel_put(&(app->img), ((j + r * 8 + RES_X / 2)), 
+		// 		i + (RES_Y / 2 - lineH / 2), 0x00FFFFFF);
 		// 		j+=0.1;
 		// 	}
 		// 	i++;
@@ -290,9 +290,9 @@ void	draw_rays_3d(t_app *app)
 			int j =  0;
 			while (j < 1) // j simule la largeur de 8 pixel
 			{
-				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
-				my_mlx_pixel_put(&(app->img), ((j + r + app->x)), 
-				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), saveH,  rx , i, r, mod));
+				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + RES_X / 2)), i + (RES_Y / 2 - lineH / 2));
+				my_mlx_pixel_put(&(app->img), ((j + r + RES_X)), 
+				i + (RES_Y / 2 - lineH / 2), get_color(app, (j + r * 8 + RES_X / 2), i + (RES_Y / 2 - lineH / 2), saveH,  rx , i, r, mod));
 				j++;
 			}
 			i++;
