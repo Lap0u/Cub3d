@@ -61,17 +61,36 @@ typedef struct	s_data
 	int		image_is_destroyed;
 } t_data;
 
-// typedef struct s_texture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bpp;
-// 	int		size;
-// 	int		endian;
-// 	int		sp_x;
-// 	int		sp_y;
-// 	t_state	game_state;
-// }				t_texture;
+typedef struct s_draw
+{
+	int		i;
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	int		mod;
+
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	yo;
+	float	a_tan;
+	float	n_tan;
+	float	x;
+	float	y;
+	float	hdist;
+	float	vdist;
+	float	dis_ta;
+	float	lineH;
+	float	ca;
+	float	saveH;
+}				t_draw;
 
 typedef struct s_app
 {
@@ -87,6 +106,7 @@ typedef struct s_app
 	t_data		south;
 	t_data		east;
 	t_data		west;
+	t_draw		rays;
 	void		*image;
 	void		*image_addr;
 	int			x;
@@ -125,5 +145,6 @@ void	drow_element(t_app *app, int x, int y, int color);
 void	draw_map(t_app *app);
 
 /*draw_3dray.c*/
+void	draw_walls(t_app *app, t_draw rays);
 void	draw_rays_3d(t_app *app);
 #endif

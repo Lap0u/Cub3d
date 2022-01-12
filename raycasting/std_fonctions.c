@@ -57,7 +57,7 @@ void	draw_sprite(t_app *app)
 	i = -1;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
-	draw_rays_3d(app);
+	// draw_rays_3d(app);
 	draw_line(app);
 	while (++i < 10)
 	{
