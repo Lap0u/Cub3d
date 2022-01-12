@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/11 21:16:44 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:29:39 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdlib.h>
 # include <math.h>
 
+# define RES_X 2048
+# define RES_Y 1024
+# define SCALING 3
 #  define UP 119
 #  define DOWN 115
 #  define LEFT 97
@@ -31,7 +34,7 @@
 #  define PI 3.14159265359
 #  define PI2 PI/2
 #  define PI3 3*PI/2
-#  define DR (0.0174533 / 8) // one degree in radians
+#  define DR (0.0174533 / 32) // one degree in radians
 
 
 typedef struct s_state

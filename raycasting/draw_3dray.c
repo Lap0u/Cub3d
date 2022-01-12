@@ -97,7 +97,7 @@ void	draw_rays_3d(t_app *app)
 
 	/*draw floor and ceiling*/
 	int color;
-	for (int k = app->x / 2; k < app->x; k++)
+	for (int k = 0; k < app->x; k++)
 	{
 		for (int l = 0; l < app->y; l++)
 		{
@@ -105,10 +105,11 @@ void	draw_rays_3d(t_app *app)
 				color = 0x000000FF;
 			else
 				color = 0x00FF0000;
-			my_mlx_pixel_put(&(app->img), k, l, color);
+			if (k >= 192 || l >= 192)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+				my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
-	while (r < 60 * 8)
+	while (r < RES_X)
 	{
 		// Check Horizontal Lines
 		dof = 0; // nbr des cases que l'on regarde
@@ -225,8 +226,8 @@ void	draw_rays_3d(t_app *app)
 		int i = 0;
 		while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
 		{
-			my_mlx_pixel_put(&(app->img), (x) + (i * cos(ra)), 
-			(y) + (i * sin(ra)), 0x003AB0A7);
+			my_mlx_pixel_put(&(app->img), ((x) + (i * cos(ra))) / SCALING, 
+			((y) + (i * sin(ra))) / SCALING, 0x003AB0A7);
 			i++;
 		}
 		/*draw 3D*/
@@ -267,10 +268,10 @@ void	draw_rays_3d(t_app *app)
 			ca -= (2*PI);
 		dis_ta = dis_ta * cos(ca);
 		//
-		lineH = (map_x * map_y * (app->x / 2)) / dis_ta;
+		lineH = (map_x * map_y * (RES_Y)) / dis_ta;
 		float saveH = lineH;
-		if (lineH > ((app->x / 2)))
-			lineH = ((app->x/ 2));
+		if (lineH > ((RES_Y)))
+			lineH = ((RES_Y));
 		i = 0;
 		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
 		// while (i < lineH)//old 
@@ -284,13 +285,13 @@ void	draw_rays_3d(t_app *app)
 		// 	}
 		// 	i++;
 		// }
-		while (i < lineH) //new
+		while (i < lineH) //dessine les murs en 3D
 		{	
 			int j =  0;
 			while (j < 1) // j simule la largeur de 8 pixel
 			{
 				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + app->x / 2)), i + (app->y / 2 - lineH / 2));
-				my_mlx_pixel_put(&(app->img), ((j + r + app->x / 2)), 
+				my_mlx_pixel_put(&(app->img), ((j + r + app->x)), 
 				i + (app->y / 2 - lineH / 2), get_color(app, (j + r * 8 + app->x / 2), i + (app->y / 2 - lineH / 2), saveH,  rx , i, r, mod));
 				j++;
 			}

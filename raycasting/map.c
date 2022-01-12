@@ -26,7 +26,7 @@ void	drow_element(t_app *app, int x, int y, int color)
 	{
 		j = -1;
 		while (++j < 63)
-			my_mlx_pixel_put(&(app->img), j + (x * 64), i + (y *64), color);
+			my_mlx_pixel_put(&(app->img), (j + (x * 64)) / SCALING, (i + (y *64)) / SCALING, color);
 	}
 }
 
