@@ -34,34 +34,34 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	if (mod == 3)
 	{
 		bpp = app->north.bpp / 8;
-		color = app->north.addr[x * app->north.size + i * bpp + 0 ];
-		color1 = app->north.addr[x * app->north.size + i * bpp  + 1];
-		color2 = app->north.addr[x * app->north.size + i * bpp  + 2];
-		color3 = app->north.addr[x * app->north.size + i * bpp + 3];
+		color = app->north.addr[i * app->north.size + x * bpp + 0 ];
+		color1 = app->north.addr[i * app->north.size + x * bpp  + 1];
+		color2 = app->north.addr[i * app->north.size + x * bpp  + 2];
+		color3 = app->north.addr[i * app->north.size + x * bpp + 3];
 	}
 	else if (mod == 2)
 	{
 		bpp = app->south.bpp / 8;
-		color = app->south.addr[x * app->south.size + i * bpp + 0 ];
-		color1 = app->south.addr[x * app->south.size + i * bpp  + 1];
-		color2 = app->south.addr[x * app->south.size + i * bpp  + 2];
-		color3 = app->south.addr[x * app->south.size + i * bpp + 3];
+		color = app->south.addr[i * app->south.size + x * bpp + 0 ];
+		color1 = app->south.addr[i * app->south.size + x * bpp  + 1];
+		color2 = app->south.addr[i * app->south.size + x * bpp  + 2];
+		color3 = app->south.addr[i * app->south.size + x * bpp + 3];
 	}
 	else if (mod == 1)
 	{
 		bpp = app->east.bpp / 8;
-		color = app->east.addr[x * app->east.size + i * bpp + 0 ];
-		color1 = app->east.addr[x * app->east.size + i * bpp  + 1];
-		color2 = app->east.addr[x * app->east.size + i * bpp  + 2];
-		color3 = app->east.addr[x * app->east.size + i * bpp + 3];
+		color = app->east.addr[i * app->east.size + x * bpp + 0 ];
+		color1 = app->east.addr[i * app->east.size + x * bpp  + 1];
+		color2 = app->east.addr[i * app->east.size + x * bpp  + 2];
+		color3 = app->east.addr[i * app->east.size + x * bpp + 3];
 	}
 	else if (mod == 0)
 	{
 		bpp = app->west.bpp / 8;
-		color = app->west.addr[x * app->west.size + i * bpp + 0 ];
-		color1 = app->west.addr[x * app->west.size + i * bpp  + 1];
-		color2 = app->west.addr[x * app->west.size + i * bpp  + 2];
-		color3 = app->west.addr[x * app->west.size + i * bpp + 3];
+		color = app->west.addr[i * app->west.size + x * bpp + 0 ];
+		color1 = app->west.addr[i * app->west.size + x * bpp  + 1];
+		color2 = app->west.addr[i * app->west.size + x * bpp  + 2];
+		color3 = app->west.addr[i * app->west.size + x * bpp + 3];
 	}
 	new |= color3 << 24;
 	new |= color2 << 16;
