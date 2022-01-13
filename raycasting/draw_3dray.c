@@ -28,8 +28,8 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// x %= 64;
 	if (scale > RES_Y)
 		i = i + (scale / 2 - RES_Y / 2);
-	i = i * 64 / scale;
-	x = rx % 64;
+	i = i * 64 / scale;  //remplacer les 2 64 pour le scaling en fonction de la taille de l'image
+	x = rx % 64;//remplacer les 2 64 pour le scaling en fonction de la taille de l'image
 	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	if (mod == 3)
 	{
