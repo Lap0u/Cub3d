@@ -41,8 +41,8 @@ void	draw_line(t_app *app)
 	i = 0;
 	while (i < 30)
 	{
-		my_mlx_pixel_put(&(app->img), (x) + (i * cos(app->ray.game_state.pa)/2), 
-		(y) + (i * sin(app->ray.game_state.pa)/2), 0x003A51B0);
+		my_mlx_pixel_put(&(app->img), ((x) + (i * cos(app->ray.game_state.pa)/2)) / 2, 
+		((y) + (i * sin(app->ray.game_state.pa)/2)) / 2, 0x003A51B0);
 		i++;
 	}
 }
@@ -57,13 +57,14 @@ void	draw_sprite(t_app *app)
 	i = -1;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
-	draw_rays_3d(app);
+	// draw_rays_3d(app);
 	draw_line(app);
+	draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
 		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), j + (x - 5), i + (y - 5), 0x00FF0000);
+			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FF0000);
 	}
 }
 

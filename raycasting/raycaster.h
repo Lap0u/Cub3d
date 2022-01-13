@@ -58,22 +58,46 @@ typedef struct	s_data
 	int		image_is_destroyed;
 } t_data;
 
-// typedef struct s_texture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bpp;
-// 	int		size;
-// 	int		endian;
-// 	int		sp_x;
-// 	int		sp_y;
-// 	t_state	game_state;
-// }				t_texture;
+typedef struct s_draw
+{
+	int		i;
+	int		j;
+	int		k;
+	int		r;
+	int		mx; // coordinate x de case du tableau dont de notre ray touche
+	int		my; // coordinate y de case du tableau dont de notre ray touche
+	int		mp; // taille de tab
+	int		dof;
+	int		mod; // type de texture
+
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	yo;
+	float	a_tan;
+	float	n_tan;
+	float	x;
+	float	y;
+	float	hdist;
+	float	vdist;
+	float	tdist;
+	float	dis_ta;
+	float	lineH;
+	float	lineO;
+	float	ca;
+	float	saveH;
+}				t_draw;
 
 typedef struct s_app
 {
 	void		*mlx;
 	void		*win;
+	t_draw		dr; //draw struct de drawing 3d
 	t_data		img;
 	t_data		brouillon;
 	t_data		sp;
@@ -117,5 +141,17 @@ void	drow_element(t_app *app, int x, int y, int color);
 void	draw_map(t_app *app);
 
 /*draw_3dray.c*/
+void	prepa_init_ray(t_app *app);
+void	check_hor_down(t_app *app);
+void	check_hor_up(t_app *app);
+void	check_hor_left_right(t_app *app);
+void	check_hor_action(t_app *app);
+void	check_horizont_line(t_app *app);
+void	check_vert_left(t_app *app);
+void	check_vert_right(t_app *app);
+void	check_vert_down_up(t_app *app);
+void	check_vert_action(t_app *app);
+void	check_vertical_line(t_app *app);
+void	draw_mini_rays(t_app *app);
 void	draw_rays_3d(t_app *app);
 #endif
