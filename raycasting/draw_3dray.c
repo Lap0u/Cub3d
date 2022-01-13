@@ -84,7 +84,7 @@ void	draw_rays_3d(t_app *app)
 	extern int map_y;
 	extern int map[];
 	
-	ra = app->ray.game_state.pa - DR * SCALING;
+	ra = app->ray.game_state.pa - DR * (RES_X / 2);
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
