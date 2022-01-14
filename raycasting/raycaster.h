@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/13 14:14:18 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:17:50 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 #  define RIGHT 100
 #  define FL_RIGHT 65363
 #  define FL_LEFT 65361
+
+#  define MAP 109
+#  define BLUR +0x888888
+#  define MARGIN 100
+#  define OPACITY 0.5
 
 #  define ESC 65307
 #  define PI 3.14159265359
@@ -97,6 +102,7 @@ typedef struct s_app
 	int			total_col;
 	int			taken_col;
 	int			flag;
+	int			bool_map;
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

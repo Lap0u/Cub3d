@@ -37,7 +37,9 @@ void draw_map(t_app *app)
 	int xo;
 	int yo;
 
-	y = 0;
+	y = 0;	
+	if (app->bool_map == 1)
+		return ;
 	while (y < map_y)
 	{
 		x = 0;

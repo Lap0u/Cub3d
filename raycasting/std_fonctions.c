@@ -24,10 +24,10 @@ void	init_sprite(t_app *app)
 	app->sp.game_state.player_y = 200;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
-	app->sp.game_state.pa = PI / -2;
+	app->sp.game_state.pa = PI / 2 - 1;
 	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
 	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
-	app->ray.game_state.pa = PI / -2;
+	app->ray.game_state.pa = PI / 2 - 1;
 }
 
 void	draw_line(t_app *app)
@@ -74,6 +74,8 @@ void	drow_background(t_app *app)
 	int	j;
 
 	i = -1;
+	if (app->bool_map == 1)
+		return ;
 	while (++i < app->y)
 	{
 		j = -1;
@@ -88,6 +90,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 	app->mlx = mlx_init();
 	app->x = w;
 	app->y = h;
+	app->bool_map = 1;
 	if (app->mlx == NULL)
 		exit (1);
 	app->win = mlx_new_window(app->mlx, w, h, title);

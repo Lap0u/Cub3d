@@ -13,6 +13,22 @@ int	get_pixel_col(t_data *txr, int line, int col)
 	return (0x00FFFFFF);
 }
 
+int	color_ceil(t_app *app, int x, int y)
+{
+
+	if (app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
+	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN)
+		return (0x0000FF);
+	return (0x0000FF * OPACITY);
+}
+
+int	color_floor(t_app *app, int x, int y)
+{
+	if (app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
+	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN)
+		return (0xFF0000);
+	return (0xFF0000 * OPACITY);
+}
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
 {
 	int		st;
@@ -21,10 +37,13 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	unsigned char	color1;
 	unsigned char	color2;
 	unsigned char	color3;
+	unsigned char	blur;
 	int		new;
-
-	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
+	int		save_x;
+	blur = (unsigned char)BLUR;
+	save_x = x;
 	new = 0;
+	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	// x %= 64;
 	if (scale > RES_Y)
 		i = i + (scale / 2 - RES_Y / 2);
@@ -63,12 +82,21 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 		color2 = app->west.addr[i * app->west.size + x * bpp  + 2];
 		color3 = app->west.addr[i * app->west.size + x * bpp + 3];
 	}
+	// printf("test : %d %d\n", save_x, y);
+
+
+	if (!(app->bool_map == 0 || save_x < MARGIN * 1.5 || y < MARGIN
+	|| save_x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	{
+		color3 *= OPACITY;
+		color2 *= OPACITY;
+		color1 *= OPACITY;
+		color *= OPACITY;
+	}
 	new |= color3 << 24;
 	new |= color2 << 16;
 	new |= color1 << 8;
 	new |= color;
-
-	
 	// printf("color: %d, color1: %d, color2: %d, color3: %d\n", color, color1, color2, color3);
 	// bpp = app->wall.bpp / 8;
 	// st = (app->wall.bpp / 8) * (x + y * RES_X);
@@ -102,13 +130,14 @@ void	draw_rays_3d(t_app *app)
 		for (int l = 0; l < RES_Y; l++)
 		{
 			if (l < RES_Y / 2)
-				color = 0x000000FF;
+				color = color_ceil(app, k, l);
 			else
-				color = 0x00FF0000;
+				color = color_floor(app, k, l);
 			if (k >= 64 * SCALING || l >= 64 * SCALING)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
 				my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
+	printf("map is : %d\n", app->bool_map);
 	while (r < RES_X)
 	{
 		// Check Horizontal Lines
@@ -226,6 +255,7 @@ void	draw_rays_3d(t_app *app)
 		int i = 0;
 		while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
 		{
+			if (app->bool_map == 0)
 			my_mlx_pixel_put(&(app->img), ((x) + (i * cos(ra))) / SCALING, 
 			((y) + (i * sin(ra))) / SCALING, 0x003AB0A7);
 			i++;
@@ -291,8 +321,8 @@ void	draw_rays_3d(t_app *app)
 			while (j < 1) // j simule la largeur de 8 pixel
 			{
 				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + RES_X / 2)), i + (RES_Y / 2 - lineH / 2));
-				my_mlx_pixel_put(&(app->img), ((j + r + RES_X)), 
-				i + (RES_Y / 2 - lineH / 2), get_color(app, (j + r * 8 + RES_X / 2), i + (RES_Y / 2 - lineH / 2), saveH,  rx , i, r, mod));
+				my_mlx_pixel_put(&(app->img), ((j + r)), 
+				i + (RES_Y / 2 - lineH / 2), get_color(app, (j + r), i + (RES_Y / 2 - lineH / 2), saveH,  rx , i, r, mod));
 				j++;
 			}
 			i++;
