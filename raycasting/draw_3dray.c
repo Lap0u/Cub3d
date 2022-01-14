@@ -194,23 +194,35 @@ void	fix_fish_eye(t_app *app)
 void	draw_mini_rays(t_app *app)
 {
 	t_draw	*dr;
-	int j;
-	float ra;
-
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+	extern	int map_s;
+	
 	dr = &(app->dr);
-	ra = app->ray.game_state.pa - DR * 30;
-	dr->i = 0;
-	j = 0;
-	while (j < 60)
+	prepa_init_ray(app);
+	while (dr->r < 60)
 	{
+		check_horizont_line(app);
+		check_vertical_line(app);
+		if (dr->vdist < dr->hdist)
+			dr->tdist = dr->vdist;
+		if (dr->hdist < dr->vdist)
+			dr->tdist = dr->hdist;
+		dr->i = 0;
 		while (dr->i < (int)(dr->tdist / 2)) /*affiche plus petite distance entre vertical et horizontal*/
 		{
-			my_mlx_pixel_put(&(app->img), ((dr->x) + (dr->i * cos(ra))/ 2), 
-			((dr->y) + (dr->i * sin(ra))/2), 0x003AB0A7);
+			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2), 
+			(((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
 			dr->i++;
 		}
-		ra += DR;
-		j++;
+		
+		dr->r++;
+		dr->ra += DR;
+		if (dr->ra < 0)
+			dr->ra += 2 * PI;
+		if (dr->ra > 2 * PI)
+			dr->ra -= 2 * PI;
 	}
 }
 
@@ -262,7 +274,7 @@ void	draw_rays_3d(t_app *app)
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
 	}
-	draw_map(app);
-	draw_sprite(app);
-	draw_mini_rays(app);
+	// draw_map(app);
+	// draw_sprite(app);
+	// draw_mini_rays(app);
 }
