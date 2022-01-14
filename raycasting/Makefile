@@ -1,7 +1,7 @@
 OS		= ${shell uname}																	\
 
 
-SRCS	=		1.c std_fonctions.c actions.c draw_image.c map.c draw_3dray.c
+SRCS	=		1.c std_fonctions.c actions.c draw_image.c map.c draw_3dray.c init_1.c*
 
 OBJS	= ${SRCS:.c=.o}
 

@@ -33,6 +33,11 @@
 #  define PI3 3*PI/2
 #  define DR 0.0174533 // one degree in radians
 
+# define PATH_TO_NORTH "../textures/north.xpm"
+# define PATH_TO_SOUTH "../textures/south.xpm"
+# define PATH_TO_WEST "../textures/west.xpm"
+# define PATH_TO_EAST "../textures/east.xpm"
+
 
 typedef struct s_state
 {
@@ -98,8 +103,9 @@ typedef struct s_app
 	void		*mlx;
 	void		*win;
 	t_draw		dr; //draw struct de drawing 3d
-	t_data		img;
-	t_data		brouillon;
+	t_data		img; // main img dans laquelle on ecrit
+	t_data		txr[4];
+	char		*path[4];
 	t_data		sp;
 	t_data		wall;
 	t_data		space;
@@ -108,7 +114,6 @@ typedef struct s_app
 	void		*image_addr;
 	int			x;
 	int			y;
-	char		*path[5];
 	int			image_is_destroyed;
 	int			nb_mvmt;
 	int			total_col;
@@ -154,4 +159,9 @@ void	check_vert_action(t_app *app);
 void	check_vertical_line(t_app *app);
 void	draw_mini_rays(t_app *app);
 void	draw_rays_3d(t_app *app);
+
+/*init_1.c*/
+void	init_path(t_app *app);
+void	init_texture(t_app *app);
+
 #endif

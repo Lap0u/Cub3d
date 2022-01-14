@@ -57,7 +57,6 @@ void	draw_sprite(t_app *app)
 	i = -1;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
-	// draw_rays_3d(app);
 	draw_line(app);
 	draw_mini_rays(app);
 	while (++i < 10)
@@ -86,6 +85,10 @@ void	drow_background(t_app *app)
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
+	if (app->mlx == NULL)
+		exit (1);
+	init_path(app);
+	init_texture(app);
 	app->x = w;
 	app->y = h;
 	if (app->mlx == NULL)
