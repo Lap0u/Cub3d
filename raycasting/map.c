@@ -60,12 +60,12 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 	i = 0;
 	true_x = p_x / 64;
 	true_y = p_y / 64;
-	s_x = true_x - size;
-	s_y = true_y - size;
+	s_x = true_x - size / 2;
+	s_y = true_y - size / 2;
 	while (i < size)
 	{
 		j = 0;
-		s_x = true_x - size;
+		s_x = true_x - size / 2;
 		while (j < size)
 		{
 			if (s_x < 0 || s_y < 0 || s_x > map_x || s_y > map_y)
