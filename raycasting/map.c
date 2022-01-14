@@ -30,6 +30,56 @@ void	drow_element(t_app *app, int x, int y, int color)
 	}
 }
 
+void	add_empty_tile(t_app *app, int x, int y, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 192 / size)
+	{
+		j = 0;
+		while (j < 192 / size)
+		{
+			my_mlx_pixel_put(&(app->img), x + i, y + j, 0x444444);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_around_player(t_app *app, float p_x, float p_y, int size)
+{
+	int	true_x;
+	int	true_y;
+	int	s_x;
+	int	s_y;
+	int i;
+	int	j;
+
+	i = 0;
+	true_x = p_x / 64;
+	true_y = p_y / 64;
+	s_x = true_x - size;
+	s_y = true_y - size;
+	while (i < size)
+	{
+		j = 0;
+		s_x = true_x - size;
+		while (j < size)
+		{
+			if (s_x < 0 || s_y < 0 || s_x > map_x || s_y > map_y)
+				add_empty_tile(app, i, j, size);
+			// else
+			// 	add_full_tile(app, s_x, s_y, size);
+			j++;
+			s_x++;
+		}
+		i++;
+		s_y++;
+	}
+}
+
 void draw_map(t_app *app)
 {
 	int x;
@@ -37,21 +87,27 @@ void draw_map(t_app *app)
 	int xo;
 	int yo;
 
+	// printf("floa %f %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
 	y = 0;	
 	if (app->bool_map == 1)
 		return ;
-	while (y < map_y)
+	if (map_y < 8 && map_x < 8)
 	{
-		x = 0;
-		while (x < map_x)
+		while (y < map_y)
 		{
-			if (map[y * map_x + x] == 1)
-				drow_element(app, x, y, 0x00AAAAAA);
+			x = 0;
+			while (x < map_x)
+			{
+				if (map[y * map_x + x] == 1)
+					drow_element(app, x, y, 0x00AAAAAA);
 
-			else
-				drow_element(app, x, y, 0x00010101);
-			x++;
+				else
+					drow_element(app, x, y, 0x00010101);
+				x++;
+			}
+			y++;
 		}
-		y++;
 	}
+	else
+		draw_around_player(app, app->sp.game_state.player_x, app->sp.game_state.player_y, 8);
 }
