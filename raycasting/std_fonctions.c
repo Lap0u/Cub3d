@@ -39,6 +39,8 @@ void	draw_line(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	i = 0;
+	if (app->bool_map == 1)
+		return ;
 	while (i < 30)
 	{
 		my_mlx_pixel_put(&(app->img), ((x) + (i * cos(app->ray.game_state.pa)/2)) / SCALING, 
@@ -59,6 +61,8 @@ void	draw_sprite(t_app *app)
 	y = app->sp.game_state.player_y;
 	draw_rays_3d(app);
 	draw_line(app);
+	if (app->bool_map == 1)
+		return ;
 	while (++i < 10)
 	{
 		j = -1;

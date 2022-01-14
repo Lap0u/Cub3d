@@ -24,8 +24,8 @@ int	color_ceil(t_app *app, int x, int y)
 	temp_r = app->ceil_col.red;
 	temp_g = app->ceil_col.green;
 	temp_b = app->ceil_col.blue;
-	if (!(app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
-	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
+	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
 		temp_r *= OPACITY;
 		temp_g *= OPACITY;
@@ -48,8 +48,8 @@ int	color_floor(t_app *app, int x, int y)
 	temp_r = app->flo_col.red;
 	temp_g = app->flo_col.green;
 	temp_b = app->flo_col.blue;
-	if (!(app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
-	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
+	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
 		temp_r *= OPACITY;
 		temp_g *= OPACITY;
@@ -116,8 +116,8 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// printf("test : %d %d\n", save_x, y);
 
 
-	if (!(app->bool_map == 0 || save_x < MARGIN * 1.5 || y < MARGIN
-	|| save_x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	if (!(app->bool_map == 0 || save_x < MARGIN * 2 || y < MARGIN
+	|| save_x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
 		color3 *= OPACITY;
 		color2 *= OPACITY;
@@ -164,7 +164,7 @@ void	draw_rays_3d(t_app *app)
 				color = color_ceil(app, k, l);
 			else
 				color = color_floor(app, k, l);
-			if (k >= 64 * SCALING || l >= 64 * SCALING)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+			if (k >= 64 * SCALING || l >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
 				my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
