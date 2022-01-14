@@ -141,15 +141,15 @@ char	*copy_size(char *str, int bpp, int size)
 
 void	open_images(t_app *app) ///retour de fonctions a check ->img = NULL
 {
-	app->north.img = mlx_xpm_file_to_image(app->mlx, "../textures/north.xpm", &app->north.w, &app->north.h);
-	app->north.addr = mlx_get_data_addr(app->north.img, &app->north.bpp, &app->north.size, &app->north.endian);
+	app->france.img = mlx_xpm_file_to_image(app->mlx, "../textures/france.xpm", &app->france.w, &app->france.h);
+	app->france.addr = mlx_get_data_addr(app->france.img, &app->france.bpp, &app->france.size, &app->france.endian);
 	
 	
 	// int		bpp;
 	// char	*str;
 
-	// bpp = app->north.bpp / 8;
-	// str = copy_size(&app->north.addr[3 * app->north.size + 3 * bpp + 0], bpp, 5);
+	// bpp = app->france.bpp / 8;
+	// str = copy_size(&app->france.addr[3 * app->france.size + 3 * bpp + 0], bpp, 5);
 	// printf("code = [%s]\n", str);
 	// free(str);
 	
@@ -164,7 +164,7 @@ void	open_images(t_app *app) ///retour de fonctions a check ->img = NULL
 
 void	close_images(t_app *app)
 {
-	mlx_destroy_image(app->mlx, app->north.img);
+	mlx_destroy_image(app->mlx, app->france.img);
 	mlx_destroy_image(app->mlx, app->south.img);
 	mlx_destroy_image(app->mlx, app->east.img);
 	mlx_destroy_image(app->mlx, app->west.img);

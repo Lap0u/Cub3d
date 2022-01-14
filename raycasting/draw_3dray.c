@@ -15,19 +15,50 @@ int	get_pixel_col(t_data *txr, int line, int col)
 
 int	color_ceil(t_app *app, int x, int y)
 {
+	unsigned char	temp_r;
+	unsigned char	temp_g;
+	unsigned char	temp_b;
+	int				color;
 
-	if (app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
-	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN)
-		return (0x0000FF);
-	return (0x0000FF * OPACITY);
+	color = 0;
+	temp_r = app->ceil_col.red;
+	temp_g = app->ceil_col.green;
+	temp_b = app->ceil_col.blue;
+	if (!(app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
+	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	{
+		temp_r *= OPACITY;
+		temp_g *= OPACITY;
+		temp_b *= OPACITY;
+	}
+	color |= temp_r << 16;
+	color |= temp_g << 8;
+	color |= temp_b;
+	return (color);
 }
 
 int	color_floor(t_app *app, int x, int y)
 {
-	if (app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
-	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN)
-		return (0xFF0000);
-	return (0xFF0000 * OPACITY);
+	unsigned char	temp_r;
+	unsigned char	temp_g;
+	unsigned char	temp_b;
+	int				color;
+
+	color = 0;
+	temp_r = app->flo_col.red;
+	temp_g = app->flo_col.green;
+	temp_b = app->flo_col.blue;
+	if (!(app->bool_map == 0 || x < MARGIN * 1.5 || y < MARGIN
+	|| x > RES_X - MARGIN * 1.5 || y > RES_Y - MARGIN))
+	{
+		temp_r *= OPACITY;
+		temp_g *= OPACITY;
+		temp_b *= OPACITY;
+	}
+	color |= temp_r << 16;
+	color |= temp_g << 8;
+	color |= temp_b;
+	return (color);
 }
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
 {
@@ -52,11 +83,11 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	if (mod == 3)
 	{
-		bpp = app->north.bpp / 8;
-		color = app->north.addr[i * app->north.size + x * bpp + 0 ];
-		color1 = app->north.addr[i * app->north.size + x * bpp  + 1];
-		color2 = app->north.addr[i * app->north.size + x * bpp  + 2];
-		color3 = app->north.addr[i * app->north.size + x * bpp + 3];
+		bpp = app->france.bpp / 8;
+		color = app->france.addr[i * app->france.size + x * bpp + 0 ];
+		color1 = app->france.addr[i * app->france.size + x * bpp  + 1];
+		color2 = app->france.addr[i * app->france.size + x * bpp  + 2];
+		color3 = app->france.addr[i * app->france.size + x * bpp + 3];
 	}
 	else if (mod == 2)
 	{
@@ -100,7 +131,7 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	// printf("color: %d, color1: %d, color2: %d, color3: %d\n", color, color1, color2, color3);
 	// bpp = app->wall.bpp / 8;
 	// st = (app->wall.bpp / 8) * (x + y * RES_X);
-	// get_pixel_col(&app->north, x, y);
+	// get_pixel_col(&app->france, x, y);
 	return (new);
 }
 
@@ -279,7 +310,7 @@ void	draw_rays_3d(t_app *app)
 			rx = hx;
 			ry = hy;
 			// printf("%d rboucle?\n", r);
-			if (ra > PI)//look north
+			if (ra > PI)//look france
 				mod = 3;
 			else
 				mod = 2;//look south
@@ -320,7 +351,7 @@ void	draw_rays_3d(t_app *app)
 			int j =  0;
 			while (j < 1) // j simule la largeur de 8 pixel
 			{
-				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + RES_X / 2)), i + (RES_Y / 2 - lineH / 2));
+				// draw_img_at_pos(app, &(app->france), ((j + r * 8 + RES_X / 2)), i + (RES_Y / 2 - lineH / 2));
 				my_mlx_pixel_put(&(app->img), ((j + r)), 
 				i + (RES_Y / 2 - lineH / 2), get_color(app, (j + r), i + (RES_Y / 2 - lineH / 2), saveH,  rx , i, r, mod));
 				j++;

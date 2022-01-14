@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/14 14:17:50 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:45:40 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ typedef struct	s_data
 // 	t_state	game_state;
 // }				t_texture;
 
+typedef struct s_rgb
+{	
+	unsigned char red;
+	unsigned char green;/* data */
+	unsigned char blue;
+}				t_rgb;
+
+
 typedef struct s_app
 {
 	void		*mlx;
@@ -88,7 +96,7 @@ typedef struct s_app
 	t_data		wall;
 	t_data		space;
 	t_data		ray;
-	t_data		north;
+	t_data		france;
 	t_data		south;
 	t_data		east;
 	t_data		west;
@@ -103,6 +111,8 @@ typedef struct s_app
 	int			taken_col;
 	int			flag;
 	int			bool_map;
+	t_rgb		ceil_col;
+	t_rgb		flo_col;
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

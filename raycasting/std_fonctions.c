@@ -85,6 +85,16 @@ void	drow_background(t_app *app)
 	}
 }
 
+void	init_colors(t_app *app)
+{
+	app->ceil_col.red = 0;
+	app->ceil_col.green = 0;
+	app->ceil_col.blue = 255;
+	app->flo_col.red = 255;
+	app->flo_col.green = 0;
+	app->flo_col.blue = 0;
+}
+
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
@@ -99,7 +109,8 @@ void	init_app(t_app *app, char *title, int w, int h)
 		free(app->mlx);
 		exit (1);
 	}
-	init_sprite(app);	
+	init_sprite(app);
+	init_colors(app);
 }
 
 int	destroy_game_data(void *data)
