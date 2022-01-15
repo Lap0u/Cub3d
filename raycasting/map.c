@@ -41,7 +41,7 @@ void	add_empty_tile(t_app *app, int x, int y, int size)
 		j = 0;
 		while (j < 192 / size)
 		{
-			my_mlx_pixel_put(&(app->img), x + i, y + j, 0x444444);
+			my_mlx_pixel_put(&(app->img), x * (192 / size) + i, y * (192 / size) + j, 0x444444);
 			j++;
 		}
 		i++;
@@ -69,7 +69,7 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 		while (j < size)
 		{
 			if (s_x < 0 || s_y < 0 || s_x > map_x || s_y > map_y)
-				add_empty_tile(app, i, j, size);
+				add_empty_tile(app, j, i, size);
 			// else
 			// 	add_full_tile(app, s_x, s_y, size);
 			j++;
