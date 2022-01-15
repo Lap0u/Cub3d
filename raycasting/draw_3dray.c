@@ -226,22 +226,22 @@ void	which_is_dir(t_app *app)
 	if (dr->vdist < dr->hdist)
 	{
 		dr->tdist = dr->vdist;
-		dr->rx = dr->vy;
-		dr->ry = dr->vy;
+		// dr->rx = dr->vy;
+		// dr->ry = dr->vy;
 		if (dr->ra > PI2 && dr->ra < PI3)
-			dr->mod = 0; //look left
+			dr->mod = 2; //look left
 		else
-			dr->mod = 1; //look right
+			dr->mod = 4; //look right
 	}
 	if (dr->hdist < dr->vdist)
 	{
 		dr->tdist = dr->hdist;
-		dr->rx = dr->hx;
-		dr->ry = dr->hy;
+		// dr->rx = dr->hx;
+		// dr->ry = dr->hy;
 		if (dr->ra > PI)//look north
-			dr->mod = 3;
+			dr->mod = 0;
 		else
-			dr->mod = 2;//look south
+			dr->mod = 1;//look south
 	}
 }
 
@@ -270,15 +270,17 @@ void	draw_rays_3d(t_app *app)
 		dr->lineH = (map_s * app->y)/dr->tdist; // line height
 		if (dr->lineH > app->y)
 			dr->lineH = app->y;
+		dr->saveH = dr->lineH;
 		dr->lineO = app->y / 2 - dr->lineH / 2;
 		dr->i = 0;
-		while (dr->i < dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
+		while (dr->i < (int)dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
 		{
 			dr->j = 0;
 			while (dr->j < ((app->x) / 60))
 			{
 				my_mlx_pixel_put(&(app->img), dr->j + (dr->r * ((app->x) / 60)) + app->x, 
-				dr->i + (app->y/2 - dr->lineH/2 ), color);
+				dr->i + dr->lineO, get_color(app, 0,
+				dr->i + dr->lineO, dr->saveH, dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}
 			dr->i++;

@@ -164,4 +164,8 @@ void	draw_rays_3d(t_app *app);
 void	init_path(t_app *app);
 void	init_texture(t_app *app);
 
+/*get_color.c*/
+
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
+
 #endif
