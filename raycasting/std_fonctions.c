@@ -60,15 +60,15 @@ void	draw_sprite(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	draw_rays_3d(app);
-	draw_line(app);
+	// draw_line(app);
 	if (app->bool_map == 1)
 		return ;
-	while (++i < 10)
-	{
-		j = -1;
-		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), (j + (x - 5)) / SCALING, (i + (y - 5)) / SCALING, 0x00FF0000);
-	}
+	// while (++i < 10)
+	// {
+	// 	j = -1;
+	// 	while (++j < 10)
+	// 		my_mlx_pixel_put(&(app->img), (j + (x - 5)) / SCALING, (i + (y - 5)) / SCALING, 0x00FF0000);
+	// }
 }
 
 

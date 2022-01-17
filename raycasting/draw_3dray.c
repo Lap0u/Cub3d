@@ -168,7 +168,7 @@ void	draw_rays_3d(t_app *app)
 				my_mlx_pixel_put(&(app->img), k, l, color);
 		}
 	}
-	printf("map is : %d\n", app->bool_map);
+	// printf("map is : %d\n", app->bool_map);
 	while (r < RES_X)
 	{
 		// Check Horizontal Lines
@@ -188,7 +188,7 @@ void	draw_rays_3d(t_app *app)
 			rx = (y - ry) * a_tan + x;
 			yo = 64;
 			xo = (-1 * yo) * a_tan;
-			printf("ra = %f, ry = %f, rx = %f, xo = %f\n", ra, ry, rx, xo);
+			// printf("ra = %f, ry = %f, rx = %f, xo = %f\n", ra, ry, rx, xo);
 		}
 		if ((ra == 0) || (ra == PI)) //looking straight felt or right
 		{
@@ -278,19 +278,20 @@ void	draw_rays_3d(t_app *app)
 		}
 		vx = rx;
 		vy = ry;
-		printf("%f vx\n", vx);
+		// printf("%f vx\n", vx);
 		// printf("%d : mp_vert\n", mp);
 		// printf("pox sp : %f %f\n", x, y);
 		// // printf("%d : case\n", map[mp]);
 		vdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
 		int i = 0;
-		while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
-		{
-			if (app->bool_map == 0)
-			my_mlx_pixel_put(&(app->img), ((x) + (i * cos(ra))) / SCALING, 
-			((y) + (i * sin(ra))) / SCALING, 0x003AB0A7);
-			i++;
-		}
+		/*affichage rayons en 2d*/
+		// while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
+		// {
+		// 	if (app->bool_map == 0)
+		// 	my_mlx_pixel_put(&(app->img), ((x) + (i * cos(ra))) / SCALING, 
+		// 	((y) + (i * sin(ra))) / SCALING, 0x003AB0A7);
+		// 	i++;
+		// }
 		/*draw 3D*/
 		// printf("rx1 v h = %f %f %f\t", rx, vx, hx);
 		int mod;
@@ -315,7 +316,7 @@ void	draw_rays_3d(t_app *app)
 			else
 				mod = 2;//look south
 		}
-		printf("%d %f ter\n", mod, rx);
+		// printf("%d %f ter\n", mod, rx);
 		// printf("rx2 v h = %f %f %f\t", rx, vx, hx);
 		RES_X;//
 		RES_Y;//
@@ -334,7 +335,7 @@ void	draw_rays_3d(t_app *app)
 		if (lineH > ((RES_Y)))
 			lineH = ((RES_Y));
 		i = 0;
-		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
+		// printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
 		// while (i < lineH)//old 
 		// {	
 		// 	float j =  0;

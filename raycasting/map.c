@@ -161,8 +161,8 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 		i++;
 		s_y++;
 	}
-	draw_mini_player(app);
 	draw_grid(app, size);
+	draw_mini_player(app);
 }
 
 void draw_map(t_app *app)

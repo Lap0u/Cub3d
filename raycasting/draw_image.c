@@ -45,7 +45,7 @@ int	check_pixel(t_data *txr, int line, int col)
 		&& (txr->addr[line * txr->size + col * bpp + 2] != 0)
 		&& (txr->addr[line * txr->size + col * bpp + 3] != -1))
 		{
-			printf("txt: %d\n", txr->addr[line * txr->size + col * bpp + 0]);
+			// printf("txt: %d\n", txr->addr[line * txr->size + col * bpp + 0]);
 			return (1);
 		}
 	else

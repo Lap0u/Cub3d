@@ -46,7 +46,7 @@ int	player_input_body(int key, t_app *app)
 	//
 	posy_add_xo = (app->sp.game_state.player_y + xo) / 64.0;
 	posy_sub_xo = (app->sp.game_state.player_y - xo) / 64.0;
-	printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+	// printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
 	if (key == MAP)
 	{
 		app->bool_map++;
@@ -183,7 +183,7 @@ int	routine(void *data)
 			&app->img.bpp, &app->img.size, &app->img.endian);
 	open_images(app);
 	app->image_is_destroyed = 0;
-	drow_background(app);
+	// drow_background(app);
 	draw_map(app);
 	draw_sprite(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
