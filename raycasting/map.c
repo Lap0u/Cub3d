@@ -30,19 +30,19 @@ void	drow_element(t_app *app, int x, int y, int color)
 	}
 }
 
-void	draw_grid(t_app *app, int size)
+void	draw_grid(t_app *app, float offx, float offy, int size)
 {
 	int x;
 	int y;
 
-	x = 1;
+	x = offx;
 	while (x < 192)
 	{
-		y = 1;
+		y = offy;
 		while (y < 192)
 		{
-			if (y % (192 / size) == 0 || x % (192 / size) == 0)
-				my_mlx_pixel_put(&(app->img), x, y, 0x0000FF);
+			if ((y % (192 / size) == 0 || x % (192 / size) == 0) && x + offx >= 0 && y + offy >= 0)
+				my_mlx_pixel_put(&(app->img), x + offx, y + offy, 0x0000FF);
 			y++;
 		}
 		x++;
@@ -103,7 +103,7 @@ void	add_full_tile(t_app *app, int x, int y, int size)
 	}
 }
 
-void	draw_mini_player(t_app *app)//a deplacer un peu en fonction du decalage avec le mur
+void	draw_mini_player(t_app *app, float offx, float offy)//a deplacer un peu en fonction du decalage avec le mur
 {
 	int	x;
 	int	y;
@@ -116,31 +116,36 @@ void	draw_mini_player(t_app *app)//a deplacer un peu en fonction du decalage ave
 		y = 0;
 		while (y < 4)
 		{
-			my_mlx_pixel_put(&(app->img), 192 / 2  - 2 + x, 192 / 2 - 2 + y, 0xFF0000);
+			my_mlx_pixel_put(&(app->img), 192 / 2  - 2 + x + offx, 192 / 2 - 2 + y + offy, 0xFF0000);
 			y++;
 		}
 		x++;
 	}
 	while (i < 15)
 	{
-		my_mlx_pixel_put(&(app->img), (192 / 2 + (i * cos(app->ray.game_state.pa)/2)),
-		(192 / 2 + (i * sin(app->ray.game_state.pa)/2)), 0xFF0000);
+		my_mlx_pixel_put(&(app->img), (192 / 2 + (i * cos(app->ray.game_state.pa)/2) + offx),
+		(192 / 2 + (i * sin(app->ray.game_state.pa)/2) + offy), 0xFF0000);
 		i++;
 	}
 }
 
 void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 {
-	int	true_x;
-	int	true_y;
+	float	true_x;
+	float	true_y;
 	int	s_x;
 	int	s_y;
 	int i;
 	int	j;
+	float	off_x;
+	float	off_y;
 
 	i = 0;
 	true_x = p_x / 64;
 	true_y = p_y / 64;
+	off_x = (int)p_x % 64 / size - size / 2;
+	off_y = (int)p_y % 64 / size - size / 2;
+
 	s_x = true_x - size / 2;
 	s_y = true_y - size / 2;
 	while (i < size)
@@ -161,8 +166,8 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 		i++;
 		s_y++;
 	}
-	draw_grid(app, size);
-	draw_mini_player(app);
+	draw_grid(app, off_x, off_y, size);
+	draw_mini_player(app, off_x, off_y);
 }
 
 void draw_map(t_app *app)
