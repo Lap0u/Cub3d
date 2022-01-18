@@ -21,10 +21,10 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	x = rx % 64;//remplacer les 2 64 pour le scaling en fonction de la taille de l'image
 	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
 	bpp = app->txr[0].bpp / 8;
-	color = app->txr[0].addr[x * app->txr[0].size + i * bpp + 0 ];
-	color1 = app->txr[0].addr[x * app->txr[0].size + i * bpp  + 1];
-	color2 = app->txr[0].addr[x * app->txr[0].size + i * bpp  + 2];
-	color3 = app->txr[0].addr[x * app->txr[0].size + i * bpp + 3];
+	color = app->txr[0].addr[i * app->txr[0].size + x * bpp + 0 ];
+	color1 = app->txr[0].addr[i * app->txr[0].size + x * bpp  + 1];
+	color2 = app->txr[0].addr[i * app->txr[0].size + x * bpp  + 2];
+	color3 = app->txr[0].addr[i * app->txr[0].size + x * bpp + 3];
 
 
 	
