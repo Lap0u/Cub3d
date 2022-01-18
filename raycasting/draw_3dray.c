@@ -5,7 +5,7 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ra = app->ray.game_state.pa - DR * 30;
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -93,6 +93,8 @@ void	check_horizont_line(t_app *app)
 		check_hor_left_right(app);
 	while (dr->dof < 8)
 		check_hor_action(app);
+	dr->hx = dr->rx;
+	dr->hy = dr->ry;
 	dr->hdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
 }
 
@@ -171,6 +173,8 @@ void	check_vertical_line(t_app *app)
 		check_vert_down_up(app);		
 	while (dr->dof < 8)
 		check_vert_action(app);
+	dr->vx = dr->rx;
+	dr->vy = dr->ry;
 	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
 }
 
@@ -188,7 +192,7 @@ void	fix_fish_eye(t_app *app)
 	{
 		dr->ca -= 2 * PI;
 	}
-	dr->tdist = dr->tdist * cos(dr->ca);
+	dr->dis_ta = dr->dis_ta * cos(dr->ca);
 }
 
 void	draw_mini_rays(t_app *app)
@@ -202,11 +206,11 @@ void	draw_mini_rays(t_app *app)
 		check_horizont_line(app);
 		check_vertical_line(app);
 		if (dr->vdist < dr->hdist)
-			dr->tdist = dr->vdist;
+			dr->dis_ta = dr->vdist;
 		if (dr->hdist < dr->vdist)
-			dr->tdist = dr->hdist;
+			dr->dis_ta = dr->hdist;
 		dr->i = -1;
-		while (++dr->i < (int)(dr->tdist / 2)) /*affiche plus petite distance entre vertical et horizontal*/
+		while (++dr->i < (int)(dr->dis_ta / 2)) /*affiche plus petite distance entre vertical et horizontal*/
 			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2),
 			(((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
 		dr->r++;
@@ -225,7 +229,7 @@ void	which_is_dir(t_app *app)
 	dr = &(app->dr);
 	if (dr->vdist < dr->hdist)
 	{
-		dr->tdist = dr->vdist;
+		dr->dis_ta = dr->vdist;
 		dr->rx = dr->vy;
 		dr->ry = dr->vy;
 		if (dr->ra > PI2 && dr->ra < PI3)
@@ -233,9 +237,9 @@ void	which_is_dir(t_app *app)
 		else
 			dr->mod = 4; //look right
 	}
-	if (dr->hdist < dr->vdist)
+	else
 	{
-		dr->tdist = dr->hdist;
+		dr->dis_ta = dr->hdist;
 		dr->rx = dr->hx;
 		dr->ry = dr->hy;
 		if (dr->ra > PI)//look north
@@ -255,7 +259,7 @@ void	draw_rays_3d(t_app *app)
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
-	while (dr->r < 60)
+	while (dr->r < RES_X)
 	{
 		// int vmt = 0, hmt = 0;
 		check_horizont_line(app);
@@ -266,25 +270,27 @@ void	draw_rays_3d(t_app *app)
 			color = 0x003AB0A7;
 		else
 			color = 0x003F8080;
+		RES_X;//
+		RES_Y;//
 		fix_fish_eye(app);
 		// draw 3D Walls
-		dr->lineH = (map_s * app->y)/dr->tdist; // line height
+		dr->lineH = (map_s * RES_Y)/dr->dis_ta; // line height
 		dr->saveH = dr->lineH;
 
 		// float ty_step = 64.0 / dr->saveH;
 		// float ty_off = 0;
-		if (dr->lineH > app->y)
-			dr->lineH = app->y;
-		dr->lineO = app->y / 2 - dr->lineH / 2;
+		if (dr->lineH > RES_Y)
+			dr->lineH = RES_Y;
+		dr->lineO = RES_Y / 2 - dr->lineH / 2;
 		// float ty = ty_off *ty_step;
 		// float tx = (int)(rx/2.0) % 64;
 		dr->i = 0;
 		while (dr->i < (int)dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
 		{
 			dr->j = 0;
-			while (dr->j < 60)
+			while (dr->j < 1)
 			{
-				int x = dr->j + dr->r * app->x/60 + app->x;
+				int x = dr->j + dr->r;
 				my_mlx_pixel_put(&(app->img), x, 
 				dr->i + dr->lineO, get_color(app, x,
 				dr->i + dr->lineO, dr->saveH, dr->rx, dr->i, dr->r, dr->mod));
@@ -292,11 +298,11 @@ void	draw_rays_3d(t_app *app)
 			}
 			dr->i++;
 		}
-		dr->r++;
 		dr->ra += DR;
 		if (dr->ra < 0)
 			dr->ra += 2 * PI;
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
+		dr->r++;
 	}
 }

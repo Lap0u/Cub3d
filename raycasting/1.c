@@ -13,7 +13,7 @@ int	main(void)
 	t_app	my_app;
 	t_data	img;
 
-	init_app(&my_app, "raycasting", 2048, 1024);
+	init_app(&my_app, "raycasting", RES_X, RES_Y);
 	mlx_hook(my_app.win, 2, 1L << 0, &player_input, &my_app);
 	// mlx_put_image_to_window(my_app.mlx, my_app.win, my_app.brouillon.img, 0, 0);
 	// mlx_put_image_to_window(my_app.mlx, my_app.win, my_app.sp.img, 300, 300);

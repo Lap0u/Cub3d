@@ -33,6 +33,9 @@
 #  define PI3 3*PI/2
 #  define DR 0.0174533 // one degree in radians
 
+# define RES_X 2048
+# define RES_Y 1024
+
 # define PATH_TO_NORTH "../textures/north.xpm"
 # define PATH_TO_SOUTH "../textures/south.xpm"
 # define PATH_TO_WEST "../textures/west.xpm"
