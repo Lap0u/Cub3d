@@ -31,7 +31,7 @@
 #  define PI 3.14159265359
 #  define PI2 PI/2
 #  define PI3 3*PI/2
-#  define DR 0.0174533 // one degree in radians
+#  define DR (0.0174533 / 32)// one degree in radians
 
 # define PATH_TO_NORTH "../textures/north.xpm"
 # define PATH_TO_SOUTH "../textures/south.xpm"

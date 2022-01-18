@@ -5,7 +5,7 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ra = app->ray.game_state.pa - DR * 30;
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -201,7 +201,7 @@ void	draw_mini_rays(t_app *app)
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
-	while (dr->r < 60)
+	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
@@ -235,7 +235,7 @@ void	which_is_dir(t_app *app)
 		if (dr->ra > PI2 && dr->ra < PI3)
 			dr->mod = 2; //look left
 		else
-			dr->mod = 4; //look right
+			dr->mod = 3; //look right
 	}
 	if (dr->hdist < dr->vdist)
 	{
@@ -259,7 +259,7 @@ void	draw_rays_3d(t_app *app)
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
-	while (dr->r < 60)
+	while (dr->r < RES_X)
 	{
 		// int vmt = 0, hmt = 0;
 		check_horizont_line(app);
@@ -286,11 +286,11 @@ void	draw_rays_3d(t_app *app)
 		while (dr->i < (int)dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
 		{
 			dr->j = 0;
-			while (dr->j < 60)
+			while (dr->j < 1)
 			{
-				int x = dr->j + dr->r * app->x/60 + app->x;
-				my_mlx_pixel_put(&(app->img), x,dr->i + dr->lineO,
-				get_color(app, dr->j + dr->r * app->x/60 + app->x, dr->i + dr->lineO, dr->saveH, 
+				int x = dr->j + dr->r;
+				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO,
+				get_color(app, x, dr->i + dr->lineO, dr->saveH, 
 				dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}

@@ -46,7 +46,7 @@ int	player_input_body(int key, t_app *app)
 	//
 	posy_add_xo = (app->sp.game_state.player_y + xo) / 64.0;
 	posy_sub_xo = (app->sp.game_state.player_y - xo) / 64.0;
-	printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+	// printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
 	{
