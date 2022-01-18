@@ -93,6 +93,8 @@ void	check_horizont_line(t_app *app)
 		check_hor_left_right(app);
 	while (dr->dof < 8)
 		check_hor_action(app);
+	dr->hx = dr->rx;
+	dr->hy = dr->ry;
 	dr->hdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
 }
 
@@ -171,6 +173,8 @@ void	check_vertical_line(t_app *app)
 		check_vert_down_up(app);		
 	while (dr->dof < 8)
 		check_vert_action(app);
+	dr->vx = dr->rx;
+	dr->vy = dr->ry;
 	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
 }
 
@@ -285,9 +289,9 @@ void	draw_rays_3d(t_app *app)
 			while (dr->j < 60)
 			{
 				int x = dr->j + dr->r * app->x/60 + app->x;
-				my_mlx_pixel_put(&(app->img), x, 
-				dr->i + dr->lineO, get_color(app, x,
-				dr->i + dr->lineO, dr->saveH, dr->rx, dr->i, dr->r, dr->mod));
+				my_mlx_pixel_put(&(app->img), x,dr->i + dr->lineO,
+				get_color(app, dr->j + dr->r * app->x/60 + app->x, dr->i + dr->lineO, dr->saveH, 
+				dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}
 			dr->i++;

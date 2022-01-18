@@ -38,6 +38,9 @@
 # define PATH_TO_WEST "../textures/west.xpm"
 # define PATH_TO_EAST "../textures/east.xpm"
 
+#  define RES_X	2048
+#  define RES_Y 1024
+
 
 typedef struct s_state
 {
