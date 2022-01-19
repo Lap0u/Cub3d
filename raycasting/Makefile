@@ -2,7 +2,7 @@ OS		= ${shell uname}																	\
 
 
 SRCS	=		1.c std_fonctions.c actions.c draw_image.c map.c \
-				draw_3dray.c init_1.c get_color.c \
+				draw_3dray.c init_1.c get_color.c drow_tile.c\
 
 OBJS	= ${SRCS:.c=.o}
 

@@ -41,6 +41,20 @@
 #  define RES_X	2048
 #  define RES_Y 1024
 
+#  define MAP 109
+#  define BLUR +0x888888
+#  define MARGIN 100
+#  define OPACITY 0.5
+
+# define SCALING 3
+
+typedef struct s_rgb
+{	
+	unsigned char red;
+	unsigned char green;/* data */
+	unsigned char blue;
+	unsigned char op;
+}				t_rgb;
 
 typedef struct s_state
 {
@@ -122,10 +136,14 @@ typedef struct s_app
 	int			total_col;
 	int			taken_col;
 	int			flag;
+	int			bool_map;
+	t_rgb		ceil_col;
+	t_rgb		flo_col;
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
+void	init_colors(t_app *app);
 void	init_app(t_app *app, char *title, int w, int h);
 int		destroy_game_data(void *data);
 void	draw_sprite(t_app *app);
@@ -168,7 +186,18 @@ void	init_path(t_app *app);
 void	init_texture(t_app *app);
 
 /*get_color.c*/
-
+void	opacity(t_app *app, int y, int x, t_rgb *color);
+int		color_ceil(t_app *app, int x, int y);
+int		color_floor(t_app *app, int x, int y);
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
+
+/*get_color.c*/
+void	drow_element(t_app *app, int x, int y, int color);
+void	draw_grid(t_app *app, float offx, float offy, int size);
+void	add_empty_tile(t_app *app, int x, int y, int size);
+void	add_wall_tile(t_app *app, int x, int y, int size);
+void	add_full_tile(t_app *app, int x, int y, int size);
+void	draw_mini_player(t_app *app, float offx, float offy);//a deplacer un peu en fonction du decalage avec le mur
+void	draw_around_player(t_app *app, float p_x, float p_y, int size);
 
 #endif

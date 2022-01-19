@@ -38,6 +38,8 @@ void draw_map(t_app *app)
 	int yo;
 
 	y = 0;
+	// if (app->bool_map == 1)
+	// 	return ;
 	while (y < map_y)
 	{
 		x = 0;
