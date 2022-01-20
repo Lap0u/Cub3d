@@ -191,7 +191,7 @@ int		color_ceil(t_app *app, int x, int y);
 int		color_floor(t_app *app, int x, int y);
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
 
-/*get_color.c*/
+/*drow_tile.c*/
 void	drow_element(t_app *app, int x, int y, int color);
 void	draw_grid(t_app *app, float offx, float offy, int size);
 void	add_empty_tile(t_app *app, int x, int y, int size);
@@ -199,5 +199,9 @@ void	add_wall_tile(t_app *app, int x, int y, int size);
 void	add_full_tile(t_app *app, int x, int y, int size);
 void	draw_mini_player(t_app *app, float offx, float offy);//a deplacer un peu en fonction du decalage avec le mur
 void	draw_around_player(t_app *app, float p_x, float p_y, int size);
+
+
+
+
 
 #endif

@@ -70,35 +70,26 @@ void	draw_sprite(t_app *app)
 
 void	drow_background(t_app *app)
 {
-	int	i;
-	int	j;
+	int i;
+	int	y;
 	int color;
 
-
-	// i = -1;
-	// while (++i < app->y)
-	// {
-	// 	j = -1;
-	// 	while (++j < app->x)
-	// 		my_mlx_pixel_put(&(app->img), j, i, 0x00876962);
-	// }
 	i = 0;
 	while (i < RES_X)
 	{
-		j = 0;
-		while (j < RES_Y);
+		y = 0;
+		while (y < RES_Y)
 		{
-			if (j < RES_Y / 2)
-				color = color_ceil(app, i, j);
+			if (y < RES_Y / 2)
+				color = color_ceil(app, i, y);
 			else
-				color = color_floor(app, i, j);
-			if (i >= 64 * SCALING || j >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
-				my_mlx_pixel_put(&(app->img), i, j, color);
-			j++;
+				color = color_floor(app, i, y);
+			if (i >= 64 * SCALING || y >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+				my_mlx_pixel_put(&(app->img), i, y, color);
+			y++;
 		}
 		i++;
 	}
-
 }
 
 void	init_colors(t_app *app)
@@ -129,7 +120,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 		exit (1);
 	}
 	init_sprite(app);
-	// init_colors(app);
+	init_colors(app);
 }
 
 int	destroy_game_data(void *data)

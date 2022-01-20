@@ -14,50 +14,46 @@ void	opacity(t_app *app, int y, int x, t_rgb *color)
 
 int	color_ceil(t_app *app, int x, int y)
 {
-	unsigned char	temp_r;
-	unsigned char	temp_g;
-	unsigned char	temp_b;
-	int				color;
+	t_rgb	color;
+	int		new;
 
-	color = 0;
-	temp_r = app->ceil_col.red;
-	temp_g = app->ceil_col.green;
-	temp_b = app->ceil_col.blue;
+	new = 0;
+	color.red = app->ceil_col.red;
+	color.green = app->ceil_col.green;
+	color.blue = app->ceil_col.blue;
 	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
 	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
-		temp_r *= OPACITY;
-		temp_g *= OPACITY;
-		temp_b *= OPACITY;
+		color.red *= OPACITY;
+		color.green *= OPACITY;
+		color.blue *= OPACITY;
 	}
-	color |= temp_r << 16;
-	color |= temp_g << 8;
-	color |= temp_b;
-	return (color);
+	new |= color.red << 16;
+	new |= color.green << 8;
+	new |= color.blue;
+	return (new);
 }
 
 int	color_floor(t_app *app, int x, int y)
 {
-	unsigned char	temp_r;
-	unsigned char	temp_g;
-	unsigned char	temp_b;
-	int				color;
+	t_rgb	color;
+	int		new;
 
-	color = 0;
-	temp_r = app->flo_col.red;
-	temp_g = app->flo_col.green;
-	temp_b = app->flo_col.blue;
+	new = 0;
+	color.red = app->flo_col.red;
+	color.green = app->flo_col.green;
+	color.blue = app->flo_col.blue;
 	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
 	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
-		temp_r *= OPACITY;
-		temp_g *= OPACITY;
-		temp_b *= OPACITY;
+		color.red *= OPACITY;
+		color.green *= OPACITY;
+		color.blue *= OPACITY;
 	}
-	color |= temp_r << 16;
-	color |= temp_g << 8;
-	color |= temp_b;
-	return (color);
+	new |= color.red << 16;
+	new |= color.green << 8;
+	new |= color.blue;
+	return (new);
 }
 
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
