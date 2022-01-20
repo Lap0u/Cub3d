@@ -21,13 +21,8 @@ int	color_ceil(t_app *app, int x, int y)
 	color.red = app->ceil_col.red;
 	color.green = app->ceil_col.green;
 	color.blue = app->ceil_col.blue;
-	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
-	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
-	{
-		color.red *= OPACITY;
-		color.green *= OPACITY;
-		color.blue *= OPACITY;
-	}
+	opacity(app, y, x, &color);
+	new |= color.op << 24;
 	new |= color.red << 16;
 	new |= color.green << 8;
 	new |= color.blue;
@@ -43,13 +38,8 @@ int	color_floor(t_app *app, int x, int y)
 	color.red = app->flo_col.red;
 	color.green = app->flo_col.green;
 	color.blue = app->flo_col.blue;
-	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
-	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
-	{
-		color.red *= OPACITY;
-		color.green *= OPACITY;
-		color.blue *= OPACITY;
-	}
+	opacity(app, y, x, &color);
+	new |= color.op << 24;
 	new |= color.red << 16;
 	new |= color.green << 8;
 	new |= color.blue;
