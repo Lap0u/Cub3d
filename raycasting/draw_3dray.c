@@ -142,15 +142,13 @@ void	check_vert_action(t_app *app)
 	dr->mx = (int)(dr->rx) >> 6;
 	dr->my = (int)(dr->ry) >> 6;
 	dr->mp = dr->my * map_x + dr->mx;
-	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1)) // hit wall
-	{
+	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1))
 		dr->dof = 8;
-	}
 	else
 	{
 		dr->rx += dr->xo;
 		dr->ry += dr->yo;  
-		dr->dof += 1; // next line
+		dr->dof += 1;
 		dr->mp = 100;
 	}
 }
@@ -165,11 +163,11 @@ void	check_vertical_line(t_app *app)
 	dr = &(app->dr);
 	dr->dof = 0;
 	dr->n_tan = -1 * tan(dr->ra);
-	if (dr->ra > PI2 && dr->ra < PI3) //looking left
+	if (dr->ra > PI2 && dr->ra < PI3)
 		check_vert_left(app);
-	if (dr->ra < PI2 || dr->ra > PI3) //looking right
+	if (dr->ra < PI2 || dr->ra > PI3)
 		check_vert_right(app);
-	if ((dr->ra == 0) || (dr->ra == PI)) //looking straight up or down
+	if ((dr->ra == 0) || (dr->ra == PI))
 		check_vert_down_up(app);		
 	while (dr->dof < 8)
 		check_vert_action(app);
@@ -210,7 +208,7 @@ void	draw_mini_rays(t_app *app)
 		if (dr->hdist < dr->vdist)
 			dr->tdist = dr->hdist;
 		dr->i = -1;
-		while (++dr->i < (int)(dr->tdist / 2)) /*affiche plus petite distance entre vertical et horizontal*/
+		while (++dr->i < (int)(dr->tdist / 2))
 			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2),
 			(((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
 		dr->r++;
@@ -233,19 +231,19 @@ void	which_is_dir(t_app *app)
 		dr->rx = dr->vy;
 		dr->ry = dr->vy;
 		if (dr->ra > PI2 && dr->ra < PI3)
-			dr->mod = 2; //look left
+			dr->mod = 2;
 		else
-			dr->mod = 3; //look right
+			dr->mod = 3;
 	}
 	if (dr->hdist < dr->vdist)
 	{
 		dr->tdist = dr->hdist;
 		dr->rx = dr->hx;
 		dr->ry = dr->hy;
-		if (dr->ra > PI)//look north
+		if (dr->ra > PI)
 			dr->mod = 0;
 		else
-			dr->mod = 1;//look south
+			dr->mod = 1;
 	}
 }
 
@@ -261,27 +259,15 @@ void	draw_rays_3d(t_app *app)
 	prepa_init_ray(app);
 	while (dr->r < RES_X)
 	{
-		// int vmt = 0, hmt = 0;
 		check_horizont_line(app);
 		check_vertical_line(app);
 		which_is_dir(app);
-		int color;
-		if (dr->tdist == dr->vdist)
-			color = 0x003AB0A7;
-		else
-			color = 0x003F8080;
 		fix_fish_eye(app);
-		// draw 3D Walls
 		dr->lineH = (map_s * app->y)/dr->tdist; // line height
 		dr->saveH = dr->lineH;
-
-		// float ty_step = 64.0 / dr->saveH;
-		// float ty_off = 0;
 		if (dr->lineH > app->y)
 			dr->lineH = app->y;
 		dr->lineO = app->y / 2 - dr->lineH / 2;
-		// float ty = ty_off *ty_step;
-		// float tx = (int)(rx/2.0) % 64;
 		dr->i = 0;
 		while (dr->i < (int)dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
 		{
