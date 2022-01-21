@@ -46,7 +46,13 @@ int	player_input_body(int key, t_app *app)
 	//
 	posy_add_xo = (app->sp.game_state.player_y + xo) / 64.0;
 	posy_sub_xo = (app->sp.game_state.player_y - xo) / 64.0;
-	printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+	// printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
+	if (key == MAP)
+	{
+		app->bool_map++;
+		app->bool_map %= 2;
+		return (1);
+	}
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
 	{
@@ -102,13 +108,6 @@ int	player_input_body(int key, t_app *app)
 			if (map[posy_add_yo * map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
-		// if (check_pos_player(app))
-		// {
-		// 	app->nb_mvmt++;
-		// 	write(1, "current number of movements: ", 30);
-		// 	ft_putnbr(app->nb_mvmt);
-		// 	write(1, "\n: ", 1);
-		// }
 	}
 	if (key == ESC)
 		destroy_game_data(app);
@@ -178,8 +177,10 @@ int	routine(void *data)
 	open_images(app);
 	app->image_is_destroyed = 0;
 	drow_background(app);
+	draw_rays_3d(app);
 	draw_map(app);
 	draw_sprite(app);
+	draw_mini_rays(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	mlx_destroy_image(app->mlx, app->img.img);
 	close_images(app);

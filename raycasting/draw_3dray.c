@@ -1,308 +1,292 @@
 #include "raycaster.h"
 
-int	get_pixel_col(t_data *txr, int line, int col)
+void	prepa_init_ray(t_app *app)
 {
-	// int		bpp;
-	// char	*str;
+	t_draw	*dr;
 
-	// bpp = txr->bpp / 8;
-	// str = copy_size(&txr->addr[line * txr->size + col * bpp + 0], bpp, 10);
-	// if (txr->addr[line * txr->size + col * bpp + 0] != 0)
-	// 	printf("lu");
-	// free(str);
-	return (0x00FFFFFF);
+	dr = &(app->dr);
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	if (dr->ra < 0)
+		dr->ra += 2 * PI;
+	if (dr->ra > 2 * PI)
+		dr->ra -= 2 * PI;
+	dr->x = app->sp.game_state.player_x;
+	dr->y = app->sp.game_state.player_y;
+	dr->r = 0;
+	dr->i = 0;
+	dr->mp = 0;
 }
 
-int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
+void	check_hor_down(t_app *app)
 {
-	int		st;
-	int		bpp;
-	unsigned char	color;
-	unsigned char	color1;
-	unsigned char	color2;
-	unsigned char	color3;
-	int		new;
+	t_draw	*dr;
 
-	// fprintf(stderr, "deb1 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
-	new = 0;
-	// x %= 64;
-	if (scale > RES_Y)
-		i = i + (scale / 2 - RES_Y / 2);
-	i = i * 64 / scale;  //remplacer les 2 64 pour le scaling en fonction de la taille de l'image
-	x = rx % 64;//remplacer les 2 64 pour le scaling en fonction de la taille de l'image
-	// fprintf(stderr, "deb2 i scale x rx mod \t %d %d %d %d %d\n", i, scale, x, rx, mod);
-	if (mod == 3)
-	{
-		bpp = app->north.bpp / 8;
-		color = app->north.addr[i * app->north.size + x * bpp + 0 ];
-		color1 = app->north.addr[i * app->north.size + x * bpp  + 1];
-		color2 = app->north.addr[i * app->north.size + x * bpp  + 2];
-		color3 = app->north.addr[i * app->north.size + x * bpp + 3];
-	}
-	else if (mod == 2)
-	{
-		bpp = app->south.bpp / 8;
-		color = app->south.addr[i * app->south.size + x * bpp + 0 ];
-		color1 = app->south.addr[i * app->south.size + x * bpp  + 1];
-		color2 = app->south.addr[i * app->south.size + x * bpp  + 2];
-		color3 = app->south.addr[i * app->south.size + x * bpp + 3];
-	}
-	else if (mod == 1)
-	{
-		bpp = app->east.bpp / 8;
-		color = app->east.addr[i * app->east.size + x * bpp + 0 ];
-		color1 = app->east.addr[i * app->east.size + x * bpp  + 1];
-		color2 = app->east.addr[i * app->east.size + x * bpp  + 2];
-		color3 = app->east.addr[i * app->east.size + x * bpp + 3];
-	}
-	else if (mod == 0)
-	{
-		bpp = app->west.bpp / 8;
-		color = app->west.addr[i * app->west.size + x * bpp + 0 ];
-		color1 = app->west.addr[i * app->west.size + x * bpp  + 1];
-		color2 = app->west.addr[i * app->west.size + x * bpp  + 2];
-		color3 = app->west.addr[i * app->west.size + x * bpp + 3];
-	}
-	new |= color3 << 24;
-	new |= color2 << 16;
-	new |= color1 << 8;
-	new |= color;
+	dr = &(app->dr);
+	dr->ry = (((int)dr->y >> 6)<< 6) - 0.0001;
+	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
+	dr->yo = -64;
+	dr->xo = (-1 * dr->yo) * dr->a_tan;
+}
 
+void	check_hor_up(t_app *app)
+{
+	t_draw	*dr;
+
+	dr = &(app->dr);
+	dr->ry = (((int)dr->y >> 6)<< 6) + 64;
+	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
+	dr->yo = 64;
+	dr->xo = (-1 * dr->yo) * dr->a_tan;
+}
+
+void	check_hor_left_right(t_app *app)
+{
+	t_draw	*dr;
+
+	dr = &(app->dr);
+	dr->rx = dr->x;
+	dr->ry = dr->y;
+	dr->dof = 8;
+}
+
+void	check_hor_action(t_app *app)
+{
+	t_draw	*dr;
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+
+	dr = &(app->dr);
+	dr->mp = 0;
+	dr->mx = (int)(dr->rx) >> 6;
+	dr->my = (int)(dr->ry) >> 6;
+	dr->mp = dr->my * map_x + dr->mx;
+	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1)) // hit wall
+	{
+		dr->dof = 8;
+	}
+	else
+	{
+		dr->rx += dr->xo;
+		dr->ry += dr->yo;  
+		dr->dof += 1; // next line
+		dr->mp = 100;
+	}
+}
+
+void	check_horizont_line(t_app *app)
+{
+	t_draw	*dr;
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+
+	dr = &(app->dr);
+	dr->dof = 0; // nbr des cases que l'on a deja checke
+	dr->mp = 0; // numero de case  que l'on check
+	dr->a_tan = -1 / tan(dr->ra);
+	if (dr->ra > PI) //looking down
+		check_hor_down(app);
+	if (dr->ra < PI) //looking up
+		check_hor_up(app);
+	if ((dr->ra == 0) || (dr->ra == PI)) //looking straight felt or right
+		check_hor_left_right(app);
+	while (dr->dof < 8)
+		check_hor_action(app);
+	dr->hx = dr->rx;
+	dr->hy = dr->ry;
+	dr->hdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
+}
+
+void	check_vert_left(t_app *app)
+{
+	t_draw	*dr;
+
+	dr = &(app->dr);
+	dr->rx = (((int)dr->x >> 6)<< 6) - 0.0001;
+	dr->ry = (dr->x - dr->rx) * dr->n_tan + dr->y;
+	dr->xo = -64;
+	dr->yo = -1  * dr->xo * dr->n_tan;
+}
+
+void	check_vert_right(t_app *app)
+{
+	t_draw	*dr;
+
+	dr = &(app->dr);
+	dr->rx = (((int)dr->x >> 6)<< 6) + 64;
+	dr->ry = (dr->x - dr->rx) * dr->n_tan + dr->y;
+	dr->xo = 64;
+	dr->yo = -1 * dr->xo * dr->n_tan;
+}
+
+void	check_vert_down_up(t_app *app)
+{
+	t_draw	*dr;
+
+	dr = &(app->dr);
+	dr->rx = dr->x;
+	dr->ry = dr->y;
+	dr->dof = 8;
+}
+
+void	check_vert_action(t_app *app)
+{
+	t_draw	*dr;
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+
+	dr = &(app->dr);
+	dr->mp = 0;
+	dr->mx = (int)(dr->rx) >> 6;
+	dr->my = (int)(dr->ry) >> 6;
+	dr->mp = dr->my * map_x + dr->mx;
+	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1))
+		dr->dof = 8;
+	else
+	{
+		dr->rx += dr->xo;
+		dr->ry += dr->yo;  
+		dr->dof += 1;
+		dr->mp = 100;
+	}
+}
+
+void	check_vertical_line(t_app *app)
+{
+	t_draw	*dr;
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+
+	dr = &(app->dr);
+	dr->dof = 0;
+	dr->n_tan = -1 * tan(dr->ra);
+	if (dr->ra > PI2 && dr->ra < PI3)
+		check_vert_left(app);
+	if (dr->ra < PI2 || dr->ra > PI3)
+		check_vert_right(app);
+	if ((dr->ra == 0) || (dr->ra == PI))
+		check_vert_down_up(app);		
+	while (dr->dof < 8)
+		check_vert_action(app);
+	dr->vx = dr->rx;
+	dr->vy = dr->ry;
+	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
+}
+
+void	fix_fish_eye(t_app *app)
+{
+	t_draw	*dr;
 	
-	// printf("color: %d, color1: %d, color2: %d, color3: %d\n", color, color1, color2, color3);
-	// bpp = app->wall.bpp / 8;
-	// st = (app->wall.bpp / 8) * (x + y * RES_X);
-	// get_pixel_col(&app->north, x, y);
-	return (new);
+	dr = &(app->dr);
+	dr->ca = app->ray.game_state.pa - dr->ra;
+	if (dr->ca < 0)
+	{
+		dr->ca += 2 * PI;
+	}
+	if (dr->ca > 2 * PI)
+	{
+		dr->ca -= 2 * PI;
+	}
+	dr->tdist = dr->tdist * cos(dr->ca);
+}
+
+void	draw_mini_rays(t_app *app)
+{
+	t_draw	*dr;
+	
+	dr = &(app->dr);
+	prepa_init_ray(app);
+	while (dr->r < RES_X)
+	{
+		check_horizont_line(app);
+		check_vertical_line(app);
+		if (dr->vdist < dr->hdist)
+			dr->tdist = dr->vdist;
+		if (dr->hdist < dr->vdist)
+			dr->tdist = dr->hdist;
+		dr->i = -1;
+		while (++dr->i < (int)(dr->tdist / 2))
+			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2),
+			(((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
+		dr->r++;
+		dr->ra += DR;
+		if (dr->ra < 0)
+			dr->ra += 2 * PI;
+		if (dr->ra > 2 * PI)
+			dr->ra -= 2 * PI;
+	}
+}
+
+void	which_is_dir(t_app *app)
+{
+	t_draw	*dr;
+	
+	dr = &(app->dr);
+	if (dr->vdist < dr->hdist)
+	{
+		dr->tdist = dr->vdist;
+		dr->rx = dr->vy;
+		dr->ry = dr->vy;
+		if (dr->ra > PI2 && dr->ra < PI3)
+			dr->mod = 2;
+		else
+			dr->mod = 3;
+	}
+	if (dr->hdist < dr->vdist)
+	{
+		dr->tdist = dr->hdist;
+		dr->rx = dr->hx;
+		dr->ry = dr->hy;
+		if (dr->ra > PI)
+			dr->mod = 0;
+		else
+			dr->mod = 1;
+	}
 }
 
 void	draw_rays_3d(t_app *app)
 {
-	int	i, r, mx, my, mp, dof;
-	float	rx, ry, ra, xo, hx, hy, vx, vy, yo, a_tan, n_tan, x, y, hdist, vdist, dis_ta;
-	extern int map_x;
-	extern int map_y;
-	extern int map[];
+	t_draw	*dr;
+	extern	int map_x;
+	extern	int map_y;
+	extern	int map[];
+	extern	int map_s;
 	
-	ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	if (ra < 0)
-		ra += 2 * PI;
-	if (ra > 2 * PI)
-		ra -= 2 * PI;
-	x = app->sp.game_state.player_x;
-	y = app->sp.game_state.player_y;
-	r = 0;
-	i = 0;
-	mp = 0;
-
-	/*draw floor and ceiling*/
-	int color;
-	for (int k = 0; k < RES_X; k++)
+	dr = &(app->dr);
+	prepa_init_ray(app);
+	while (dr->r < RES_X)
 	{
-		for (int l = 0; l < RES_Y; l++)
+		check_horizont_line(app);
+		check_vertical_line(app);
+		which_is_dir(app);
+		fix_fish_eye(app);
+		dr->lineH = (map_s * app->y)/dr->tdist; // line height
+		dr->saveH = dr->lineH;
+		if (dr->lineH > app->y)
+			dr->lineH = app->y;
+		dr->lineO = app->y / 2 - dr->lineH / 2;
+		dr->i = 0;
+		while (dr->i < (int)dr->lineH) /*affiche plus petite distance entre vertical et horizontal*/
 		{
-			if (l < RES_Y / 2)
-				color = 0x000000FF;
-			else
-				color = 0x00FF0000;
-			if (k >= 64 * SCALING || l >= 64 * SCALING)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
-				my_mlx_pixel_put(&(app->img), k, l, color);
-		}
-	}
-	while (r < RES_X)
-	{
-		// Check Horizontal Lines
-		dof = 0; // nbr des cases que l'on regarde
-		mp = 0;
-		a_tan = -1 / tan(ra);
-		if (ra > PI) //looking down
-		{
-			ry = (((int)y >> 6)<< 6) - 0.0001;
-			rx = (y - ry) * a_tan + x;
-			yo = -64;
-			xo = (-1 * yo) * a_tan;
-		}
-		if (ra < PI) //looking up
-		{
-			ry = (((int)y >> 6)<< 6) + 64;
-			rx = (y - ry) * a_tan + x;
-			yo = 64;
-			xo = (-1 * yo) * a_tan;
-			printf("ra = %f, ry = %f, rx = %f, xo = %f\n", ra, ry, rx, xo);
-		}
-		if ((ra == 0) || (ra == PI)) //looking straight felt or right
-		{
-			rx = x;
-			ry = y;
-			dof = 8;
-		}
-		/*print la map*/
-		// for (int i =0; i < 64;i++)
-		// {
-		// 	if (i % 8 == 0)
-		// 		printf("\n");
-		// 	printf("%d", map[i]);
-		// }
-		while (dof < 8)
-		{
-			mp = 0;
-			mx = (int)(rx) >> 6;
-			my = (int)(ry) >> 6;
-			mp = my * map_x + mx;
-			if (mp > 0 && mp < (map_x * map_y) && (map[mp] == 1)) // hit wall
+			dr->j = 0;
+			while (dr->j < 1)
 			{
-				dof = 8;
+				int x = dr->j + dr->r;
+				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO,
+				get_color(app, x, dr->i + dr->lineO, dr->saveH, 
+				dr->rx, dr->i, dr->r, dr->mod));
+				dr->j++;
 			}
-			else
-			{
-				rx += xo;
-				ry += yo;  
-				dof += 1; // next line
-				mp = 100;
-			}
-			// printf("dof = %d\n", dof);
+			dr->i++;
 		}
-		// printf("%d : case\n", map[mp]);
-		hx = rx;
-		hy = ry;
-		hdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
-		// printf("%d : mp_hor, hdist = %f, my = %d, map_x = %d, int mx = %d\n", mp, hdist, my, map_x, mx);
-		/*check vertical line*/
-		dof = 0;
-		n_tan = -tan(ra);
-		if (ra > PI2 && ra < PI3) //looking left
-		{
-			rx = (((int)x >> 6)<< 6) - 0.0001;
-			ry = (x - rx) * n_tan + y;
-			xo = -64;
-			yo = -xo * n_tan;
-		}
-		if (ra < PI2 || ra > PI3) //looking right
-		{
-			rx = (((int)x >> 6)<< 6) + 64;
-			ry = (x - rx) * n_tan + y;
-			xo = 64;
-			yo = -xo * n_tan;
-		}
-		if ((ra == 0) || (ra == PI)) //looking straight up or down
-		{
-			rx = x;
-			ry = y;
-			dof = 8;
-		}
-		/*print la map*/
-		// for (int i =0; i < 64;i++)
-		// {
-		// 	if (i % 8 == 0)
-		// 		printf("\n");
-		// 	printf("%d", map[i]);
-		// }
-		
-		while (dof < 8)
-		{
-			mp = 0;
-			mx = (int)(rx) >> 6;
-			my = (int)(ry) >> 6;
-			mp = my * map_x + mx;
-			if (mp > 0 && mp < (map_x * map_y) && (map[mp] == 1)) // hit wall
-			{
-				dof = 8;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;  
-				dof += 1; // next line
-				mp = 100;
-			}
-		}
-		vx = rx;
-		vy = ry;
-		printf("%f vx\n", vx);
-		// printf("%d : mp_vert\n", mp);
-		// printf("pox sp : %f %f\n", x, y);
-		// // printf("%d : case\n", map[mp]);
-		vdist = sqrt(pow(rx-x, 2) + (pow(ry-y, 2)));
-		int i = 0;
-		while (i < (int)vdist && i < (int)hdist) /*affiche plus petite distance entre vertical et horizontal*/
-		{
-			my_mlx_pixel_put(&(app->img), ((x) + (i * cos(ra))) / SCALING, 
-			((y) + (i * sin(ra))) / SCALING, 0x003AB0A7);
-			i++;
-		}
-		/*draw 3D*/
-		// printf("rx1 v h = %f %f %f\t", rx, vx, hx);
-		int mod;
-		if (vdist < hdist)
-		{
-			dis_ta = vdist;
-			rx = vy;
-			ry = vy;
-			if (ra > PI2 && ra < PI3)
-				mod = 0; //look left
-			else
-				mod = 1; //look right
-		}
-		else
-		{
-			dis_ta = hdist;
-			rx = hx;
-			ry = hy;
-			// printf("%d rboucle?\n", r);
-			if (ra > PI)//look north
-				mod = 3;
-			else
-				mod = 2;//look south
-		}
-		printf("%d %f ter\n", mod, rx);
-		// printf("rx2 v h = %f %f %f\t", rx, vx, hx);
-		RES_X;//
-		RES_Y;//
-		float lineH, ca;
-
-		//fix fish-eye*/
-		ca = app->sp.game_state.pa -ra;
-		if (ca < 0)
-			ca += (2* PI);
-		if (ca > 2*PI)
-			ca -= (2*PI);
-		dis_ta = dis_ta * cos(ca);
-		//
-		lineH = (map_x * map_y * (RES_Y)) / dis_ta;
-		float saveH = lineH;
-		if (lineH > ((RES_Y)))
-			lineH = ((RES_Y));
-		i = 0;
-		printf("%f : lineH\t%f : dis_ta\n", lineH, dis_ta);
-		// while (i < lineH)//old 
-		// {	
-		// 	float j =  0;
-		// 	while (j < 8) // j simule la largeur de 8 pixel
-		// 	{
-		// 		my_mlx_pixel_put(&(app->img), ((j + r * 8 + RES_X / 2)), 
-		// 		i + (RES_Y / 2 - lineH / 2), 0x00FFFFFF);
-		// 		j+=0.1;
-		// 	}
-		// 	i++;
-		// }
-		while (i < lineH) //dessine les murs en 3D
-		{	
-			int j =  0;
-			while (j < 1) // j simule la largeur de 8 pixel
-			{
-				// draw_img_at_pos(app, &(app->north), ((j + r * 8 + RES_X / 2)), i + (RES_Y / 2 - lineH / 2));
-				my_mlx_pixel_put(&(app->img), ((j + r + RES_X)), 
-				i + (RES_Y / 2 - lineH / 2), get_color(app, (j + r * 8 + RES_X / 2), i + (RES_Y / 2 - lineH / 2), saveH,  rx , i, r, mod));
-				j++;
-			}
-			i++;
-		}
-		/*loop for all rays*/
-		ra += DR;
-		if (ra < 0)
-			ra += 2 * PI;
-		if (ra > 2 * PI)
-			ra -= 2 * PI;
-		r++;
+		dr->r++;
+		dr->ra += DR;
+		if (dr->ra < 0)
+			dr->ra += 2 * PI;
+		if (dr->ra > 2 * PI)
+			dr->ra -= 2 * PI;
 	}
 }

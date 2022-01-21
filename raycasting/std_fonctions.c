@@ -41,8 +41,8 @@ void	draw_line(t_app *app)
 	i = 0;
 	while (i < 30)
 	{
-		my_mlx_pixel_put(&(app->img), ((x) + (i * cos(app->ray.game_state.pa)/2)) / SCALING, 
-		((y) + (i * sin(app->ray.game_state.pa)/2)) / SCALING, 0x003A51B0);
+		my_mlx_pixel_put(&(app->img), ((x) + (i * cos(app->ray.game_state.pa)/2)) / 2, 
+		((y) + (i * sin(app->ray.game_state.pa)/2)) / 2, 0x003A51B0);
 		i++;
 	}
 }
@@ -57,37 +57,61 @@ void	draw_sprite(t_app *app)
 	i = -1;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
-	draw_rays_3d(app);
 	draw_line(app);
+	draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
 		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), (j + (x - 5)) / SCALING, (i + (y - 5)) / SCALING, 0x00FF0000);
+			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FF0000);
+
 	}
 }
 
 
 void	drow_background(t_app *app)
 {
-	int	i;
-	int	j;
+	int i;
+	int	y;
+	int color;
 
-	i = -1;
-	while (++i < app->y)
+	i = 0;
+	while (i < RES_X)
 	{
-		j = -1;
-		while (++j < app->x)
-		if (j <= 64 * SCALING && i <= 64 * SCALING)
-			my_mlx_pixel_put(&(app->img), j, i, 0x00876962);
+		y = 0;
+		while (y < RES_Y)
+		{
+			if (y < RES_Y / 2)
+				color = color_ceil(app, i, y);
+			else
+				color = color_floor(app, i, y);
+			if (i >= 64 * SCALING || y >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+				my_mlx_pixel_put(&(app->img), i, y, color);
+			y++;
+		}
+		i++;
 	}
 }
 
+void	init_colors(t_app *app)
+{
+	app->ceil_col.red = 0;
+	app->ceil_col.green = 0;
+	app->ceil_col.blue = 255;
+	app->flo_col.red = 255;
+	app->flo_col.green = 0;
+	app->flo_col.blue = 0;
+}
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
+	if (app->mlx == NULL)
+		exit (1);
+	init_path(app);
+	init_texture(app);
 	app->x = w;
 	app->y = h;
+	app->bool_map = 1;
 	if (app->mlx == NULL)
 		exit (1);
 	app->win = mlx_new_window(app->mlx, w, h, title);
@@ -96,7 +120,8 @@ void	init_app(t_app *app, char *title, int w, int h)
 		free(app->mlx);
 		exit (1);
 	}
-	init_sprite(app);	
+	init_sprite(app);
+	init_colors(app);
 }
 
 int	destroy_game_data(void *data)

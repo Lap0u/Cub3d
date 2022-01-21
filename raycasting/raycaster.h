@@ -34,8 +34,30 @@
 #  define PI 3.14159265359
 #  define PI2 PI/2
 #  define PI3 3*PI/2
-#  define DR (0.0174533 / 32) // one degree in radians
+#  define DR (0.0174533 / 32)// one degree in radians
 
+# define PATH_TO_NORTH "../textures/north.xpm"
+# define PATH_TO_SOUTH "../textures/south.xpm"
+# define PATH_TO_WEST "../textures/west.xpm"
+# define PATH_TO_EAST "../textures/east.xpm"
+
+#  define RES_X	2048
+#  define RES_Y 1024
+
+#  define MAP 109
+#  define BLUR +0x888888
+#  define MARGIN 100
+#  define OPACITY 0.5
+
+# define SCALING 3
+
+typedef struct s_rgb
+{	
+	unsigned char red;
+	unsigned char green;/* data */
+	unsigned char blue;
+	unsigned char op;
+}				t_rgb;
 
 typedef struct s_state
 {
@@ -61,24 +83,49 @@ typedef struct	s_data
 	int		image_is_destroyed;
 } t_data;
 
-// typedef struct s_texture
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bpp;
-// 	int		size;
-// 	int		endian;
-// 	int		sp_x;
-// 	int		sp_y;
-// 	t_state	game_state;
-// }				t_texture;
+typedef struct s_draw
+{
+	int		i;
+	int		j;
+	int		k;
+	int		r;
+	int		mx; // coordinate x de case du tableau dont de notre ray touche
+	int		my; // coordinate y de case du tableau dont de notre ray touche
+	int		mp; // taille de tab
+	int		dof;
+	int		mod; // type de texture
+
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	yo;
+	float	a_tan;
+	float	n_tan;
+	float	x;
+	float	y;
+	float	hdist;
+	float	vdist;
+	float	tdist;
+	float	dis_ta;
+	float	lineH;
+	float	lineO;
+	float	ca;
+	float	saveH;
+}				t_draw;
 
 typedef struct s_app
 {
 	void		*mlx;
 	void		*win;
-	t_data		img;
-	t_data		brouillon;
+	t_draw		dr; //draw struct de drawing 3d
+	t_data		img; // main img dans laquelle on ecrit
+	t_data		txr[4];
+	char		*path[4];
 	t_data		sp;
 	t_data		wall;
 	t_data		space;
@@ -91,16 +138,19 @@ typedef struct s_app
 	void		*image_addr;
 	int			x;
 	int			y;
-	char		*path[5];
 	int			image_is_destroyed;
 	int			nb_mvmt;
 	int			total_col;
 	int			taken_col;
 	int			flag;
+	int			bool_map;
+	t_rgb		ceil_col;
+	t_rgb		flo_col;
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
+void	init_colors(t_app *app);
 void	init_app(t_app *app, char *title, int w, int h);
 int		destroy_game_data(void *data);
 void	draw_sprite(t_app *app);
@@ -125,5 +175,41 @@ void	drow_element(t_app *app, int x, int y, int color);
 void	draw_map(t_app *app);
 
 /*draw_3dray.c*/
+void	prepa_init_ray(t_app *app);
+void	check_hor_down(t_app *app);
+void	check_hor_up(t_app *app);
+void	check_hor_left_right(t_app *app);
+void	check_hor_action(t_app *app);
+void	check_horizont_line(t_app *app);
+void	check_vert_left(t_app *app);
+void	check_vert_right(t_app *app);
+void	check_vert_down_up(t_app *app);
+void	check_vert_action(t_app *app);
+void	check_vertical_line(t_app *app);
+void	draw_mini_rays(t_app *app);
 void	draw_rays_3d(t_app *app);
+
+/*init_1.c*/
+void	init_path(t_app *app);
+void	init_texture(t_app *app);
+
+/*get_color.c*/
+void	opacity(t_app *app, int y, int x, t_rgb *color);
+int		color_ceil(t_app *app, int x, int y);
+int		color_floor(t_app *app, int x, int y);
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
+
+/*drow_tile.c*/
+void	drow_element(t_app *app, int x, int y, int color);
+void	draw_grid(t_app *app, float offx, float offy, int size);
+void	add_empty_tile(t_app *app, int x, int y, int size);
+void	add_wall_tile(t_app *app, int x, int y, int size);
+void	add_full_tile(t_app *app, int x, int y, int size);
+void	draw_mini_player(t_app *app, float offx, float offy);//a deplacer un peu en fonction du decalage avec le mur
+void	draw_around_player(t_app *app, float p_x, float p_y, int size);
+
+
+
+
+
 #endif
