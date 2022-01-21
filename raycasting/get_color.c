@@ -53,19 +53,20 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	t_rgb	color;
 	unsigned int	ind;
 	int		new;
-
+	int		save_x;
 	new = 0;
 	ind = app->dr.mod;
 	if (scale > RES_Y)
 		i = i + (scale / 2 -  RES_Y / 2);
 	i = i * 64 / scale;
+	save_x = x;
 	x = rx % 64;
 	bpp = app->txr[ind].bpp / 8;
-	color.blue = app->txr[ind].addr[i * app->txr[ind].size + x * bpp + ind ];
+	color.blue = app->txr[ind].addr[i * app->txr[ind].size + x * bpp];
 	color.green = app->txr[ind].addr[i * app->txr[ind].size + x * bpp  + 1];
 	color.red = app->txr[ind].addr[i * app->txr[ind].size + x * bpp  + 2];
 	color.op = app->txr[ind].addr[i * app->txr[ind].size + x * bpp + 3];
-	opacity(app, y, x, &color);
+	opacity(app, y, save_x, &color);
 	new |= color.op << 24;
 	new |= color.red << 16;
 	new |= color.green << 8;
