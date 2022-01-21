@@ -20,8 +20,8 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = 100;
-	app->sp.game_state.player_y = 100;
+	app->sp.game_state.player_x = 200;
+	app->sp.game_state.player_y = 200;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = PI / -2;
@@ -64,6 +64,7 @@ void	draw_sprite(t_app *app)
 		j = -1;
 		while (++j < 10)
 			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FF0000);
+
 	}
 }
 

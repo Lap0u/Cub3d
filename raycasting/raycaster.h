@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/07 15:14:15 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:14:18 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdlib.h>
 # include <math.h>
 
+# define RES_X 2048
+# define RES_Y 1024
+# define SCALING 3
 #  define UP 119
 #  define DOWN 115
 #  define LEFT 97
@@ -127,6 +130,10 @@ typedef struct s_app
 	t_data		wall;
 	t_data		space;
 	t_data		ray;
+	t_data		north;
+	t_data		south;
+	t_data		east;
+	t_data		west;
 	void		*image;
 	void		*image_addr;
 	int			x;
@@ -155,6 +162,7 @@ void	drow_background(t_app *app);
 int	player_input(int key, void *data);
 int	player_input_body(int key, t_app *app);
 int	routine(void *data);
+char	*copy_size(char *str, int bpp, int size);
 
 /* draw_image.c*/
 void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);

@@ -26,7 +26,7 @@ void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp)
 			{
 				k = 0;
 				while (k < 3)
-					bit_copy(app->image_addr + st + i * app->x * bpp + j * bpp,
+					bit_copy(app->img.addr + st + i * app->x * bpp + j * bpp,
 						txr->addr + bpp * txr->w * i + j * bpp, k++);
 			}
 			j++;
@@ -44,7 +44,10 @@ int	check_pixel(t_data *txr, int line, int col)
 		&& (txr->addr[line * txr->size + col * bpp + 1] != 0)
 		&& (txr->addr[line * txr->size + col * bpp + 2] != 0)
 		&& (txr->addr[line * txr->size + col * bpp + 3] != -1))
-		return (1);
+		{
+			printf("txt: %d\n", txr->addr[line * txr->size + col * bpp + 0]);
+			return (1);
+		}
 	else
 		return (0);
 }
