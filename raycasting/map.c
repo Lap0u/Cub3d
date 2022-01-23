@@ -26,7 +26,10 @@ void	drow_element(t_app *app, int x, int y, int color)
 	{
 		j = -1;
 		while (++j < 63/2)
-			my_mlx_pixel_put(&(app->img), j + (x * 64/2), i + (y *64/2), color);
+		{
+			app->draw_tab[(i + (y *64/2)) * RES_X + (j + (x * 64/2))] = color;
+			// my_mlx_pixel_put(&(app->img), j + (x * 64/2), i + (y *64/2), color);
+		}
 	}
 }
 

@@ -1,9 +1,23 @@
 #include "raycaster.h"
 
-void	prepa_init_ray(t_app *app)
+void	fill_zero_tab(t_app *app)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < RES_X * RES_Y)
+	{
+		app->draw_tab[x] = -1;
+		x++;
+	}
+}
+
+void	prepa_init_ray(t_app *app, int i)
 {
 	t_draw	*dr;
 
+	(void)i;
 	dr = &(app->dr);
 	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
 	if (dr->ra < 0)
@@ -196,9 +210,10 @@ void	fix_fish_eye(t_app *app)
 void	draw_mini_rays(t_app *app)
 {
 	t_draw	*dr;
-	
+	int		x;
+	int		y;
 	dr = &(app->dr);
-	prepa_init_ray(app);
+	prepa_init_ray(app, 1);
 	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
@@ -209,9 +224,13 @@ void	draw_mini_rays(t_app *app)
 			dr->tdist = dr->hdist;
 		dr->i = -1;
 		while (++dr->i < (int)(dr->tdist / 2))
-			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2),
-			(((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
-		dr->r++;
+		{
+			x = (((dr->i * cos(dr->ra))) + dr->x/2);
+			y = (((dr->i * sin(dr->ra))) + dr->y/2);
+			app->draw_tab[y * RES_X + x] = 0x003ABFF7;
+			// my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/2),
+			// (((dr->i * sin(dr->ra))) + dr->y/2), 0x003ABFF7);
+		}dr->r++;
 		dr->ra += DR;
 		if (dr->ra < 0)
 			dr->ra += 2 * PI;
@@ -247,7 +266,7 @@ void	which_is_dir(t_app *app)
 	}
 }
 
-void	draw_rays_3d(t_app *app)
+void	update_rays_3d(t_app *app)
 {
 	t_draw	*dr;
 	extern	int map_x;
@@ -256,7 +275,7 @@ void	draw_rays_3d(t_app *app)
 	extern	int map_s;
 	
 	dr = &(app->dr);
-	prepa_init_ray(app);
+	prepa_init_ray(app, 0);
 	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
@@ -275,9 +294,11 @@ void	draw_rays_3d(t_app *app)
 			while (dr->j < 1)
 			{
 				int x = dr->j + dr->r;
-				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO,
-				get_color(app, x, dr->i + dr->lineO, dr->saveH, 
-				dr->rx, dr->i, dr->r, dr->mod));
+				app->draw_tab[((int)dr->i + (int)dr->lineO) * RES_X + x] = get_color(app, x, dr->i + dr->lineO, dr->saveH, 
+				dr->rx, dr->i, dr->r, dr->mod);
+				// my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO,
+				// get_color(app, x, dr->i + dr->lineO, dr->saveH, 
+				// dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}
 			dr->i++;

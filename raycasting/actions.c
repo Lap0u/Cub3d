@@ -51,7 +51,10 @@ int	player_input_body(int key, t_app *app)
 	{
 		app->bool_map++;
 		app->bool_map %= 2;
-		return (1);
+		drow_background(app);
+		update_rays_3d(app);
+		draw_mini_rays(app);
+		draw_map(app);
 	}
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
@@ -108,6 +111,10 @@ int	player_input_body(int key, t_app *app)
 			if (map[posy_add_yo * map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
+		drow_background(app);
+		update_rays_3d(app);
+		draw_mini_rays(app);
+		draw_map(app);
 	}
 	if (key == ESC)
 		destroy_game_data(app);
@@ -163,6 +170,25 @@ void	close_images(t_app *app)
 	mlx_destroy_image(app->mlx, app->west.img);
 }
 
+void	draw_all_image(t_app *app, int *draw_tab)
+{
+	int x;
+	int y;
+
+	x = 0;
+
+	while (x < RES_X)
+	{
+		y = 0;
+		while (y < RES_Y)
+		{
+			my_mlx_pixel_put(&(app->img), x, y, draw_tab[y * RES_X + x]);
+			y++;
+		}
+		x++;
+	}
+}
+
 int	routine(void *data)
 {
 	t_app		*app;
@@ -176,11 +202,12 @@ int	routine(void *data)
 			&app->img.bpp, &app->img.size, &app->img.endian);
 	open_images(app);
 	app->image_is_destroyed = 0;
-	drow_background(app);
-	draw_rays_3d(app);
-	draw_map(app);
+	// drow_background(app);
+	// draw_rays_3d(app);
+	// draw_map(app);
 	draw_sprite(app);
-	draw_mini_rays(app);
+	draw_all_image(app, app->draw_tab);
+	// draw_mini_rays(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	mlx_destroy_image(app->mlx, app->img.img);
 	close_images(app);

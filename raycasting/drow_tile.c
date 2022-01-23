@@ -4,7 +4,6 @@ void	draw_grid(t_app *app, float offx, float offy, int size)
 {
 	int x;
 	int y;
-
 	x = offx;
 	while (x < 192)
 	{

@@ -1,5 +1,21 @@
 #include "raycaster.h"
 
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t	i;
+	char	*b_prim;
+
+	b_prim = (char *)b;
+	i = 0;
+	while (i < len)
+	{
+		b_prim[i] = c;
+		i++;
+	}
+	return (b);
+}
+//viens de la libft
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -58,7 +74,7 @@ void	draw_sprite(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	draw_line(app);
-	draw_mini_rays(app);
+	// draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
@@ -82,11 +98,11 @@ void	drow_background(t_app *app)
 		while (y < RES_Y)
 		{
 			if (y < RES_Y / 2)
-				color = color_ceil(app, i, y);
+				app->draw_tab[y * RES_X + i] = color_ceil(app, i, y);
 			else
-				color = color_floor(app, i, y);
-			if (i >= 64 * SCALING || y >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
-				my_mlx_pixel_put(&(app->img), i, y, color);
+				app->draw_tab[y * RES_X + i] = color_floor(app, i, y);
+			// if (i >= 64 * SCALING || y >= 64 * SCALING || app->bool_map == 1)//laisse la place pour la map en haut a gauche, change valeur pour agrandir / retraicir / faire un scaling
+			// 	my_mlx_pixel_put(&(app->img), i, y, color);
 			y++;
 		}
 		i++;
@@ -102,6 +118,24 @@ void	init_colors(t_app *app)
 	app->flo_col.green = 0;
 	app->flo_col.blue = 0;
 }
+
+int	*init_tab()
+{
+	int *tab;
+	int i;
+
+	tab = malloc(sizeof(int) * (RES_X * RES_Y));
+	if (tab == NULL)
+		return (NULL);
+	i = 0;
+	while (i < RES_X * RES_Y)
+	{
+		tab[i] = -1;
+		i++;
+	}
+	return (tab);
+}
+
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
@@ -122,6 +156,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 	}
 	init_sprite(app);
 	init_colors(app);
+	app->draw_tab = init_tab();
 }
 
 int	destroy_game_data(void *data)

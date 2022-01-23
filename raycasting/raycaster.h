@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/13 14:14:18 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:53:26 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # include "mlx_linux/mlx.h"
 # include <stdlib.h>
 # include <math.h>
+# include "../libft/libft.h"
 
-# define RES_X 2048
-# define RES_Y 1024
 # define SCALING 3
 #  define UP 119
 #  define DOWN 115
@@ -146,6 +145,7 @@ typedef struct s_app
 	int			bool_map;
 	t_rgb		ceil_col;
 	t_rgb		flo_col;
+	int			*draw_tab;
 }				t_app;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -175,7 +175,7 @@ void	drow_element(t_app *app, int x, int y, int color);
 void	draw_map(t_app *app);
 
 /*draw_3dray.c*/
-void	prepa_init_ray(t_app *app);
+void	prepa_init_ray(t_app *app, int i);
 void	check_hor_down(t_app *app);
 void	check_hor_up(t_app *app);
 void	check_hor_left_right(t_app *app);
@@ -187,7 +187,7 @@ void	check_vert_down_up(t_app *app);
 void	check_vert_action(t_app *app);
 void	check_vertical_line(t_app *app);
 void	draw_mini_rays(t_app *app);
-void	draw_rays_3d(t_app *app);
+void	update_rays_3d(t_app *app);
 
 /*init_1.c*/
 void	init_path(t_app *app);
