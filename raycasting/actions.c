@@ -174,7 +174,7 @@ int	routine(void *data)
 	app->img.img = mlx_new_image(app->mlx, app->x, app->y);
 	app->img.addr = mlx_get_data_addr(app->img.img,
 			&app->img.bpp, &app->img.size, &app->img.endian);
-	open_images(app);
+	// open_images(app);
 	app->image_is_destroyed = 0;
 	drow_background(app);
 	draw_rays_3d(app);
@@ -183,7 +183,7 @@ int	routine(void *data)
 	draw_mini_rays(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	mlx_destroy_image(app->mlx, app->img.img);
-	close_images(app);
+	// close_images(app);
 	app->img.img = NULL;
 	app->image_is_destroyed = 1;
 	return (0);
