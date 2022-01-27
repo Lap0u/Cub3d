@@ -40,6 +40,8 @@ void	init_texture(t_app *app)
 	{
 		txr[i].img = mlx_xpm_file_to_image(app->mlx, m_path[i],
 				&txr[i].w, &txr[i].h);
+		if (txr[i].img == NULL)
+			return ; // il faut free et exit ici
 		//gerer l'erreur si mauvaise images
 		txr[i].addr = mlx_get_data_addr(txr[i].img, &(txr[i].bpp),
 				&(txr[i].size), &(txr[i].endian));
