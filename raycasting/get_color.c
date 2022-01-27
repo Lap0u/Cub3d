@@ -19,9 +19,9 @@ int	color_ceil(t_app *app, int x, int y)
 	int		new;
 
 	new = 0;
-	color.red = app->vars.ceiling_col[0];
-	color.green = app->vars.ceiling_col[1];
-	color.blue = app->vars.ceiling_col[2];
+	color.red = app->ceil_col.red;
+	color.green = app->ceil_col.green;
+	color.blue = app->ceil_col.blue;
 	opacity(app, y, x, &color);
 	new |= color.op << 24;
 	new |= color.red << 16;
@@ -36,9 +36,9 @@ int	color_floor(t_app *app, int x, int y)
 	int		new;
 
 	new = 0;
-	color.red = app->vars.floor_col[0];
-	color.green = app->vars.floor_col[1];
-	color.blue = app->vars.floor_col[2];
+	color.red = app->flo_col.red;
+	color.green = app->flo_col.green;
+	color.blue = app->flo_col.blue;
 	opacity(app, y, x, &color);
 	new |= color.op << 24;
 	new |= color.red << 16;

@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 14:11:32 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:21:13 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ typedef struct s_app
 	t_data		south;
 	t_data		east;
 	t_data		west;
-	t_vars		vars;
+	t_vars		*vars;
 	void		*image;
 	void		*image_addr;
 	int			x;

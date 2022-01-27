@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:59 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 14:09:16 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:21:28 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int ac, char **av)
 	data = get_data(av[1]);
 	if (data == NULL)
 		return (bad_malloc());
-	my_app.vars = *(data);
+	my_app.vars = data;
 	init_app(&my_app, "Cub3D", RES_X, RES_Y);
 	mlx_hook(my_app.win, 2, 1L << 0, &player_input, &my_app);
 	mlx_hook(my_app.win, 17, 0, destroy_game_data, &my_app);

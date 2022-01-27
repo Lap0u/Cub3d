@@ -97,12 +97,12 @@ void	drow_background(t_app *app)
 
 void	init_colors(t_app *app)
 {
-	app->ceil_col.red = 0;
-	app->ceil_col.green = 0;
-	app->ceil_col.blue = 255;
-	app->flo_col.red = 255;
-	app->flo_col.green = 0;
-	app->flo_col.blue = 0;
+	app->ceil_col.red = app->vars->ceiling_col[0];
+	app->ceil_col.green = app->vars->ceiling_col[1];
+	app->ceil_col.blue = app->vars->ceiling_col[2];
+	app->flo_col.red = app->vars->floor_col[0];
+	app->flo_col.green = app->vars->floor_col[1];
+	app->flo_col.blue = app->vars->floor_col[2];
 }
 
 int	*fill_map(int size, int longest, char **map)
@@ -160,7 +160,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 		exit (1);
 	init_path(app);
 	init_texture(app);
-	init_map(app, app->vars.map);
+	init_map(app, app->vars->map);
 	app->x = w;
 	app->y = h;
 	app->bool_map = 1;
@@ -174,6 +174,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 	}
 	init_sprite(app);
 	init_colors(app);
+	free(app->vars);
 }
 
 int	destroy_game_data(void *data)
