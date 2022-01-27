@@ -36,7 +36,6 @@ void	init_texture(t_app *app)
 	i = 0;
 	txr = app->txr;
 	m_path = app->path;
-	printf("p1 : %s\n", m_path[0]);
 	while (i < 4)
 	{
 		txr[i].img = mlx_xpm_file_to_image(app->mlx, m_path[i],
