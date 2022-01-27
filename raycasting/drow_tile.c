@@ -1,5 +1,5 @@
 #include "../cub3d.h"
-#include "raycaster.h"
+// #include "raycaster.h"
 
 void	draw_grid(t_app *app, float offx, float offy, int size)
 {

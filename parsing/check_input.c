@@ -6,12 +6,12 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/11 22:15:43 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:48:13 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft/libft.h"
+#include "../cub3d.h"
+#include "../libft/libft.h"
 
 int	ret_int_free(int ret, char *tofree)
 {

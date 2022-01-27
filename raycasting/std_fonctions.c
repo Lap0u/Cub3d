@@ -1,4 +1,5 @@
-#include "raycaster.h"
+// #include "raycaster.h"
+#include "../cub3d.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

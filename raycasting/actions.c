@@ -1,4 +1,4 @@
-#include "raycaster.h"
+// #include "raycaster.h"
 #include "../cub3d.h"
 # include <math.h>
 

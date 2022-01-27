@@ -1,5 +1,5 @@
 #include "../cub3d.h"
-#include "raycaster.h"
+// #include "raycaster.h"
 
 int map_x = 8;
 int map_y = 8;

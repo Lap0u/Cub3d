@@ -1,5 +1,5 @@
 #include "../cub3d.h"
-#include "raycaster.h"
+// #include "raycaster.h"
 
 int	is_texture_exist(const char *filename)
 {

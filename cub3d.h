@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 11:20:50 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:00:33 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ typedef struct s_state
 	float	delta_y;
 	float	pa;
 }				t_state;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size;
+	int		endian;
+	int		sp_x;
+	int		sp_y;
+	t_state	game_state;
+}				t_texture;
 
 typedef struct	s_data
 {
@@ -255,22 +267,9 @@ void	print_data(t_vars *data);
 // void	init_sprite(t_app *app);
 // void	drow_background(t_app *app);
 
-
-// /*actions.c*/
-// int	player_input(int key, void *data);
-// int	player_input_body(int key, t_app *app);
-// int	routine(void *data);
-// char	*copy_size(char *str, int bpp, int size);
-
-// /* draw_image.c*/
-// void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);
-// void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp);
-// int		check_pixel(t_data *txr, int line, int col);
-// void	*bit_copy(void *dst, const void *src, int j);
-
-// /*map.c*/
-// void	drow_element(t_app *app, int x, int y, int color);
-// void	draw_map(t_app *app);
+/*map.c*/
+void	drow_element(t_app *app, int x, int y, int color);
+void	draw_map(t_app *app);
 
 /*raycasting/draw_3dray.c*/
 void	prepa_init_ray(t_app *app);
@@ -316,6 +315,12 @@ void	drow_background(t_app *app);
 void	init_colors(t_app *app);
 void	init_app(t_app *app, char *title, int w, int h);
 int	destroy_game_data(void *data);
+
+/*raycasting/draw_image.c*/
+void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);
+void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp);
+int	check_pixel(t_data *txr, int line, int col);
+void	*bit_copy(void *dst, const void *src, int j);
 
 /*raycasting/actions.c*/
 int	player_input(int key, void *data);
