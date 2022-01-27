@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 12:45:38 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:42:29 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ typedef struct s_app
 	int			taken_col;
 	int			flag;
 	int			bool_map;
+	int			*map;
+	int			map_x;
+	int			map_y;
 	t_rgb		ceil_col;
 	t_rgb		flo_col;
 }				t_app;

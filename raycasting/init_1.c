@@ -40,6 +40,7 @@ void	init_texture(t_app *app)
 	{
 		txr[i].img = mlx_xpm_file_to_image(app->mlx, m_path[i],
 				&txr[i].w, &txr[i].h);
+		free(m_path[i]);
 		if (txr[i].img == NULL)
 			return ; // il faut free et exit ici
 		//gerer l'erreur si mauvaise images

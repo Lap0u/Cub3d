@@ -1,5 +1,6 @@
 // #include "raycaster.h"
 #include "../cub3d.h"
+#include "../libft/libft.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -103,6 +104,53 @@ void	init_colors(t_app *app)
 	app->flo_col.green = 0;
 	app->flo_col.blue = 0;
 }
+
+int	*fill_map(int size, int longest, char **map)
+{
+	int	*tab;
+	int	i;
+	int	j;
+
+	tab = malloc(sizeof(int) * size);
+	if (tab == NULL)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while(j < longest)
+		{
+			if (j < ft_strlen(map[i]) && map[i][j] != ' ')
+				tab[i * longest + j] = map[i][j];
+			else
+				tab[i * longest + j] = -1; //pour les espaces et les vides
+			j++;
+		}
+		i++;
+	}
+	return (tab);
+}
+
+void	init_map(t_app *app, char **map)
+{
+	int	i;
+	int	longest;
+
+	i = 1;
+	longest = ft_strlen(map[0]);
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > longest)
+			longest = ft_strlen(map[i]);
+		i++;
+	}
+	app->map = fill_map(longest * i, longest, map);
+	if (app->map == NULL)
+		printf("faut gerer l'erreur lol\n");
+	app->map_x = longest;
+	app->map_y = i;
+}
+
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
@@ -110,6 +158,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 		exit (1);
 	init_path(app);
 	init_texture(app);
+	init_map(app, app->vars.map);
 	app->x = w;
 	app->y = h;
 	app->bool_map = 1;
