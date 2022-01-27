@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/13 14:14:18 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:37:46 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,17 @@ typedef struct	s_data
 	int		image_is_destroyed;
 } t_data;
 
+typedef struct s_vars
+{
+	char	*no_path;
+	char	*so_path;
+	char	*ea_path;
+	char	*we_path;
+	int		floor_col[3];
+	int		ceiling_col[3];
+	char	**map;//format a voir
+}			t_vars;
+
 typedef struct s_draw
 {
 	int		i;
@@ -134,6 +145,7 @@ typedef struct s_app
 	t_data		south;
 	t_data		east;
 	t_data		west;
+	t_vars		vars;
 	void		*image;
 	void		*image_addr;
 	int			x;
@@ -147,6 +159,92 @@ typedef struct s_app
 	t_rgb		ceil_col;
 	t_rgb		flo_col;
 }				t_app;
+
+/*parsing/check_arg.c*/
+
+int		check_extension(char *str);
+int		try_open(char *str);
+int		check_arg(char *av, int ac);
+
+/*parsing/check_input.c*/
+int		check_input(char *file);
+int		check_lines(int fd);
+int		ret_int_free(int ret, char *tofree);
+int		good_id(char *str);
+int		tab_len(char **tab);
+int		check_file(char *str);
+int		check_colour(char *str);
+int		second_args(char *str, char *id);
+int		isonlyset(char *str, char *set);
+int		check_map(char *str, int fd);
+int		parse_line(char *str, int fd);
+
+
+/*parsing/store_data.c*/
+t_data	*get_data(char *str);
+void	init_data(t_data **data);
+
+/*parsing/exit_utils.c*/
+int		bad_malloc();
+int		bad_fd();
+void	free_data(t_data *data);
+
+
+/*parsing/parse_value.c*/
+void	get_values(t_data *data, int fd);
+void	add_line(t_data *data, char *str);
+char	*skip_id(char *str);
+void	add_col(t_data *data, char *val, char c);
+
+/*parsing/parse_map.c*/
+void	get_map(t_data *data, int fd);
+void	add_map(char *first_line, int fd, t_data *data);
+void	add_map_line(char ***map, char *new);
+
+/*parsing/check_data.c*/
+void	check_data(t_data *data);
+int		check_player(t_data *data);
+int		check_walls(t_data *data);
+int		check_inside(t_data *data);
+
+
+/*parsing/check_data_utils.c*/
+int		char_inset(char c, char *set);
+int		full_line(char *str);
+int		check_surround(char *check, char *prev, char *next);
+
+/*parsing/print_data.c*/
+void	print_data(t_data *data);
+
+
+/*app_draw_and_action/init.c*/
+int		is_texture_exist(const char *filename);
+void	init_path(t_app *app);
+void	init_sprite(t_app *app);
+void	init_app(t_app *app, char *title, int w, int h);
+void	player_position_init(t_app *app, int x, int y);
+
+/*app_draw_and_action/destoying.c*/
+int		destroy_game_data(void *data);
+
+/*app_draw_and_action/action.c*/
+int		check_pos_player(t_app *app);
+int		change_map(t_app *app, char *pos);
+int		player_input(int key, void *data);
+int		player_input_body(int key, t_app *app);
+int		routine(void *data);
+
+/*app_draw_and_action/drawing.c*/
+void	*bit_copy(void *dst, const void *src, int j);
+void	drow_map_body(t_app *app, char c, int j, int i);
+void	drow_map(t_app *app);
+int		check_pixel(t_texture *txr, int line, int col);
+void	draw_img_at_pos_body(t_app *app, t_texture *txr, int st, int bpp);
+void	draw_img_at_pos(t_app *app, t_texture *txr, int x, int y);
+
+/*map_init_and_check/check_map*/
+void	init_check_map(t_check_map *my_check);
+int		check_map_another(t_map *my_map);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
@@ -207,9 +305,5 @@ void	add_wall_tile(t_app *app, int x, int y, int size);
 void	add_full_tile(t_app *app, int x, int y, int size);
 void	draw_mini_player(t_app *app, float offx, float offy);//a deplacer un peu en fonction du decalage avec le mur
 void	draw_around_player(t_app *app, float p_x, float p_y, int size);
-
-
-
-
 
 #endif

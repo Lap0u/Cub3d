@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okushnir <okushnir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 22:41:34 by okushnir          #+#    #+#             */
-/*   Updated: 2022/01/02 22:41:41 by okushnir         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:43:38 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../cub3d.h"
-#include "../libft/libft.h"
 
+#include "../libft/libft.h"
+#include "../cub3d.h"
 
 int	is_texture_exist(const char *filename)
 {
@@ -30,14 +30,14 @@ int	is_texture_exist(const char *filename)
 
 void	init_path(t_app *app)
 {
-	if (is_texture_exist(app->data.no_path))
-		app->path[0] = app->data.no_path;
-	if (is_texture_exist(app->data.so_path))
-		app->path[1] = app->data.so_path;
-	if (is_texture_exist(app->data.we_path))
-		app->path[2] = app->data.we_path;
-	if (is_texture_exist(app->data.ea_path))
-		app->path[3] = app->data.ea_path;
+	if (is_texture_exist(app->vars.no_path))
+		app->path[0] = app->vars.no_path;
+	if (is_texture_exist(app->vars.so_path))
+		app->path[1] = app->vars.so_path;
+	if (is_texture_exist(app->vars.we_path))
+		app->path[2] = app->vars.we_path;
+	if (is_texture_exist(app->vars.ea_path))
+		app->path[3] = app->vars.ea_path;
 }
 
 void	init_sprite(t_app *app)

@@ -6,14 +6,14 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:50:12 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/03 15:22:20 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:40:42 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../libft/libft.h"
 
-int	check_inside(t_data *data)
+int	check_inside(t_vars *data)
 {
 	int i;
 
@@ -27,7 +27,7 @@ int	check_inside(t_data *data)
 	return (1);
 }
 
-int	check_walls(t_data *data)
+int	check_walls(t_vars *data)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ int	check_walls(t_data *data)
 	return (1);
 }
 
-int	check_player(t_data *data)
+int	check_player(t_vars *data)
 {
 	int	i;
 	int j;
@@ -70,7 +70,7 @@ int	check_player(t_data *data)
 	return (b_player);
 }
 
-void	check_data(t_data *data)
+void	check_data(t_vars *data)
 {
 	if (check_player(data) == 0)
 	{

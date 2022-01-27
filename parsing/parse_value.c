@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:46 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/04 13:31:22 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:41:01 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 
 
-void	add_col(t_data *data, char *val, char c)
+void	add_col(t_vars *data, char *val, char c)
 {
 	char **tab;
 
@@ -64,7 +64,7 @@ char	*skip_id(char *str)
 	return (res);
 }
 
-void	add_line(t_data *data, char *str)
+void	add_line(t_vars *data, char *str)
 {
 	char	*path;
 
@@ -85,7 +85,7 @@ void	add_line(t_data *data, char *str)
 		free(path);
 }
 
-void	get_values(t_data *data, int fd)
+void	get_values(t_vars *data, int fd)
 {
 	char	*line;
 	int		count;

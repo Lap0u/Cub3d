@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:36:12 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/12/29 15:52:07 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:40:50 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	bad_fd()
 	return (1);
 }
 
-void	free_data(t_data *data)
+void	free_data(t_vars *data)
 {
 	int i;
 
