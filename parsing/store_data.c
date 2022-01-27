@@ -6,19 +6,19 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:38:47 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:41:12 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:09:08 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../libft/libft.h"
 
-void	init_data(t_vars **data)
+void	init_data(t_data **data)
 {
-	*data = malloc(sizeof(t_vars));
+	*data = malloc(sizeof(t_data));
 	if (*data == NULL)
 		return ;
-	ft_bzero(*data, sizeof(t_vars));
+	ft_bzero(*data, sizeof(t_data));
 	(*data)->ceiling_col[0] = -1;
 	(*data)->ceiling_col[1] = -1;
 	(*data)->ceiling_col[2] = -1;
@@ -27,9 +27,9 @@ void	init_data(t_vars **data)
 	(*data)->floor_col[2] = -1;
 }
 
-t_vars	*get_data(char *str)
+t_data	*get_data(char *str)
 {
-	t_vars	*data;
+	t_data	*data;
 	int		fd;
 	
 	data = NULL;

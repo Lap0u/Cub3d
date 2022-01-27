@@ -126,8 +126,10 @@ int	*fill_map(int size, int longest, char **map)
 				tab[i * longest + j] = -1; //pour les espaces et les vides
 			j++;
 		}
+		free(map[i]);
 		i++;
 	}
+	free(map);
 	return (tab);
 }
 
