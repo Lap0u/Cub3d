@@ -55,16 +55,18 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 	unsigned int	ind;
 	int		new;
 	int		save_x;
-	int		ratio;
+	int		ratio_x;
+	int		ratio_y;
 
-	ratio = 64;
 	new = 0;
 	ind = app->dr.mod;
+	ratio_x = app->txr[ind].w;
+	ratio_y = app->txr[ind].h;
 	if (scale > RES_Y)
 		i = i + (scale / 2 -  RES_Y / 2);
-	i = i * ratio / scale;
+	i = i * ratio_y / scale;
 	save_x = x;
-	x = rx % ratio;
+	x = rx % ratio_x;
 	bpp = app->txr[ind].bpp / 8;
 	color.blue = app->txr[ind].addr[i * app->txr[ind].size + x * bpp];
 	color.green = app->txr[ind].addr[i * app->txr[ind].size + x * bpp  + 1];
