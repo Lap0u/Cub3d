@@ -1,3 +1,4 @@
+#include "../cub3d.h"
 #include "raycaster.h"
 
 void	opacity(t_app *app, int y, int x, t_rgb *color)

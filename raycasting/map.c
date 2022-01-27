@@ -1,3 +1,4 @@
+#include "../cub3d.h"
 #include "raycaster.h"
 
 int map_x = 8;

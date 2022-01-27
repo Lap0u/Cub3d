@@ -1,3 +1,4 @@
+#include "../cub3d.h"
 #include "raycaster.h"
 
 void	prepa_init_ray(t_app *app)

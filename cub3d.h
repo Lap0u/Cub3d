@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 11:01:43 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:20:50 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct	s_data
 	int		h;
 	t_state	game_state;
 	int		image_is_destroyed;
-} t_data;
+} 			t_data;
 
 typedef struct s_vars
 {
@@ -217,62 +217,62 @@ int		check_surround(char *check, char *prev, char *next);
 void	print_data(t_vars *data);
 
 
-/*app_draw_and_action/init.c*/
-int		is_texture_exist(const char *filename);
-void	init_path(t_app *app);
-void	init_sprite(t_app *app);
-void	init_app(t_app *app, char *title, int w, int h);
-void	player_position_init(t_app *app, int x, int y);
+// /*app_draw_and_action/init.c*/
+// int		is_texture_exist(const char *filename);
+// void	init_path(t_app *app);
+// void	init_sprite(t_app *app);
+// void	init_app(t_app *app, char *title, int w, int h);
+// void	player_position_init(t_app *app, int x, int y);
 
-/*app_draw_and_action/destoying.c*/
-int		destroy_game_data(void *data);
+// /*app_draw_and_action/destoying.c*/
+// int		destroy_game_data(void *data);
 
-/*app_draw_and_action/action.c*/
-int		check_pos_player(t_app *app);
-int		change_map(t_app *app, char *pos);
-int		player_input(int key, void *data);
-int		player_input_body(int key, t_app *app);
-int		routine(void *data);
+// /*app_draw_and_action/action.c*/
+// int		check_pos_player(t_app *app);
+// int		change_map(t_app *app, char *pos);
+// int		player_input(int key, void *data);
+// int		player_input_body(int key, t_app *app);
+// int		routine(void *data);
 
-/*app_draw_and_action/drawing.c*/
-void	*bit_copy(void *dst, const void *src, int j);
-void	drow_map_body(t_app *app, char c, int j, int i);
-void	drow_map(t_app *app);
-int		check_pixel(t_texture *txr, int line, int col);
-void	draw_img_at_pos_body(t_app *app, t_texture *txr, int st, int bpp);
-void	draw_img_at_pos(t_app *app, t_texture *txr, int x, int y);
+// /*app_draw_and_action/drawing.c*/
+// void	*bit_copy(void *dst, const void *src, int j);
+// void	drow_map_body(t_app *app, char c, int j, int i);
+// void	drow_map(t_app *app);
+// int		check_pixel(t_data *txr, int line, int col);
+// void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp);
+// void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);
 
-/*map_init_and_check/check_map*/
-void	init_check_map(t_check_map *my_check);
-int		check_map_another(t_map *my_map);
+// /*map_init_and_check/check_map*/
+// void	init_check_map(t_check_map *my_check);
+// int		check_map_another(t_map *my_map);
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
-void	init_colors(t_app *app);
-void	init_app(t_app *app, char *title, int w, int h);
-int		destroy_game_data(void *data);
-void	draw_sprite(t_app *app);
-void	init_sprite(t_app *app);
-void	drow_background(t_app *app);
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+// void	my_mlx_pixel_put_line(t_app *app, int x, int y, int color);
+// void	init_colors(t_app *app);
+// void	init_app(t_app *app, char *title, int w, int h);
+// int		destroy_game_data(void *data);
+// void	draw_sprite(t_app *app);
+// void	init_sprite(t_app *app);
+// void	drow_background(t_app *app);
 
 
-/*actions.c*/
-int	player_input(int key, void *data);
-int	player_input_body(int key, t_app *app);
-int	routine(void *data);
-char	*copy_size(char *str, int bpp, int size);
+// /*actions.c*/
+// int	player_input(int key, void *data);
+// int	player_input_body(int key, t_app *app);
+// int	routine(void *data);
+// char	*copy_size(char *str, int bpp, int size);
 
-/* draw_image.c*/
-void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);
-void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp);
-int		check_pixel(t_data *txr, int line, int col);
-void	*bit_copy(void *dst, const void *src, int j);
+// /* draw_image.c*/
+// void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y);
+// void	draw_img_at_pos_body(t_app *app, t_data *txr, int st, int bpp);
+// int		check_pixel(t_data *txr, int line, int col);
+// void	*bit_copy(void *dst, const void *src, int j);
 
-/*map.c*/
-void	drow_element(t_app *app, int x, int y, int color);
-void	draw_map(t_app *app);
+// /*map.c*/
+// void	drow_element(t_app *app, int x, int y, int color);
+// void	draw_map(t_app *app);
 
-/*draw_3dray.c*/
+/*raycasting/draw_3dray.c*/
 void	prepa_init_ray(t_app *app);
 void	check_hor_down(t_app *app);
 void	check_hor_up(t_app *app);
@@ -287,17 +287,17 @@ void	check_vertical_line(t_app *app);
 void	draw_mini_rays(t_app *app);
 void	draw_rays_3d(t_app *app);
 
-/*init_1.c*/
+/*raycasting/init_1.c*/
 void	init_path(t_app *app);
 void	init_texture(t_app *app);
 
-/*get_color.c*/
+/*raycasting/get_color.c*/
 void	opacity(t_app *app, int y, int x, t_rgb *color);
 int		color_ceil(t_app *app, int x, int y);
 int		color_floor(t_app *app, int x, int y);
 int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
 
-/*drow_tile.c*/
+/*raycasting/drow_tile.c*/
 void	drow_element(t_app *app, int x, int y, int color);
 void	draw_grid(t_app *app, float offx, float offy, int size);
 void	add_empty_tile(t_app *app, int x, int y, int size);
@@ -305,5 +305,24 @@ void	add_wall_tile(t_app *app, int x, int y, int size);
 void	add_full_tile(t_app *app, int x, int y, int size);
 void	draw_mini_player(t_app *app, float offx, float offy);//a deplacer un peu en fonction du decalage avec le mur
 void	draw_around_player(t_app *app, float p_x, float p_y, int size);
+
+/*raycasting/std_fonctions.c*/
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+float modul(float n);
+void	init_sprite(t_app *app);
+void	draw_line(t_app *app);
+void	draw_sprite(t_app *app);
+void	drow_background(t_app *app);
+void	init_colors(t_app *app);
+void	init_app(t_app *app, char *title, int w, int h);
+int	destroy_game_data(void *data);
+
+/*raycasting/actions.c*/
+int	player_input(int key, void *data);
+int	player_input_body(int key, t_app *app);
+char	*copy_size(char *str, int bpp, int size);
+void	open_images(t_app *app); ///retour de fonctions a check ->img = NULL
+void	close_images(t_app *app);
+int	routine(void *data);
 
 #endif
