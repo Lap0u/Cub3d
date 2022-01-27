@@ -60,7 +60,7 @@ void	draw_sprite(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	draw_line(app);
-	draw_mini_rays(app);
+	// draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
@@ -121,7 +121,7 @@ int	*fill_map(int size, int longest, char **map)
 		while(j < longest)
 		{
 			if (j < ft_strlen(map[i]) && map[i][j] != ' ')
-				tab[i * longest + j] = map[i][j];
+				tab[i * longest + j] = map[i][j] -48;
 			else
 				tab[i * longest + j] = -1; //pour les espaces et les vides
 			j++;
@@ -153,6 +153,20 @@ void	init_map(t_app *app, char **map)
 	app->map_y = i;
 }
 
+void	disp_map(t_app *app)
+{
+	int i;
+	printf("display as int map\n");
+	while (i < app->map_y * app->map_x)
+	{
+		printf("%d", app->map[i]);
+		if (i % app->map_x == 0 && i != 0)
+			printf("\n");
+		i++;
+	}
+	printf("\nend\n");
+}
+
 void	init_app(t_app *app, char *title, int w, int h)
 {	
 	app->mlx = mlx_init();
@@ -161,6 +175,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 	init_path(app);
 	init_texture(app);
 	init_map(app, app->vars->map);
+	disp_map(app);
 	app->x = w;
 	app->y = h;
 	app->bool_map = 1;
