@@ -83,30 +83,30 @@ int	player_input_body(int key, t_app *app)
 		}
 		else if (key == LEFT)
 		{
-			if (map[posy * map_x + posx_add_yo] != 1)
+			if (map[posy * app->map_x + posx_add_yo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
-			if (map[posy_sub_xo * map_x + posx] != 1)
+			if (map[posy_sub_xo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == RIGHT)
 		{
-			if (map[posy * map_x + posx_sub_yo] != 1)
+			if (map[posy * app->map_x + posx_sub_yo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
 			if (map[posy_add_xo * map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)
 		{
-			if (map[posy * map_x + posx_sub_xo] != 1)
+			if (map[posy * app->map_x + posx_sub_xo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 1;
-			if (map[posy_sub_yo * map_x + posx] != 1)	
+			if (map[posy_sub_yo * app->map_x + posx] != 1)	
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 1;
 		}
 		else if (key == UP)
 		{
-			if (map[posy * map_x + posx_add_xo] != 1)
+			if (map[posy * app->map_x + posx_add_xo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 1;
-			if (map[posy_add_yo * map_x + posx] != 1)
+			if (map[posy_add_yo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
 	}
@@ -137,17 +137,6 @@ void	open_images(t_app *app) ///retour de fonctions a check ->img = NULL
 {
 	app->north.img = mlx_xpm_file_to_image(app->mlx, "../textures/north.xpm", &app->north.w, &app->north.h);
 	app->north.addr = mlx_get_data_addr(app->north.img, &app->north.bpp, &app->north.size, &app->north.endian);
-	
-	
-	// int		bpp;
-	// char	*str;
-
-	// bpp = app->north.bpp / 8;
-	// str = copy_size(&app->north.addr[3 * app->north.size + 3 * bpp + 0], bpp, 5);
-	// printf("code = [%s]\n", str);
-	// free(str);
-	
-	
 	app->south.img = mlx_xpm_file_to_image(app->mlx, "../textures/south.xpm", &app->south.w, &app->south.h);
 	app->south.addr = mlx_get_data_addr(app->south.img, &app->south.bpp, &app->south.size, &app->south.endian);
 	app->east.img = mlx_xpm_file_to_image(app->mlx, "../textures/east.xpm", &app->east.w, &app->east.h);

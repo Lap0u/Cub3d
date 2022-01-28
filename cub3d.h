@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 14:21:13 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:05:06 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,9 @@ typedef struct s_app
 	void		*image_addr;
 	int			x;
 	int			y;
+	int			starting_x;
+	int			starting_y;
+	float		starting_angle;
 	int			image_is_destroyed;
 	int			nb_mvmt;
 	int			total_col;
