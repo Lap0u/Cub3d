@@ -36,8 +36,8 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = app->starting_x * 64;
-	app->sp.game_state.player_y = app->starting_y * 64;
+	app->sp.game_state.player_x = app->starting_x * 64 + 32;
+	app->sp.game_state.player_y = app->starting_y * 64 + 32;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = app->starting_angle;
@@ -74,12 +74,12 @@ void	draw_sprite(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	draw_line(app);
-	// draw_mini_rays(app);
+	draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
 		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FF0000);
+			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FFFF00);
 
 	}
 }

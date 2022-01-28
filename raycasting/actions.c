@@ -92,7 +92,7 @@ int	player_input_body(int key, t_app *app)
 		{
 			if (map[posy * app->map_x + posx_sub_yo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
-			if (map[posy_add_xo * map_x + posx] != 1)
+			if (map[posy_add_xo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)

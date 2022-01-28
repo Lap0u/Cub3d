@@ -41,12 +41,12 @@ void draw_map(t_app *app)
 	y = 0;
 	// if (app->bool_map == 1)
 	// 	return ;
-	while (y < map_y)
+	while (y < app->map_y)
 	{
 		x = 0;
-		while (x < map_x)
+		while (x < app->map_x)
 		{
-			if (map[y * map_x + x] == 1)
+			if (app->map[y * app->map_x + x] == 1)
 				drow_element(app, x, y, 0x00AAAAAA);
 
 			else
