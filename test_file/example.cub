@@ -1,7 +1,7 @@
-NO                        ./main.c
-SO ./main.c
-WE                      ./main.c
-EA ./main.c
+NO                        ./textures/east.xpm
+SO ./textures/east.xpm
+WE                      ./textures/east.xpm
+EA ./textures/east.xpm
 F                                   100       ,   2   ,              0
 C 225,30,12
 

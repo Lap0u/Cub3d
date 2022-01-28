@@ -60,7 +60,6 @@ int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mo
 
 	new = 0;
 	ind = app->dr.mod;
-	printf("%d ind\n");
 	ratio_x = app->txr[ind].w;
 	ratio_y = app->txr[ind].h;
 	if (scale > RES_Y)

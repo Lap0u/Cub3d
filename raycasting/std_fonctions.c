@@ -44,6 +44,7 @@ void	init_sprite(t_app *app)
 	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
 	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
 	app->ray.game_state.pa = app->starting_angle;
+	printf("ini : x : y %f %f\n", app->sp.game_state.player_x,app->sp.game_state.player_y);
 }
 
 void	draw_line(t_app *app)
@@ -70,18 +71,19 @@ void	draw_sprite(t_app *app)
 	float	x;
 	float	y;
 
+	printf("bef x = %f et y = %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
 	i = -1;
-	x = app->sp.game_state.player_x;
-	y = app->sp.game_state.player_y;
-	printf("x = %f et y = %f\n", x, y);
+	x = app->sp.game_state.player_x * 192 / 512;
+	y = app->sp.game_state.player_y * 192 / 512;
+	printf("aft x = %f et y = %f\n", x, y);
 
 	draw_line(app);
 	draw_mini_rays(app);
-	while (++i < 10)
+	while (++i < 5) //changer le size en fonction de la taille de la map 
 	{
 		j = -1;
-		while (++j < 10)
-			my_mlx_pixel_put(&(app->img), (j + (x - 5))/2, (i + (y - 5))/2, 0x00FFFF00);
+		while (++j < 5)
+			my_mlx_pixel_put(&(app->img), (j + (x - 2.5)), (i + (y - 2.5)), 0x00FFFFFF);
 
 	}
 }
