@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 00:15:26 by cbeaurai          #+#    #+#             */
-/*   Updated: 2021/09/27 14:26:28 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:17:14 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	ft_open_file_read(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
-		return (fd);
+		return (-1);
 	bytes = read(fd, buff, 1);
 	close(fd);
-	if (bytes < 0)
-		return (bytes);
+	if (bytes <= 0)
+		return (-1);
 	fd = open(str, O_RDONLY);
 	return (fd);
 }
