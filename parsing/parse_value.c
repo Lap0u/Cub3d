@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:46 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/28 15:05:59 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:41:01 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	get_values(t_vars *data, int fd)
 	count = 0;
 	line = NULL;
 	ret = -1;
-	while (count < 6 && ret != -1)
+	while (count < 6 && ret != 0)
 	{
 		ret = get_next_line(fd, &line);
 		if (line[0] != 0)
