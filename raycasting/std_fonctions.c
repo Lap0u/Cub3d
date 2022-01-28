@@ -73,6 +73,8 @@ void	draw_sprite(t_app *app)
 	i = -1;
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
+	printf("x = %f et y = %f\n", x, y);
+
 	draw_line(app);
 	draw_mini_rays(app);
 	while (++i < 10)

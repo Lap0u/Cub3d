@@ -13,10 +13,10 @@ void	drow_element(t_app *app, int x, int y, int color)
 	xo = 192 / xo;
 	yo = 192 / yo;
 	i = -1;
-	while (++i < yo)
+	while (++i < yo - 1)
 	{
 		j = -1;
-		while (++j < xo)
+		while (++j < xo - 1)
 			my_mlx_pixel_put(&(app->img), j + (x * xo), i + (y * yo), color);
 	}
 }
@@ -40,7 +40,7 @@ void draw_map(t_app *app)
 				drow_element(app, x, y, 0x00AAAAAA);
 
 			else
-				drow_element(app, x, y, 0x00010101);
+				drow_element(app, x, y, 0x00A1A101);
 			x++;
 		}
 		y++;

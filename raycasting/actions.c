@@ -19,7 +19,6 @@ int	player_input(int key, void *data)
 
 int	player_input_body(int key, t_app *app)
 {
-	printf("key = %d\n", key);
 	extern int map[];
 	extern int map_x;
 	extern int map_y;
@@ -51,7 +50,6 @@ int	player_input_body(int key, t_app *app)
 	//
 	posy_add_xo = (app->sp.game_state.player_y + xo) / 64.0;
 	posy_sub_xo = (app->sp.game_state.player_y - xo) / 64.0;
-	// printf("key: %d, pa = %f\n", key, app->sp.game_state.pa);
 	if (key == MAP)
 	{
 		app->bool_map++;
