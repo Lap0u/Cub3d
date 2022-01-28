@@ -6,17 +6,21 @@ void	drow_element(t_app *app, int x, int y, int color)
 	int	j;
 	int xo;
 	int yo;
+	int mod;
 
+	mod = 1;
+	if (app->map_x > 15 || app->map_y > 15)
+		mod = 0;
 	xo = app->map_x;
 	yo = app->map_y;
 
 	xo = 192 / xo;
 	yo = 192 / yo;
 	i = -1;
-	while (++i < yo - 1)
+	while (++i < yo - mod)
 	{
 		j = -1;
-		while (++j < xo - 1)
+		while (++j < xo - mod)
 			my_mlx_pixel_put(&(app->img), j + (x * xo), i + (y * yo), color);
 	}
 }
