@@ -20,7 +20,7 @@ int	ft_open_file_read(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
-		return (fd);
+		return (-1);
 	bytes = read(fd, buff, 1);
 	close(fd);
 	if (bytes <= 0)
