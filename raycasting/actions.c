@@ -19,6 +19,7 @@ int	player_input(int key, void *data)
 
 int	player_input_body(int key, t_app *app)
 {
+	printf("key = %d\n", key);
 	extern int map[];
 	extern int map_x;
 	extern int map_y;
@@ -90,7 +91,6 @@ int	player_input_body(int key, t_app *app)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
 			if (app->map[posy_sub_xo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
-			printf("x= %d et y = %d\n", posy * app->map_x + posx_add_yo, posy_sub_xo * app->map_x + posx);
 		}
 		else if (key == RIGHT)
 		{

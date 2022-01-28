@@ -143,7 +143,7 @@ void	check_vert_action(t_app *app)
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
-	printf("mp = %d\n", dr->mp);
+	// printf("mp = %d\n", dr->mp);
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
 		dr->dof = app->map_x;
 	else
@@ -276,9 +276,8 @@ void	draw_rays_3d(t_app *app)
 			while (dr->j < 1)
 			{
 				int x = dr->j + dr->r;
-				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO, 0xFF0000);
-				//get_color(app, x, dr->i + dr->lineO, dr->saveH, 
-				//dr->rx, dr->i, dr->r, dr->mod));
+				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO, get_color(app, x, dr->i + dr->lineO, dr->saveH, 
+				dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}
 			dr->i++;
