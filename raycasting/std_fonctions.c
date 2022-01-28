@@ -155,12 +155,8 @@ int	*fill_map(int size, int longest, char **map, t_app *app)
 				app->starting_x = j;
 				app->starting_y = i;
 				add_starting_angle(app, map[i][j]);
-				// tab[i * longest + j] = 0;
+				tab[i * longest + j] = 0;
 			}
-			if (map[i][j] == 'N')
-					tab[i * longest + j] = 3;
-			else
-				tab[i * longest + j] = map[i][j] - 48;
 			j++;
 		}
 		free(map[i]);
