@@ -110,9 +110,6 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 	int	j;
 	float	off_x;
 	float	off_y;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	i = 0;
 	true_x = p_x / 64;
@@ -128,7 +125,7 @@ void	draw_around_player(t_app *app, float p_x, float p_y, int size)
 		s_x = true_x - size / 2;
 		while (j < size)
 		{
-			if (s_x < 0 || s_y < 0 || s_x > map_x || s_y > map_y)
+			if (s_x < 0 || s_y < 0 || s_x > app->map_x || s_y > app->map_y)
 				add_empty_tile(app, j, i, size); //check si la map est un espace
 			else//check si la map est un mur
 				add_wall_tile(app, j, i, size);

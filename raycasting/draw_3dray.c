@@ -59,8 +59,10 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / (app->map_x * 64);
-	dr->my = (int)(dr->ry) / (app->map_y * 64);
+	dr->mx = (int)(dr->rx) >> 6;
+	dr->my = (int)(dr->ry) >> 6;
+	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1)) // hit wall
 	{
@@ -77,9 +79,6 @@ void	check_hor_action(t_app *app)
 void	check_horizont_line(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->dof = 0; // nbr des cases que l'on a deja checke
@@ -139,9 +138,12 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / (app->map_x * 64);
-	dr->my = (int)(dr->ry) / (app->map_y * 64);
+	dr->mx = (int)(dr->rx) >> 6;
+	dr->my = (int)(dr->ry) >> 6;
+	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
+	printf("mp = %d\n", dr->mp);
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
 		dr->dof = app->map_x;
 	else
