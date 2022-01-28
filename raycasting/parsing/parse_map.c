@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:40:55 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/03 14:37:58 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	add_map_line(char ***map, char *new)
 	*map = res;
 }
 
-void	add_map(char *first_line, int fd, t_vars *data)
+void	add_map(char *first_line, int fd, t_data *data)
 {
 	int		ret;
 	char	*line;
@@ -56,7 +56,7 @@ void	add_map(char *first_line, int fd, t_vars *data)
 	}
 }
 
-void	get_map(t_vars *data, int fd)
+void	get_map(t_data *data, int fd)
 {
 	char	*line;
 	int		ret;

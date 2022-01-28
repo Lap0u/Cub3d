@@ -1,6 +1,7 @@
-#include "raycaster.h"
+#include "../cub3d.h"
+// #include "raycaster.h"
 
-int	is_texture_exist(const char *filename)
+int	is_texture_exist(const char *filename)//c'est pas comme ca qu'on verifie si une image est correcte
 {
 	int	fd;
 
@@ -16,14 +17,14 @@ int	is_texture_exist(const char *filename)
 
 void	init_path(t_app *app)
 {
-	if (is_texture_exist(PATH_TO_NORTH))
-		app->path[0] = PATH_TO_NORTH;
-	if (is_texture_exist(PATH_TO_SOUTH))
-		app->path[1] = PATH_TO_SOUTH;
-	if (is_texture_exist(PATH_TO_WEST))
-		app->path[2] = PATH_TO_WEST;
-	if (is_texture_exist(PATH_TO_EAST))
-		app->path[3] = PATH_TO_EAST;
+	if (is_texture_exist(app->vars->no_path))
+		app->path[0] = app->vars->no_path;
+	if (is_texture_exist(app->vars->so_path))
+		app->path[1] = app->vars->so_path;
+	if (is_texture_exist(app->vars->we_path))
+		app->path[2] = app->vars->we_path;
+	if (is_texture_exist(app->vars->ea_path))
+		app->path[3] = app->vars->ea_path;
 }
 
 void	init_texture(t_app *app)
@@ -39,6 +40,10 @@ void	init_texture(t_app *app)
 	{
 		txr[i].img = mlx_xpm_file_to_image(app->mlx, m_path[i],
 				&txr[i].w, &txr[i].h);
+		free(m_path[i]);
+		if (txr[i].img == NULL)
+			return ; // il faut free et exit ici
+		//gerer l'erreur si mauvaise images
 		txr[i].addr = mlx_get_data_addr(txr[i].img, &(txr[i].bpp),
 				&(txr[i].size), &(txr[i].endian));
 		i++;

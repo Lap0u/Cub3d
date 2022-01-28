@@ -1,4 +1,5 @@
-#include "raycaster.h"
+#include "../cub3d.h"
+// #include "raycaster.h"
 
 void	prepa_init_ray(t_app *app)
 {
@@ -46,7 +47,7 @@ void	check_hor_left_right(t_app *app)
 	dr = &(app->dr);
 	dr->rx = dr->x;
 	dr->ry = dr->y;
-	dr->dof = 8;
+	dr->dof = app->map_y;
 }
 
 void	check_hor_action(t_app *app)
@@ -60,26 +61,24 @@ void	check_hor_action(t_app *app)
 	dr->mp = 0;
 	dr->mx = (int)(dr->rx) >> 6;
 	dr->my = (int)(dr->ry) >> 6;
-	dr->mp = dr->my * map_x + dr->mx;
-	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1)) // hit wall
+	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	// dr->my = (int)(dr->ry) / (app->map_y * 64);
+	dr->mp = dr->my * app->map_x + dr->mx;
+	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1)) // hit wall
 	{
-		dr->dof = 8;
+		dr->dof = app->map_y;
 	}
 	else
 	{
 		dr->rx += dr->xo;
 		dr->ry += dr->yo;  
 		dr->dof += 1; // next line
-		dr->mp = 100;
 	}
 }
 
 void	check_horizont_line(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->dof = 0; // nbr des cases que l'on a deja checke
@@ -91,7 +90,7 @@ void	check_horizont_line(t_app *app)
 		check_hor_up(app);
 	if ((dr->ra == 0) || (dr->ra == PI)) //looking straight felt or right
 		check_hor_left_right(app);
-	while (dr->dof < 8)
+	while (dr->dof < app->map_y)
 		check_hor_action(app);
 	dr->hx = dr->rx;
 	dr->hy = dr->ry;
@@ -127,7 +126,7 @@ void	check_vert_down_up(t_app *app)
 	dr = &(app->dr);
 	dr->rx = dr->x;
 	dr->ry = dr->y;
-	dr->dof = 8;
+	dr->dof = app->map_x;
 }
 
 void	check_vert_action(t_app *app)
@@ -141,15 +140,17 @@ void	check_vert_action(t_app *app)
 	dr->mp = 0;
 	dr->mx = (int)(dr->rx) >> 6;
 	dr->my = (int)(dr->ry) >> 6;
-	dr->mp = dr->my * map_x + dr->mx;
-	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1))
-		dr->dof = 8;
+	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	// dr->my = (int)(dr->ry) / (app->map_y * 64);
+	dr->mp = dr->my * app->map_x + dr->mx;
+	// printf("mp = %d\n", dr->mp);
+	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
+		dr->dof = app->map_x;
 	else
 	{
 		dr->rx += dr->xo;
 		dr->ry += dr->yo;  
 		dr->dof += 1;
-		dr->mp = 100;
 	}
 }
 
@@ -169,7 +170,7 @@ void	check_vertical_line(t_app *app)
 		check_vert_right(app);
 	if ((dr->ra == 0) || (dr->ra == PI))
 		check_vert_down_up(app);		
-	while (dr->dof < 8)
+	while (dr->dof < app->map_x)
 		check_vert_action(app);
 	dr->vx = dr->rx;
 	dr->vy = dr->ry;
@@ -263,7 +264,7 @@ void	draw_rays_3d(t_app *app)
 		check_vertical_line(app);
 		which_is_dir(app);
 		fix_fish_eye(app);
-		dr->lineH = (map_s * app->y)/dr->tdist; // line height
+		dr->lineH = (64 * app->y)/dr->tdist; // line height
 		dr->saveH = dr->lineH;
 		if (dr->lineH > app->y)
 			dr->lineH = app->y;
@@ -275,8 +276,7 @@ void	draw_rays_3d(t_app *app)
 			while (dr->j < 1)
 			{
 				int x = dr->j + dr->r;
-				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO,
-				get_color(app, x, dr->i + dr->lineO, dr->saveH, 
+				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO, get_color(app, x, dr->i + dr->lineO, dr->saveH, 
 				dr->rx, dr->i, dr->r, dr->mod));
 				dr->j++;
 			}

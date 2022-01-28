@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 13:17:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:41:06 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:54:21 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_map(char **map)
 	printf("\n");
 }
 
-void	print_data(t_vars *data)
+void	print_data(t_data *data)
 {
 	printf("AFFICHAGE DES DONNEES :\n\n");
 	if (data->no_path)

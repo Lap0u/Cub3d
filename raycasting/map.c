@@ -1,32 +1,23 @@
-#include "raycaster.h"
-
-int map_x = 8;
-int map_y = 8;
-int map_s = 64;
-
-int map[] =
-{
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 1, 0, 0, 0, 0, 1,
-	1, 0, 1, 0, 0, 0, 0, 1,
-	1, 0, 1, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 1, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-};
+#include "../cub3d.h"
 
 void	drow_element(t_app *app, int x, int y, int color)
 {
 	int	i;
 	int	j;
+	int xo;
+	int yo;
 
+	xo = app->map_x;
+	yo = app->map_y;
+
+	xo = 192 / xo;
+	yo = 192 / yo;
 	i = -1;
-	while (++i < 63/2)
+	while (++i < yo)
 	{
 		j = -1;
-		while (++j < 63/2)
-			my_mlx_pixel_put(&(app->img), j + (x * 64/2), i + (y *64/2), color);
+		while (++j < xo)
+			my_mlx_pixel_put(&(app->img), j + (x * xo), i + (y * yo), color);
 	}
 }
 
@@ -40,12 +31,12 @@ void draw_map(t_app *app)
 	y = 0;
 	// if (app->bool_map == 1)
 	// 	return ;
-	while (y < map_y)
+	while (y < app->map_y)
 	{
 		x = 0;
-		while (x < map_x)
+		while (x < app->map_x)
 		{
-			if (map[y * map_x + x] == 1)
+			if (app->map[y * app->map_x + x] == 1)
 				drow_element(app, x, y, 0x00AAAAAA);
 
 			else

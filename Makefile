@@ -6,7 +6,7 @@
 #    By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/23 11:12:25 by cbeaurai          #+#    #+#              #
-#    Updated: 2022/01/03 16:35:27 by cbeaurai         ###   ########.fr        #
+#    Updated: 2022/01/27 15:13:24 by cbeaurai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ NAME		= cub3D
 SRCS		=	main.c parsing/check_arg.c parsing/check_input.c parsing/exit_utils.c \
 				parsing/store_data.c parsing/parse_map.c parsing/parse_value.c \
 				parsing/check_data.c parsing/print_data.c parsing/check_data_utils.c \
-				app_draw_and_action/init.c app_draw_and_action/destroying.c \
-				app_draw_and_action/action.c app_draw_and_action/drawing.c \
+				raycasting/std_fonctions.c raycasting/actions.c raycasting/draw_image.c \
+				raycasting/map.c raycasting/draw_3dray.c raycasting/init_1.c \
+				raycasting/get_color.c raycasting/drow_tile.c\
 				#map_init_and_check/check_map map_init_and_check/check_wall_attributs.c \
 				#map_init_and_check/clear_map_list.c map_init_and_check/fonctions_list.c \
 				#smap_init_and_check/read_map.c \
@@ -29,7 +30,7 @@ RM			= rm -rf
 
 LFT			= ./libft
 
-CFLAGS		= -Wall -Werror -Wextra -no-pie -g -fsanitize=address -I.
+CFLAGS		= -no-pie -g -fsanitize=address#-Wall -Werror -Wextra -I.
 
 LIBS		= -L ./libft -lft -L ./mlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lbsd
 

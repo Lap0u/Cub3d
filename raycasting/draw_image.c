@@ -1,4 +1,5 @@
-#include "raycaster.h"
+#include "../cub3d.h"
+// #include "raycaster.h"
 
 void	draw_img_at_pos(t_app *app, t_data *txr, int x, int y)
 {
