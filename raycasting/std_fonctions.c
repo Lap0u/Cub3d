@@ -156,12 +156,19 @@ void	init_map(t_app *app, char **map)
 void	disp_map(t_app *app)
 {
 	int i;
+	int j;
+
+	i = 0;
 	printf("display as int map\n");
-	while (i < app->map_y * app->map_x)
+	while(i < app->map_y)
 	{
-		printf("%d", app->map[i]);
-		if (i % app->map_x == 0 && i != 0)
-			printf("\n");
+		j = 0;
+		while (j < app->map_x)
+		{
+			printf("%d", app->map[i * app->map_x + j]);
+			j++;
+		}
+		printf("\n");
 		i++;
 	}
 	printf("\nend\n");
