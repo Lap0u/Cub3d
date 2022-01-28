@@ -59,8 +59,8 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / app->map_x;
-	dr->my = (int)(dr->ry) / app->map_y;
+	dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1)) // hit wall
 	{
@@ -139,8 +139,8 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / app->map_x;
-	dr->my = (int)(dr->ry) / app->map_y;
+	dr->mx = (int)(dr->rx) / (app->map_x * 64);
+	dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
 		dr->dof = app->map_x;
