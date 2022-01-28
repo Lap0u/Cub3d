@@ -146,17 +146,21 @@ int	*fill_map(int size, int longest, char **map, t_app *app)
 		j = 0;
 		while(j < longest)
 		{
+			if (j < ft_strlen(map[i]) && map[i][j] != ' ')
+				tab[i * longest + j] = map[i][j] -48;
+			else
+				tab[i * longest + j] = -1; //pour les espaces et les vides
 			if (j < ft_strlen(map[i]) && isinset(map[i][j], "NSWE"))
 			{
 				app->starting_x = j;
 				app->starting_y = i;
 				add_starting_angle(app, map[i][j]);
+				// tab[i * longest + j] = 0;
 			}
-				tab[i * longest + j] = map[i][j] -48;
-			if (j < ft_strlen(map[i]) && map[i][j] != ' ')
-				tab[i * longest + j] = map[i][j] -48;
+			if (map[i][j] == 'N')
+					tab[i * longest + j] = 3;
 			else
-				tab[i * longest + j] = -1; //pour les espaces et les vides
+				tab[i * longest + j] = map[i][j] - 48;
 			j++;
 		}
 		free(map[i]);

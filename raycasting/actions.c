@@ -24,6 +24,9 @@ int	player_input_body(int key, t_app *app)
 	extern int map_y;
 	int xo, yo, posx, posx_add_xo, posx_sub_xo, posy, posy_add_yo, posy_sub_yo;
 	int posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
+	int res;
+
+	res = app->map_x * app->map_y;
 
 	if (app->sp.game_state.delta_x < 0)
 		xo = -10; //modifier ces valeurs pour choisir l'ecart min avec le mur 
@@ -83,30 +86,31 @@ int	player_input_body(int key, t_app *app)
 		}
 		else if (key == LEFT)
 		{
-			if (map[posy * app->map_x + posx_add_yo] != 1)
+			if (app->map[posy * app->map_x + posx_add_yo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
-			if (map[posy_sub_xo * app->map_x + posx] != 1)
+			if (app->map[posy_sub_xo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
+			printf("x= %d et y = %d\n", posy * app->map_x + posx_add_yo, posy_sub_xo * app->map_x + posx);
 		}
 		else if (key == RIGHT)
 		{
-			if (map[posy * app->map_x + posx_sub_yo] != 1)
+			if (app->map[posy * app->map_x + posx_sub_yo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
-			if (map[posy_add_xo * app->map_x + posx] != 1)
+			if (app->map[posy_add_xo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)
 		{
-			if (map[posy * app->map_x + posx_sub_xo] != 1)
+			if (app->map[posy * app->map_x + posx_sub_xo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 1;
-			if (map[posy_sub_yo * app->map_x + posx] != 1)	
+			if (app->map[posy_sub_yo * app->map_x + posx] != 1)	
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 1;
 		}
 		else if (key == UP)
 		{
-			if (map[posy * app->map_x + posx_add_xo] != 1)
+			if (app->map[posy * app->map_x + posx_add_xo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 1;
-			if (map[posy_add_yo * app->map_x + posx] != 1)
+			if (app->map[posy_add_yo * app->map_x + posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
 	}
