@@ -209,9 +209,9 @@ void	draw_mini_rays(t_app *app)
 		if (dr->hdist < dr->vdist)
 			dr->tdist = dr->hdist;
 		dr->i = -1;
-		while (++dr->i < (int)(dr->tdist / 3))
-			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x/3),
-			(((dr->i * sin(dr->ra))) + dr->y/3), 0x003ABFF7);
+		while (++dr->i < (int)(dr->tdist * 192 / 512))
+			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x * 192 / 512),
+			(((dr->i * sin(dr->ra))) + dr->y * 192 / 512), 0x003ABFF7);
 		dr->r++;
 		dr->ra += DR;
 		if (dr->ra < 0)
