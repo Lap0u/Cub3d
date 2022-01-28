@@ -2,7 +2,7 @@ SO textures/mc_emerald.xpm
 NO textures/north.xpm
 WE textures/west.xpm
 EA textures/east.xpm
-
+          
 F 0,255,255
 C 255,0,255
           
@@ -10,5 +10,3 @@ C 255,0,255
 11010000N1
 1000000001
 1111111111
-
-

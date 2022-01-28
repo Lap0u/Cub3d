@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 11:48:13 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:31:58 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,24 @@ char	*get_colours(char **args)
 
 }
 
+
+
+int	isonlyspace(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r'
+		|| str[i] == ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int	parse_line(char *str, int fd)
 {
 	char		**args;
@@ -168,6 +186,8 @@ int	parse_line(char *str, int fd)
 	
 	if (str[0] == 0)
 		return (1);
+	if (isonlyspace(str) == 1)
+		return (0);
 	if (i == 6)
 		return (check_map(str, fd));
 	args = ft_split(str, ' ');
