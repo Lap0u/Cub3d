@@ -42,7 +42,10 @@ void	init_texture(t_app *app)
 				&txr[i].w, &txr[i].h);
 		free(m_path[i]);
 		if (txr[i].img == NULL)
-			return ; // il faut free et exit ici
+		{
+			printf("this is not a good image(free a gerer)\n");
+			exit(1);
+		} ; // il faut free et exit ici
 		//gerer l'erreur si mauvaise images
 		txr[i].addr = mlx_get_data_addr(txr[i].img, &(txr[i].bpp),
 				&(txr[i].size), &(txr[i].endian));
