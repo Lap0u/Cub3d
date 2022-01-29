@@ -71,13 +71,13 @@ void	draw_sprite(t_app *app)
 	float	x;
 	float	y;
 
-	printf("bef x = %f et y = %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
+	// printf("bef x = %f et y = %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
 	i = -1;
 	x = app->sp.game_state.player_x * 192 / 512;
 	y = app->sp.game_state.player_y * 192 / 512;
-	printf("aft x = %f et y = %f\n", x, y);
+	// printf("aft x = %f et y = %f\n", x, y);
 
-	draw_line(app);
+	// draw_line(app);
 	draw_mini_rays(app);
 	while (++i < 5) //changer le size en fonction de la taille de la map 
 	{
@@ -116,13 +116,13 @@ void	drow_background(t_app *app)
 void	add_starting_angle(t_app *app, char c)
 {
 	if (c == 'N')
-		app->starting_angle = PI / 2;
+		app->starting_angle = PI / -2;
 	else if (c == 'S')
-		app->starting_angle = PI / 2;//a modif
+		app->starting_angle = PI / 2;
 	else if (c == 'W')
-		app->starting_angle = PI / 2;
+		app->starting_angle = 0;
 	else if (c == 'E')
-		app->starting_angle = PI / 2;
+		app->starting_angle = PI;
 }
 
 void	init_colors(t_app *app)
