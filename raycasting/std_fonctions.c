@@ -64,29 +64,34 @@ void	draw_line(t_app *app)
 	}
 }
 
-void	draw_sprite(t_app *app)
+void    draw_sprite(t_app *app)
 {
-	int		i;
-	int		j;
-	float	x;
-	float	y;
+    int        i;
+    int        j;
+    float    x;
+    float    y;
+    float    xo;
+    float    yo;
+    i = -1;
+    xo = (float)(app->map_x / 8.0);
+    yo = (float)(app->map_y / 8.0);
+    x = (app->sp.game_state.player_x * 192 / 512) / xo;
+    y = (app->sp.game_state.player_y * 192 / 512) / yo;
+    printf("aft x = %f et y = %f\n", xo, yo);
 
-	// printf("bef x = %f et y = %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
-	i = -1;
-	x = app->sp.game_state.player_x * 192 / 512;
-	y = app->sp.game_state.player_y * 192 / 512;
-	// printf("aft x = %f et y = %f\n", x, y);
+    // draw_line(app);
+    // draw_mini_rays(app);
+    while (++i < 5) //changer le size en fonction de la taille de la map 
+    {
+        j = -1;
+        while (++j < 5)
+            my_mlx_pixel_put(&(app->img), (j + (x - 2.5)), (i + (y - 2.5)), 0x00FFFFFF);
 
-	// draw_line(app);
-	draw_mini_rays(app);
-	while (++i < 5) //changer le size en fonction de la taille de la map 
-	{
-		j = -1;
-		while (++j < 5)
-			my_mlx_pixel_put(&(app->img), (j + (x - 2.5)), (i + (y - 2.5)), 0x00FFFFFF);
-
-	}
+    }
 }
+
+
+
 
 
 void	drow_background(t_app *app)
