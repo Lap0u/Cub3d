@@ -6,9 +6,9 @@ void	drow_element(t_app *app, int x, int y, int color)
 	int	j;
 	float xo;
 	float yo;
-	int mod;
+	float mod;
 
-	mod = 1;
+	mod = 1.f;
 	if (app->map_x > 15 || app->map_y > 15)
 		mod = 0;
 	xo = (float)app->map_x;
