@@ -223,12 +223,12 @@ void	draw_mini_rays(t_app *app)
 		check_vertical_line(app);
 		if (dr->vdist < dr->hdist)
 			// dt = dr->vdist;
-			dt = (dr->vdist * 192.f / 512.f);
+			dt = (dr->vdist * 192.f / 512.f) / xo;
 		if (dr->hdist < dr->vdist)
 			// dt = dr->vdist;
-			dt = (dr->hdist * 192.f / 512.f);
+			dt = (dr->hdist * 192.f / 512.f) / yo;
 		i = -1;
-		while (++i < (dt / yo))
+		while (++i < (dt))
 			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
 			(((i * sin(dr->ra))) + y), 0x003ABFF7);
 		dr->r++;
