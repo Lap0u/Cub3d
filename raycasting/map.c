@@ -4,18 +4,18 @@ void	drow_element(t_app *app, int x, int y, int color)
 {
 	int	i;
 	int	j;
-	int xo;
-	int yo;
+	float xo;
+	float yo;
 	int mod;
 
 	mod = 1;
 	if (app->map_x > 15 || app->map_y > 15)
 		mod = 0;
-	xo = app->map_x;
-	yo = app->map_y;
+	xo = (float)app->map_x;
+	yo = (float)app->map_y;
 
-	xo = 192 / xo;
-	yo = 192 / yo;
+	xo = 192.f / xo;
+	yo = 192.f / yo;
 	i = -1;
 	while (++i < yo - mod)
 	{

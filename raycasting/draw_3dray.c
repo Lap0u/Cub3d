@@ -209,19 +209,20 @@ void	draw_mini_rays(t_app *app)
     yo = (float)(app->map_y / 8.0);
 	x = dr->x;
 	y = dr->y;
-    x = (x * 192 / 512) / xo;
-    y = (y * 192 / 512) / yo;
+    x = (x * 192.f / 512.f) / xo;
+    y = (y * 192.f / 512.f) / yo;
 	prepa_init_ray(app);
 	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
 		if (dr->vdist < dr->hdist)
-			dt = dr->vdist;
+			dt = (dr->vdist * 192.f / 512.f) / xo;
+		
 		if (dr->hdist < dr->vdist)
-			dt = dr->hdist;
+			dt = (dr->hdist * 192.f / 512.f) / yo;
 		dr->i = -1;
-		while (++dr->i < (int)(dt * 192 / 512))
+		while (++dr->i < (int)(dt))
 			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + x),
 			(((dr->i * sin(dr->ra))) + y), 0x003ABFF7);
 		dr->r++;
