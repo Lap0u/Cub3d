@@ -47,9 +47,8 @@ int	color_floor(t_app *app, int x, int y)
 	return (new);
 }
 
-int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod)
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i)
 {
-	int		st;
 	int		bpp;
 	t_rgb	color;
 	unsigned int	ind;

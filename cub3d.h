@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/28 10:05:06 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 10:19:13 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,7 @@ void	init_texture(t_app *app);
 void	opacity(t_app *app, int y, int x, t_rgb *color);
 int		color_ceil(t_app *app, int x, int y);
 int		color_floor(t_app *app, int x, int y);
-int		get_color(t_app *app, int x, int y, int scale, int rx, int i, int r, int mod);
+int		get_color(t_app *app, int x, int y, int scale, int rx, int i);
 
 /*raycasting/drow_tile.c*/
 void	drow_element(t_app *app, int x, int y, int color);

@@ -53,9 +53,6 @@ void	check_hor_left_right(t_app *app)
 void	check_hor_action(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->mp = 0;
@@ -132,9 +129,6 @@ void	check_vert_down_up(t_app *app)
 void	check_vert_action(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->mp = 0;
@@ -157,9 +151,6 @@ void	check_vert_action(t_app *app)
 void	check_vertical_line(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->dof = 0;
@@ -270,10 +261,6 @@ void	which_is_dir(t_app *app)
 void	draw_rays_3d(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
-	extern	int map_s;
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
@@ -296,7 +283,7 @@ void	draw_rays_3d(t_app *app)
 			{
 				int x = dr->j + dr->r;
 				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO, get_color(app, x, dr->i + dr->lineO, dr->saveH, 
-				dr->rx, dr->i, dr->r, dr->mod));
+				dr->rx, dr->i));
 				dr->j++;
 			}
 			dr->i++;
