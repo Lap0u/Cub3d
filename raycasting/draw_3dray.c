@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_3dray.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/31 16:19:11 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 // #include "raycaster.h"
 
@@ -23,7 +35,7 @@ void	check_hor_down(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y >> 6)<< 6) - 0.0001;
+	dr->ry = (((int)dr->y >> 6) << 6) - 0.0001;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
 	dr->yo = -64;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
@@ -34,7 +46,7 @@ void	check_hor_up(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y >> 6)<< 6) + 64;
+	dr->ry = (((int)dr->y >> 6) << 6) + 64;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
 	dr->yo = 64;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;

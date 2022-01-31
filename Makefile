@@ -6,7 +6,7 @@
 #    By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/23 11:12:25 by cbeaurai          #+#    #+#              #
-#    Updated: 2022/01/31 10:16:26 by cbeaurai         ###   ########.fr        #
+#    Updated: 2022/01/31 16:21:41 by cbeaurai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME		= cub3D
 SRCS		=	main.c parsing/check_arg.c parsing/check_input.c parsing/exit_utils.c \
 				parsing/store_data.c parsing/parse_map.c parsing/parse_value.c \
 				parsing/check_data.c parsing/print_data.c parsing/check_data_utils.c \
-				raycasting/std_fonctions.c raycasting/actions.c raycasting/draw_image.c \
+				raycasting/std_fonctions.c raycasting/actions.c \
 				raycasting/map.c raycasting/draw_3dray.c raycasting/init_1.c \
-				raycasting/get_color.c raycasting/drow_tile.c\
+				raycasting/get_color.c\
 				#map_init_and_check/check_map map_init_and_check/check_wall_attributs.c \
 				#map_init_and_check/clear_map_list.c map_init_and_check/fonctions_list.c \
 				#smap_init_and_check/read_map.c \

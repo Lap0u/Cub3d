@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_color.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/31 16:27:47 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/31 16:34:28 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
-// #include "raycaster.h"
 
 void	opacity(t_app *app, int y, int x, t_rgb *color)
 {
 	if (!(app->bool_map == 0 || x < MARGIN * 2 || y < MARGIN
-	|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
+			|| x > RES_X - MARGIN * 2 || y > RES_Y - MARGIN))
 	{
-		color->red  *= OPACITY;
+		color->red *= OPACITY;
 		color->green *= OPACITY;
 		color->blue *= OPACITY;
 		color->op *= OPACITY;
@@ -47,30 +58,24 @@ int	color_floor(t_app *app, int x, int y)
 	return (new);
 }
 
-int		get_color(t_app *app, int x, int y, int scale, int rx, int i)
+int	get_color(t_app *app, int x, int y, int scale, int rx, int i)
 {
 	int		bpp;
 	t_rgb	color;
-	unsigned int	ind;
 	int		new;
 	int		save_x;
-	int		ratio_x;
-	int		ratio_y;
 
 	new = 0;
-	ind = app->dr.mod;
-	ratio_x = app->txr[ind].w;
-	ratio_y = app->txr[ind].h;
 	if (scale > RES_Y)
-		i = i + (scale / 2 -  RES_Y / 2);
-	i = i * ratio_y / scale;
+		i = i + (scale / 2 - RES_Y / 2);
+	i = i * app->txr[app->dr.mod].h / scale;
 	save_x = x;
-	x = rx % ratio_x;
-	bpp = app->txr[ind].bpp / 8;
-	color.blue = app->txr[ind].addr[i * app->txr[ind].size + x * bpp];
-	color.green = app->txr[ind].addr[i * app->txr[ind].size + x * bpp  + 1];
-	color.red = app->txr[ind].addr[i * app->txr[ind].size + x * bpp  + 2];
-	color.op = app->txr[ind].addr[i * app->txr[ind].size + x * bpp + 3];
+	x = rx % app->txr[app->dr.mod].w;
+	bpp = app->txr[app->dr.mod].bpp / 8;
+	color.blue = app->txr[app->dr.mod].addr[i * app->txr[app->dr.mod].size + x * bpp];
+	color.green = app->txr[app->dr.mod].addr[i * app->txr[app->dr.mod].size + x * bpp + 1];
+	color.red = app->txr[app->dr.mod].addr[i * app->txr[app->dr.mod].size + x * bpp + 2];
+	color.op = app->txr[app->dr.mod].addr[i * app->txr[app->dr.mod].size + x * bpp + 3];
 	opacity(app, y, save_x, &color);
 	new |= color.op << 24;
 	new |= color.red << 16;
