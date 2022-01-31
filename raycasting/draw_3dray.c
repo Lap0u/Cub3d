@@ -208,7 +208,7 @@ void	draw_mini_rays(t_app *app)
 	// if (yo < xo)
 	// 	yo = xo;
 	prepa_init_ray(app);
-	while (dr->r < 50)//change pour test
+	while (dr->r < RES_X)//change pour test
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
