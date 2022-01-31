@@ -6,28 +6,28 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:36:12 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:40:50 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:55:36 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../libft/libft.h"
 
-int	bad_malloc()
+int	bad_malloc(void)
 {
 	ft_putstr_fd("Error while allocating memory space, exiting...\n", 2);
 	return (1);
 }
 
-int	bad_fd()
+int	bad_fd(void)
 {
-	ft_putstr_fd("Can't open the map, exiting...\n" , 2);
+	ft_putstr_fd("Can't open the map, exiting...\n", 2);
 	return (1);
 }
 
 void	free_data(t_vars *data)
 {
-	int i;
+	int	i;
 
 	if (data->map)
 	{

@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:50:12 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:40:42 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:41:04 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 int	check_inside(t_vars *data)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (data->map[i + 1])
 	{
-		if (check_surround(data->map[i], data->map[i -1], data->map[i + 1]) == 0)
+		if (check_surround(data->map[i], data->map[i -1],
+				data->map[i + 1]) == 0)
 			return (0);
 		i++;
 	}
@@ -36,7 +37,7 @@ int	check_walls(t_vars *data)
 	i = 1;
 	while (data->map[i + 1])
 	{
-		if (!char_inset(data->map[i][0], "1 ") 
+		if (!char_inset(data->map[i][0], "1 ")
 			|| !char_inset(data->map[i][ft_strlen(data->map[i]) - 1], "1 "))
 			return (0);
 		i++;
@@ -49,7 +50,7 @@ int	check_walls(t_vars *data)
 int	check_player(t_vars *data)
 {
 	int	i;
-	int j;
+	int	j;
 	int	b_player;
 
 	i = 0;
@@ -65,7 +66,7 @@ int	check_player(t_vars *data)
 				data->map[i][j] = '0';
 			j++;
 		}
-		i++;		
+		i++;
 	}
 	return (b_player);
 }
