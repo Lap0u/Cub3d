@@ -203,15 +203,16 @@ void	draw_mini_rays(t_app *app)
 	y = dr->y;
     x = (x * 192.f / 512.f) / xo;
     y = (y * 192.f / 512.f) / yo;
-	if (xo < yo)
-		xo = yo;
-	if (yo < xo)
-		yo = xo;
+	// if (xo < yo)
+	// 	xo = yo;
+	// if (yo < xo)
+	// 	yo = xo;
 	prepa_init_ray(app);
-	while (dr->r < RES_X)
+	while (dr->r < 50)//change pour test
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
+		printf("r h v dist %d %f %f\n", dr->r, dr->hdist, dr->vdist);///
 		if (dr->vdist < dr->hdist)
 			// dt = dr->vdist;
 			dt = (dr->vdist * 192.f / 512.f) / xo;
@@ -229,6 +230,7 @@ void	draw_mini_rays(t_app *app)
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
 	}
+	printf("break\n\n");///
 }
 
 void	which_is_dir(t_app *app)
