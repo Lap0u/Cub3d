@@ -6,18 +6,18 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:59 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 14:21:28 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:37:32 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft/libft.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_vars	*data;
 	t_app	my_app;
-	
+
 	if (check_arg(av[1], ac) == 0)
 		return (1);
 	if (check_input(av[1]) == 0)
