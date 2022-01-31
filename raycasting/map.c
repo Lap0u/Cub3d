@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/31 16:38:36 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/31 16:40:31 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	drow_element(t_app *app, int x, int y, int color)
 {
-	int	i;
-	int	j;
-	int xo;
-	int yo;
-	float mod;
+	int		i;
+	int		j;
+	int		xo;
+	int		yo;
+	float	mod;
 
 	mod = 1;
 	if (app->map_x > 15 || app->map_y > 15)
 		mod = 0;
 	xo = (float)app->map_x;
 	yo = (float)app->map_y;
-
 	xo = 192 / xo;
 	yo = 192 / yo;
 	i = -1;
@@ -25,14 +36,12 @@ void	drow_element(t_app *app, int x, int y, int color)
 	}
 }
 
-void draw_map(t_app *app)
+void	draw_map(t_app *app)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
-	// if (app->bool_map == 1)
-	// 	return ;
 	while (y < app->map_y)
 	{
 		x = 0;
@@ -40,7 +49,6 @@ void draw_map(t_app *app)
 		{
 			if (app->map[y * app->map_x + x] == 1)
 				drow_element(app, x, y, 0x00AAAAAA);
-
 			else
 				drow_element(app, x, y, 0x00A1A101);
 			x++;
