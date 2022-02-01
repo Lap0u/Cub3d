@@ -1,0 +1,505 @@
+val = 0,255,255
+val = 255,0,255
+AFFICHAGE DES DONNEES :
+
+NO : textures/north.xpm
+SO : textures/mc_emerald.xpm
+EA : textures/east.xpm
+WE : textures/west.xpm
+floor : 0 255 255
+ceiling : 255 0 255
+
+AFFICHAGE DE LA MAP :
+
+11111111
+10000001
+10000001
+10000001
+10000001
+10000001
+100S1001
+11111111
+
+
+FIN
+
+AFFICHAGE DES DONNEES :
+
+NO : textures/north.xpm
+SO : textures/mc_emerald.xpm
+EA : textures/east.xpm
+WE : textures/west.xpm
+floor : 0 255 255
+ceiling : 255 0 255
+
+AFFICHAGE DE LA MAP :
+
+11111111
+10000001
+10000001
+10000001
+10000001
+10000001
+100S1001
+11111111
+
+
+FIN
+
+map: x 3 y 6
+display as int map
+11111111
+10000001
+10000001
+10000001
+10000001
+10000001
+10001001
+11111111
+
+end
+boucle
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 
+dof x y 0 3 7
+hx hy x y 896.000000 896.000000 896.000000 832.000000
+yolll
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+mx my mp 0 -262144 0
+49781071872.000000 64.000000  v h 

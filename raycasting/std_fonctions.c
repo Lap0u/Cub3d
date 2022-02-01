@@ -128,9 +128,9 @@ void	add_starting_angle(t_app *app, char c)
 	else if (c == 'S')
 		app->starting_angle = PI / 2;
 	else if (c == 'W')
-		app->starting_angle = 0;
-	else if (c == 'E')
 		app->starting_angle = PI;
+	else if (c == 'E')
+		app->starting_angle = 0;
 }
 
 void	init_colors(t_app *app)
