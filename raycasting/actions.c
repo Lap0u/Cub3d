@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:08:54 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 10:24:09 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:17:19 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ int	player_input_body(int key, t_app *app)
 	float posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
 
 	if (app->sp.game_state.delta_x < 0)
-		xo = -10;
+		xo = -RES_X / app->map_x / 3;
 	else
-		xo = 10;
+		xo = RES_X / app->map_x / 3;
 	if (app->sp.game_state.delta_y < 0)
-		yo = -10;
+		yo = -RES_Y / app->map_y / 3;
 	else
-		yo = 10;
-	printf("1 %f %f x y \n", app->sp.game_state.player_x, app->sp.game_state.player_y);
+		yo = RES_Y / app->map_y / 3;
 	posx = app->sp.game_state.player_x * app->map_x / RES_X;
 	posx_add_xo = posx + xo * app->map_x / RES_X;
 	posx_sub_xo = posx - xo * app->map_x / RES_X;
@@ -51,7 +50,6 @@ int	player_input_body(int key, t_app *app)
 	posx_sub_yo = posx - yo * app->map_x / RES_Y;
 	posy_add_xo = posy + xo * app->map_x / RES_X;
 	posy_sub_xo = posy - xo * app->map_x / RES_X;
-	printf("%f %f x y \n", posx, posy);
 	if (key == MAP)
 	{
 		app->bool_map++;
@@ -87,30 +85,30 @@ int	player_input_body(int key, t_app *app)
 		}
 		else if (key == LEFT)
 		{
-			if (app->map[(int)(posy * app->map_x + posx_add_yo)] != 1)
+			if (app->map[(int)posy * app->map_x + (int)posx_add_yo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
-			if (app->map[(int)(posy_sub_xo * app->map_x + posx)] != 1)
+			if (app->map[(int)posy_sub_xo * app->map_x + (int)posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == RIGHT)
 		{
-			if (app->map[(int)(posy * app->map_x + posx_sub_yo)] != 1)
+			if (app->map[(int)posy * app->map_x + (int)posx_sub_yo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
-			if (app->map[(int)(posy_add_xo * app->map_x + posx)] != 1)
+			if (app->map[(int)posy_add_xo * app->map_x + (int)posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)
 		{
-			if (app->map[(int)(posy * app->map_x + posx_sub_xo)] != 1)
+			if (app->map[(int)posy * app->map_x + (int)posx_sub_xo] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 1;
-			if (app->map[(int)(posy_sub_yo * app->map_x + posx)] != 1)
+			if (app->map[(int)posy_sub_yo * app->map_x + (int)posx] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 1;
 		}
 		else if (key == UP)
 		{
-			if (app->map[(int)(posy * app->map_x + posx_add_xo)] != 1)
+			if (app->map[(int)posy * app->map_x + (int)posx_add_xo] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 1;
-			if (app->map[(int)(posy_add_yo * app->map_x + posx)] != 1)
+			if (app->map[(int)posy_add_yo * app->map_x + (int)posx] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
 	}

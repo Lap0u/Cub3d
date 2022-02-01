@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:38:36 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 10:44:13 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:01:44 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	draw_map(t_app *app)
 		}
 		y++;
 	}
+	if (app->map_x <= 15 && app->map_y <= 15)
 	add_grid(app);
 }

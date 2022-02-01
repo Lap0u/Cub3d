@@ -36,13 +36,13 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = app->starting_x * RES_X / app->map_x;
-	app->sp.game_state.player_y = app->starting_y * RES_Y / app->map_y;
+	app->sp.game_state.player_x = app->starting_x * RES_X / app->map_x + RES_X / app->map_x / 2;
+	app->sp.game_state.player_y = app->starting_y * RES_Y / app->map_y + RES_Y / app->map_y / 2;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = app->starting_angle;
-	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
-	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
+	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 6;
+	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 6;
 	app->ray.game_state.pa = app->starting_angle;
 }
 
@@ -65,8 +65,8 @@ void	draw_line(t_app *app)
 
 void    draw_sprite(t_app *app)
 {
-    int        i;
-    int        j;
+    float        i;
+    float        j;
     float    x;
     float    y;
 
