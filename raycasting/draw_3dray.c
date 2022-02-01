@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 12:59:28 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:13:59 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / RES_X / app->map_x;
-	dr->my = (int)(dr->ry) / RES_Y / app->map_y;
+	dr->mx = (int)(dr->rx) / (RES_X / app->map_x);
+	dr->my = (int)(dr->ry) / (RES_Y / app->map_y);
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
@@ -111,6 +111,7 @@ void	check_horizont_line(t_app *app)
 		check_hor_action(app);
 	dr->hx = dr->rx;
 	dr->hy = dr->ry;
+	printf("hx hy x y %f %f %f %f\n", dr->hx, dr->hy, dr->x, dr->y);
 	dr->hdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
 }
 
