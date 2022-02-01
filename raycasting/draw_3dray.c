@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 12:29:12 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 12:59:28 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -50,7 +51,9 @@ void	check_hor_up(t_app *app)
 	
 	offset = RES_Y / app->map_y;
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y /offset) *offset) + offset;
+	printf("y off %f %f\n", dr->y, offset);
+	dr->ry = (((int)dr->y / offset) * offset) + offset;
+	printf("%f \n\n", dr->ry);
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
 	dr->yo = offset;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
@@ -72,10 +75,11 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / RES_Y / app->map_x;
+	dr->mx = (int)(dr->rx) / RES_X / app->map_x;
 	dr->my = (int)(dr->ry) / RES_Y / app->map_y;
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
+	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1)) // hit wall
 	{
@@ -222,12 +226,11 @@ void	draw_mini_rays(t_app *app)
     x = x * 192.f / RES_X;
     y = y * 192.f / RES_Y;
 	prepa_init_ray(app);
-	while (dr->r < RES_X)
+	while (dr->r < 1)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
-		if (dr->r <1034 && dr->r >1014)
-			printf("%f %f  v h \n", dr->vdist, dr->hdist);
+		printf("%f %f  v h \n", dr->vdist, dr->hdist);
 		if (dr->vdist < dr->hdist)
 			dt = dr->vdist * 192.f / RES_Y;
 		if (dr->hdist < dr->vdist)
@@ -243,7 +246,7 @@ void	draw_mini_rays(t_app *app)
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
 	}
-	printf("break\n\n");
+	// printf("break\n\n");
 }
 
 void	which_is_dir(t_app *app)

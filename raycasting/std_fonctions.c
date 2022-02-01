@@ -195,7 +195,7 @@ void	init_map(t_app *app, char **map)
 	if (app->map == NULL)
 		printf("faut gerer l'erreur lol\n");
 	app->map_x = longest;
-	app->map_y = i;
+	app->map_y = i - 1;
 	printf("map: x %d y %d\n", app->starting_x, app->starting_y);
 }
 
