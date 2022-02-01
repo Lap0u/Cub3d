@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_3dray.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/31 16:19:11 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 // #include "raycaster.h"
 
@@ -23,7 +35,7 @@ void	check_hor_down(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y >> 6)<< 6) - 0.0001;
+	dr->ry = (((int)dr->y >> 6) << 6) - 0.0001;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
 	dr->yo = -64;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
@@ -34,7 +46,7 @@ void	check_hor_up(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y >> 6)<< 6) + 64;
+	dr->ry = (((int)dr->y >> 6) << 6) + 64;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
 	dr->yo = 64;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
@@ -53,9 +65,6 @@ void	check_hor_left_right(t_app *app)
 void	check_hor_action(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->mp = 0;
@@ -132,9 +141,6 @@ void	check_vert_down_up(t_app *app)
 void	check_vert_action(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->mp = 0;
@@ -157,9 +163,6 @@ void	check_vert_action(t_app *app)
 void	check_vertical_line(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
 
 	dr = &(app->dr);
 	dr->dof = 0;
@@ -204,26 +207,34 @@ void	draw_mini_rays(t_app *app)
     float    xo;
     float    yo;
 	float    dt;
+	float i;
 	
     xo = (float)(app->map_x / 8.0);
     yo = (float)(app->map_y / 8.0);
 	x = dr->x;
 	y = dr->y;
-    x = (x * 192 / 512) / xo;
-    y = (y * 192 / 512) / yo;
+    x = (x * 192.f / 512.f) / xo;
+    y = (y * 192.f / 512.f) / yo;
+	// if (xo < yo)
+	// 	xo = yo;
+	// if (yo < xo)
+	// 	yo = xo;
 	prepa_init_ray(app);
-	while (dr->r < RES_X)
+	while (dr->r < RES_X)//change pour test
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
+		printf("r h v dist %d %f %f\n", dr->r, dr->hdist, dr->vdist);///
 		if (dr->vdist < dr->hdist)
-			dt = dr->vdist;
+			// dt = dr->vdist;
+			dt = (dr->vdist * 192.f / 512.f) / xo;
 		if (dr->hdist < dr->vdist)
-			dt = dr->hdist;
-		dr->i = -1;
-		while (++dr->i < (int)(dt * 192 / 512))
-			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + x),
-			(((dr->i * sin(dr->ra))) + y), 0x003ABFF7);
+			// dt = dr->vdist;
+			dt = (dr->hdist * 192.f / 512.f) / yo;
+		i = -1;
+		while (++i < (dt))
+			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
+			(((i * sin(dr->ra))) + y), 0x003ABFF7);
 		dr->r++;
 		dr->ra += DR;
 		if (dr->ra < 0)
@@ -231,6 +242,7 @@ void	draw_mini_rays(t_app *app)
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
 	}
+	printf("break\n\n");///
 }
 
 void	which_is_dir(t_app *app)
@@ -263,10 +275,6 @@ void	which_is_dir(t_app *app)
 void	draw_rays_3d(t_app *app)
 {
 	t_draw	*dr;
-	extern	int map_x;
-	extern	int map_y;
-	extern	int map[];
-	extern	int map_s;
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
@@ -289,7 +297,7 @@ void	draw_rays_3d(t_app *app)
 			{
 				int x = dr->j + dr->r;
 				my_mlx_pixel_put(&(app->img), x, dr->i + dr->lineO, get_color(app, x, dr->i + dr->lineO, dr->saveH, 
-				dr->rx, dr->i, dr->r, dr->mod));
+				dr->rx, dr->i));
 				dr->j++;
 			}
 			dr->i++;

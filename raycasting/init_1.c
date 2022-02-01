@@ -1,7 +1,18 @@
-#include "../cub3d.h"
-// #include "raycaster.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/31 16:36:37 by cbeaurai          #+#    #+#             */
+/*   Updated: 2022/01/31 16:38:21 by cbeaurai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	is_texture_exist(const char *filename)//c'est pas comme ca qu'on verifie si une image est correcte
+#include "../cub3d.h"
+
+int	is_texture_exist(const char *filename)
 {
 	int	fd;
 
@@ -13,7 +24,6 @@ int	is_texture_exist(const char *filename)//c'est pas comme ca qu'on verifie si 
 		write(2, "Error\nThe texture doesn't exist\n", 32);
 	return (1);
 }
-
 
 void	init_path(t_app *app)
 {
@@ -45,7 +55,7 @@ void	init_texture(t_app *app)
 		{
 			printf("this is not a good image(free a gerer)\n");
 			exit(1);
-		} ; // il faut free et exit ici
+		} // il faut free et exit ici
 		//gerer l'erreur si mauvaise images
 		txr[i].addr = mlx_get_data_addr(txr[i].img, &(txr[i].bpp),
 				&(txr[i].size), &(txr[i].endian));

@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 13:03:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/28 16:31:58 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:46:16 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	second_args(char *str, char *id)
 {
 	int	ret;
 
-	// printf("id = %s\tval = %s\n", id, str);
 	ret = 1;
 	if (ft_strlen(id) == 1)
 		ret = check_colour(str);
@@ -92,8 +91,8 @@ int	second_args(char *str, char *id)
 
 int	isonlyset(char *str, char *set)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (str[i])
@@ -102,7 +101,7 @@ int	isonlyset(char *str, char *set)
 		while (j < ft_strlen(set))
 		{
 			if (str[i] == set[j])
-				break;
+				break ;
 			j++;
 		}
 		if (j == ft_strlen(set))
@@ -112,10 +111,9 @@ int	isonlyset(char *str, char *set)
 	return (1);
 }
 
-
 int	check_map(char *str, int fd)
 {
-	int ret;
+	int	ret;
 
 	if (str[0] != '1')
 		return (1);
@@ -131,10 +129,10 @@ int	check_map(char *str, int fd)
 			free(str);
 		}
 		else
-			break;
+			break ;
 	}
 	if (isonlyset(str, " 10NSWE") == 0)
-		return(ret_int_free(0, str));
+		return (ret_int_free(0, str));
 	return (ret_int_free(1, str));
 }
 
@@ -156,22 +154,19 @@ char	*get_colours(char **args)
 			return (NULL);
 		i++;
 	}
-	// printf("%s\n", temp);
 	return (temp);
-
 }
-
-
 
 int	isonlyspace(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r'
-		|| str[i] == ' ')
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r'
+			|| str[i] == ' ')
 			i++;
 		else
 			return (0);
@@ -183,7 +178,7 @@ int	parse_line(char *str, int fd)
 {
 	char		**args;
 	static int	i = 0;
-	
+
 	if (str[0] == 0)
 		return (1);
 	if (isonlyspace(str) == 1)
@@ -197,7 +192,6 @@ int	parse_line(char *str, int fd)
 		args[1] = get_colours(args);
 	if (tab_len(args) != 2 || !args[1])
 	{
-		// printf("noright\n");
 		ft_free_3dtab(args);
 		return (0);
 	}

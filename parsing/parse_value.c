@@ -6,17 +6,16 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:46 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:41:01 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:39:37 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../libft/libft.h"
 
-
 void	add_col(t_vars *data, char *val, char c)
 {
-	char **tab;
+	char	**tab;
 
 	printf("val = %s\n", val);
 	tab = ft_split(val, ',');

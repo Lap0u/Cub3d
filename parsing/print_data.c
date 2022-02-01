@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 13:17:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:41:06 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:54:13 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	print_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	printf("AFFICHAGE DE LA MAP :\n\n");
@@ -36,9 +36,9 @@ void	print_data(t_vars *data)
 	if (data->we_path)
 		printf("WE : %s\n", data->we_path);
 	printf("floor : %d %d %d\n", data->floor_col[0],
-	data->floor_col[1], data->floor_col[2]);
-	printf("ceiling : %d %d %d\n\n", data->ceiling_col[0], 
-	data->ceiling_col[1], data->ceiling_col[2]);
+		data->floor_col[1], data->floor_col[2]);
+	printf("ceiling : %d %d %d\n\n", data->ceiling_col[0],
+		data->ceiling_col[1], data->ceiling_col[2]);
 	print_map(data->map);
 	printf("FIN\n\n");
 }

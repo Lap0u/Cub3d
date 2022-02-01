@@ -73,14 +73,14 @@ void    draw_sprite(t_app *app)
     float    xo;
     float    yo;
     i = -1;
-    xo = (float)(app->map_x / 8.0);
-    yo = (float)(app->map_y / 8.0);
-    x = (app->sp.game_state.player_x * 192 / 512) / xo;
-    y = (app->sp.game_state.player_y * 192 / 512) / yo;
-    printf("aft x = %f et y = %f\n", xo, yo);
+    xo = (float)((float)app->map_x / 8.f);
+    yo = (float)((float)app->map_y / 8.f);
+    x = (app->sp.game_state.player_x * 192.f / 512.f) / xo;
+    y = (app->sp.game_state.player_y * 192.f / 512.f) / yo;
+    // printf("aft x = %f et y = %f\n", xo, yo);
 
     // draw_line(app);
-    // draw_mini_rays(app);
+    draw_mini_rays(app);
     while (++i < 5) //changer le size en fonction de la taille de la map 
     {
         j = -1;

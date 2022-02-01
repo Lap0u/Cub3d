@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 12:49:58 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/27 10:40:55 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:55:09 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_map(char *first_line, int fd, t_vars *data)
 	line = NULL;
 	data->map = malloc(sizeof(char *) * 2);
 	if (data->map == NULL)
-		return(free(first_line));
+		return (free(first_line));
 	data->map[0] = first_line;
 	data->map[1] = NULL;
 	while (1)
@@ -60,8 +60,9 @@ void	get_map(t_vars *data, int fd)
 {
 	char	*line;
 	int		ret;
+
 	line = NULL;
-	while(1)
+	while (1)
 	{
 		ret = get_next_line(fd, &line);
 		if (ret < 0)
