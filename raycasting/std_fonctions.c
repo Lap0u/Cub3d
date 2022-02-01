@@ -36,8 +36,9 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = app->starting_x * 64 + 32;
-	app->sp.game_state.player_y = app->starting_y * 64 + 32;
+	printf("start : x y %d %d\n", app->starting_x, app->starting_y);
+	app->sp.game_state.player_x = app->starting_x * RES_X / app->map_x;
+	app->sp.game_state.player_y = app->starting_y * RES_Y / app->map_y;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = app->starting_angle;
@@ -70,24 +71,30 @@ void    draw_sprite(t_app *app)
     int        j;
     float    x;
     float    y;
-    float    xo;
-    float    yo;
+
     i = -1;
-    xo = (float)((float)app->map_x / 8.f);
-    yo = (float)((float)app->map_y / 8.f);
-    x = (app->sp.game_state.player_x * 192.f / 512.f) / xo;
-    y = (app->sp.game_state.player_y * 192.f / 512.f) / yo;
+	printf("x y %f %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
+    x = app->sp.game_state.player_x * 192.f / RES_X;
+    y = app->sp.game_state.player_y * 192.f / RES_Y;
+	printf("2 x y %f %f\n", x, y);
     // printf("aft x = %f et y = %f\n", xo, yo);
 
     // draw_line(app);
-    draw_mini_rays(app);
+    // draw_mini_rays(app);
     while (++i < 5) //changer le size en fonction de la taille de la map 
     {
         j = -1;
         while (++j < 5)
             my_mlx_pixel_put(&(app->img), (j + (x - 2.5)), (i + (y - 2.5)), 0x00FFFFFF);
-
     }
+	//affiche un contour de map
+	i = 0;
+	while (i < 192)
+	{
+            my_mlx_pixel_put(&(app->img), i, 192, 0x00FFFFFF);
+            my_mlx_pixel_put(&(app->img), 192, i, 0x00FFFFFF);
+			i++;
+	}
 }
 
 

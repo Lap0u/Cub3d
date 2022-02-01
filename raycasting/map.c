@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:38:36 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/31 16:40:31 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 09:43:50 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	drow_element(t_app *app, int x, int y, int color)
 {
-	int		i;
-	int		j;
-	int		xo;
-	int		yo;
-	float	mod;
+	int			i;
+	int			j;
+	float		xo;
+	float		yo;
 
-	mod = 1;
 	if (app->map_x > 15 || app->map_y > 15)
 		mod = 0;
 	xo = (float)app->map_x;
@@ -28,10 +26,10 @@ void	drow_element(t_app *app, int x, int y, int color)
 	xo = 192 / xo;
 	yo = 192 / yo;
 	i = -1;
-	while (++i < yo - mod)
+	while (++i < yo)
 	{
 		j = -1;
-		while (++j < xo - mod)
+		while (++j < xo)
 			my_mlx_pixel_put(&(app->img), j + (x * xo), i + (y * yo), color);
 	}
 }

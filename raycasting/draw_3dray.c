@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/31 16:19:11 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 09:26:17 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void	draw_mini_rays(t_app *app)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
-		printf("r h v dist %d %f %f\n", dr->r, dr->hdist, dr->vdist);///
+		// printf("r h v dist %d %f %f\n", dr->r, dr->hdist, dr->vdist);///
 		if (dr->vdist < dr->hdist)
 			// dt = dr->vdist;
 			dt = (dr->vdist * 192.f / 512.f) / xo;
