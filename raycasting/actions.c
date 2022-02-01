@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:08:54 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 09:58:32 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:24:09 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	player_input(int key, void *data)
 
 int	player_input_body(int key, t_app *app)
 {
-	int xo, yo, posx, posx_add_xo, posx_sub_xo, posy, posy_add_yo, posy_sub_yo;
-	int posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
+	float xo, yo, posx, posx_add_xo, posx_sub_xo, posy, posy_add_yo, posy_sub_yo;
+	float posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
 
 	if (app->sp.game_state.delta_x < 0)
 		xo = -10;
@@ -40,16 +40,18 @@ int	player_input_body(int key, t_app *app)
 		yo = -10;
 	else
 		yo = 10;
-	posx = app->sp.game_state.player_x / 64.0;
-	posx_add_xo = (app->sp.game_state.player_x + xo) / 64.0;
-	posx_sub_xo = (app->sp.game_state.player_x - xo) / 64.0;
-	posy = app->sp.game_state.player_y / 64.0;
-	posy_add_yo = (app->sp.game_state.player_y + yo) / 64.0;
-	posy_sub_yo = (app->sp.game_state.player_y - yo) / 64.0;
-	posx_add_yo = (app->sp.game_state.player_x + yo) / 64.0;
-	posx_sub_yo = (app->sp.game_state.player_x - yo) / 64.0;
-	posy_add_xo = (app->sp.game_state.player_y + xo) / 64.0;
-	posy_sub_xo = (app->sp.game_state.player_y - xo) / 64.0;
+	printf("1 %f %f x y \n", app->sp.game_state.player_x, app->sp.game_state.player_y);
+	posx = app->sp.game_state.player_x * app->map_x / RES_X;
+	posx_add_xo = posx + xo * app->map_x / RES_X;
+	posx_sub_xo = posx - xo * app->map_x / RES_X;
+	posy = app->sp.game_state.player_y * app->map_y / RES_Y;
+	posy_add_yo = posy + yo * app->map_x / RES_Y;
+	posy_sub_yo = posy - yo * app->map_x / RES_Y;
+	posx_add_yo = posx + yo * app->map_x / RES_Y;
+	posx_sub_yo = posx - yo * app->map_x / RES_Y;
+	posy_add_xo = posy + xo * app->map_x / RES_X;
+	posy_sub_xo = posy - xo * app->map_x / RES_X;
+	printf("%f %f x y \n", posx, posy);
 	if (key == MAP)
 	{
 		app->bool_map++;
@@ -59,7 +61,6 @@ int	player_input_body(int key, t_app *app)
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
 	{
-		printf("yoyo\n");
 		if (key == FL_LEFT)
 		{
 			app->sp.game_state.pa -= 0.1;
@@ -86,30 +87,30 @@ int	player_input_body(int key, t_app *app)
 		}
 		else if (key == LEFT)
 		{
-			if (app->map[posy * app->map_x + posx_add_yo] != 1)
+			if (app->map[(int)(posy * app->map_x + posx_add_yo)] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_y) / 1;
-			if (app->map[posy_sub_xo * app->map_x + posx] != 1)
+			if (app->map[(int)(posy_sub_xo * app->map_x + posx)] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == RIGHT)
 		{
-			if (app->map[posy * app->map_x + posx_sub_yo] != 1)
+			if (app->map[(int)(posy * app->map_x + posx_sub_yo)] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_y) / 1;
-			if (app->map[posy_add_xo * app->map_x + posx] != 1)
+			if (app->map[(int)(posy_add_xo * app->map_x + posx)] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_x) / 1;
 		}
 		else if (key == DOWN)
 		{
-			if (app->map[posy * app->map_x + posx_sub_xo] != 1)
+			if (app->map[(int)(posy * app->map_x + posx_sub_xo)] != 1)
 				app->sp.game_state.player_x -= (app->sp.game_state.delta_x) / 1;
-			if (app->map[posy_sub_yo * app->map_x + posx] != 1)
+			if (app->map[(int)(posy_sub_yo * app->map_x + posx)] != 1)
 				app->sp.game_state.player_y -= (app->sp.game_state.delta_y) / 1;
 		}
 		else if (key == UP)
 		{
-			if (app->map[posy * app->map_x + posx_add_xo] != 1)
+			if (app->map[(int)(posy * app->map_x + posx_add_xo)] != 1)
 				app->sp.game_state.player_x += (app->sp.game_state.delta_x) / 1;
-			if (app->map[posy_add_yo * app->map_x + posx] != 1)
+			if (app->map[(int)(posy_add_yo * app->map_x + posx)] != 1)
 				app->sp.game_state.player_y += (app->sp.game_state.delta_y) / 1;
 		}
 	}

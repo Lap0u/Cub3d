@@ -36,7 +36,6 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	printf("start : x y %d %d\n", app->starting_x, app->starting_y);
 	app->sp.game_state.player_x = app->starting_x * RES_X / app->map_x;
 	app->sp.game_state.player_y = app->starting_y * RES_Y / app->map_y;
 	app->sp.game_state.player_old_x = 0;
@@ -45,7 +44,6 @@ void	init_sprite(t_app *app)
 	app->sp.game_state.delta_x = cosf(app->sp.game_state.pa) * 5;
 	app->sp.game_state.delta_y = sinf(app->sp.game_state.pa) * 5;
 	app->ray.game_state.pa = app->starting_angle;
-	printf("ini : x : y %f %f\n", app->sp.game_state.player_x,app->sp.game_state.player_y);
 }
 
 void	draw_line(t_app *app)
@@ -73,10 +71,8 @@ void    draw_sprite(t_app *app)
     float    y;
 
     i = -1;
-	printf("x y %f %f\n", app->sp.game_state.player_x, app->sp.game_state.player_y);
     x = app->sp.game_state.player_x * 192.f / RES_X;
     y = app->sp.game_state.player_y * 192.f / RES_Y;
-	printf("2 x y %f %f\n", x, y);
     // printf("aft x = %f et y = %f\n", xo, yo);
 
     // draw_line(app);
