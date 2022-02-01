@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 18:12:34 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:04:29 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	// dr->ra = app->ray.game_state.pa;
+	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -33,7 +33,7 @@ void	prepa_init_ray(t_app *app)
 	dr->hdist = RES_X * 2;
 }
 
-void	 check_hor_down(t_app *app)
+void	 check_hor_down(t_app *app)//en fait check le haut
 {
 	t_draw	*dr;
 	float	offset_y;
@@ -42,13 +42,14 @@ void	 check_hor_down(t_app *app)
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = (dr->y * offset_y) / 1;
+	dr->ry = ceil(dr->y * offset_y);
+	printf("dr->ryrr %f\n\n\n", dr->ry);
 	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
-	dr->yo = -1;
+	dr->yo = -1.000;//a voir sur grande map
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
 
-void	check_hor_up(t_app *app)
+void	check_hor_up(t_app *app)// en fait check en bas, foncitonne 02/01
 {
 	t_draw	*dr;
 	float	offset_y;
@@ -57,7 +58,8 @@ void	check_hor_up(t_app *app)
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = (dr->y * offset_y) / 1 + 1;
+	dr->ry = floor(dr->y * offset_y);
+	printf("dr->ryoo %f\n\n\n", dr->ry);
 	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
 	dr->yo = 1;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
