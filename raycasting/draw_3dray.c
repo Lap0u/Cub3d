@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 11:47:25 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 12:29:12 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	 check_hor_down(t_app *app)
 	t_draw	*dr;
 	float	offset;
 
-	offset = RES_Y / app->map_x;
+	offset = RES_Y / app->map_y;
 	dr = &(app->dr);
 	dr->ry = (((int)dr->y / offset) * offset) - 0.0001;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
@@ -48,7 +48,7 @@ void	check_hor_up(t_app *app)
 	t_draw	*dr;
 	float	offset;
 	
-	offset = RES_Y / app->map_x;
+	offset = RES_Y / app->map_y;
 	dr = &(app->dr);
 	dr->ry = (((int)dr->y /offset) *offset) + offset;
 	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
@@ -72,8 +72,8 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / RES_X / app->map_x;
-	dr->my = (int)(dr->ry) / RES_Y / app->map_x;
+	dr->mx = (int)(dr->rx) / RES_Y / app->map_x;
+	dr->my = (int)(dr->ry) / RES_Y / app->map_y;
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
@@ -152,8 +152,8 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / RES_X / app->map_x;
-	dr->my = (int)(dr->ry) / RES_Y / app->map_y;
+	dr->mx = (int)(dr->rx) / RES_X / app->map_y;
+	dr->my = (int)(dr->ry) / RES_X / app->map_x;
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	dr->mp = dr->my * app->map_x + dr->mx;
@@ -226,10 +226,12 @@ void	draw_mini_rays(t_app *app)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
+		if (dr->r <1034 && dr->r >1014)
+			printf("%f %f  v h \n", dr->vdist, dr->hdist);
 		if (dr->vdist < dr->hdist)
-			dt = dr->vdist * 192.f / RES_X;
+			dt = dr->vdist * 192.f / RES_Y;
 		if (dr->hdist < dr->vdist)
-			dt = dr->hdist * 192.f / RES_Y;
+			dt = dr->hdist * 192.f / RES_X;
 		i = -1;
 		while (++i < (dt))
 			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
@@ -241,6 +243,7 @@ void	draw_mini_rays(t_app *app)
 		if (dr->ra > 2 * PI)
 			dr->ra -= 2 * PI;
 	}
+	printf("break\n\n");
 }
 
 void	which_is_dir(t_app *app)
