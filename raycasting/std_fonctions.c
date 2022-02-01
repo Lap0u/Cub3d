@@ -76,7 +76,7 @@ void    draw_sprite(t_app *app)
     // printf("aft x = %f et y = %f\n", xo, yo);
 
     // draw_line(app);
-    // draw_mini_rays(app);
+    draw_mini_rays(app);
     while (++i < 5) //changer le size en fonction de la taille de la map 
     {
         j = -1;
