@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:27:47 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/31 16:34:28 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 18:11:29 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	get_color(t_app *app, int x, int y, int scale, int rx, int i)
 	int		new;
 	int		save_x;
 
+	return(0xFF0000);
 	new = 0;
 	if (scale > RES_Y)
 		i = i + (scale / 2 - RES_Y / 2);

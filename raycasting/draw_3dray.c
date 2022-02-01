@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 15:17:54 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 18:12:34 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	dr->ra = app->ray.game_state.pa;
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	// dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -36,26 +36,30 @@ void	prepa_init_ray(t_app *app)
 void	 check_hor_down(t_app *app)
 {
 	t_draw	*dr;
-	float	offset;
+	float	offset_y;
+	float	offset_x;
 
-	offset = RES_Y / app->map_y;
+	offset_y = (float)app->map_y / (float)RES_Y;
+	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y / (int)offset) * offset) - 0.0001;
-	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
-	dr->yo = -offset;
+	dr->ry = (dr->y * offset_y) / 1;
+	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
+	dr->yo = -1;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
 
 void	check_hor_up(t_app *app)
 {
 	t_draw	*dr;
-	float	offset;
-	
-	offset = RES_Y / app->map_y;
+	float	offset_y;
+	float	offset_x;
+
+	offset_y = (float)app->map_y / (float)RES_Y;
+	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = (((int)dr->y / (int)offset) * offset) + offset;
-	dr->rx = (dr->y - dr->ry) * dr->a_tan + dr->x;
-	dr->yo = offset;
+	dr->ry = (dr->y * offset_y) / 1 + 1;
+	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
+	dr->yo = 1;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
 
@@ -75,8 +79,8 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / (RES_X / app->map_x);
-	dr->my = (int)(dr->ry) / (RES_Y / app->map_y);
+	dr->mx = (dr->rx) / 1;
+	dr->my = (dr->ry) / 1;
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
@@ -96,6 +100,8 @@ void	check_hor_action(t_app *app)
 void	check_horizont_line(t_app *app)
 {
 	t_draw	*dr;
+	float	temp_x;
+	float	temp_y;
 
 	dr = &(app->dr);
 	dr->dof = 0; // nbr des cases que l'on a deja checke
@@ -111,37 +117,49 @@ void	check_horizont_line(t_app *app)
 		check_hor_action(app);
 	dr->hx = dr->rx;
 	dr->hy = dr->ry;
-	dr->hdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
-	printf("hx hy x y %f %f %f %f\n", dr->hx, dr->hy, dr->x, dr->y);
+	temp_x = dr->x / ((float)RES_X / (float)app->map_x);
+	temp_y = dr->y / ((float)RES_Y / (float)app->map_y);
+	// temp_x = dr->x * (app->map_x / RES_X);
+	// temp_y = dr->y * (app->map_y / RES_Y);
+	dr->hdist = sqrt(pow(dr->rx - temp_x, 2) + (pow(dr->ry - temp_y, 2)));
+	printf("hx hy x y %f %f %f %f\n\n\n", dr->hx, dr->hy, temp_x, temp_y);
 }
 
 void	check_vert_left(t_app *app)
 {
 	t_draw	*dr;
-	float	offset;
+	float	offset_y;
+	float	offset_x;
+
+	offset_y = (float)app->map_y / (float)RES_Y;
+	offset_x = (float)app->map_x / (float)RES_X;
 	
 	printf("yolll\n");
-	offset = RES_X / app->map_x;
+	// offset = RES_X / app->map_x;
 	dr = &(app->dr);
-	dr->rx = (((int)dr->x / (int)offset)* offset) - 0.0001;
-	dr->ry = (dr->x - dr->rx) * dr->n_tan + dr->y;
-	dr->xo = -offset;
+	dr->rx = (dr->x * offset_x) / 1;
+	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
+	dr->xo = -1;
 	dr->yo = -1  * dr->xo * dr->n_tan;
 }
 
 void	check_vert_right(t_app *app)
 {
 	t_draw	*dr;
-	float	offset;
+	float	offset_y;
+	float	offset_x;
+
+	offset_y = (float)app->map_y / (float)RES_Y;
+	offset_x = (float)app->map_x / (float)RES_X;
 
 	printf("yo\n");
-	offset = RES_X / app->map_x;
-	printf("%f off\n", offset);
+	// offset = RES_X / app->map_x;
+	// printf("%f off\n", offset);
 	dr = &(app->dr);
-	dr->rx = (((int)dr->x / (int)offset) * offset) + offset;
+	dr->rx = (dr->x * offset_x) / 1 + 1;
 	printf("rx %f\n", dr->rx);
-	dr->ry = (dr->x - dr->rx) * dr->n_tan + dr->y;
-	dr->xo = offset;
+	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
+	dr->xo = 1;
 	dr->yo = -1 * dr->xo * dr->n_tan;
 }
 
@@ -161,11 +179,11 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (int)(dr->rx) / (RES_X / app->map_x);
-	dr->my = (int)(dr->ry) / (RES_Y / app->map_y);
+	dr->mx = (dr->rx) / 1;
+	dr->my = (dr->ry) / 1;
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
-	printf("vert mx my mp %d %d %d\n", dr->mx, dr->my, dr->mp);
+	printf("vert dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	// printf("mp = %d\n", dr->mp);
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
@@ -181,6 +199,8 @@ void	check_vert_action(t_app *app)
 void	check_vertical_line(t_app *app)
 {
 	t_draw	*dr;
+	float	temp_x;
+	float	temp_y;
 
 	dr = &(app->dr);
 	dr->dof = 0;
@@ -193,10 +213,12 @@ void	check_vertical_line(t_app *app)
 		check_vert_down_up(app);		
 	while (dr->dof < app->map_x)
 		check_vert_action(app);
-	dr->vx = dr->rx;
-	dr->vy = dr->ry;
-	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
-	printf("vx vy x y %f %f %f %f\n", dr->vx, dr->vy, dr->x, dr->y);
+	temp_x = dr->x / ((float)RES_X / (float)app->map_x);
+	temp_y = dr->y / ((float)RES_Y / (float)app->map_y);
+	// temp_x = dr->x * (app->map_x / RES_X);
+	// temp_y = dr->y * (app->map_y / RES_Y);
+	dr->vdist = sqrt(pow(dr->rx - temp_x, 2) + (pow(dr->ry - temp_y, 2)));
+	printf("vx vy x y %f %f %f %f\n\n\n", dr->vx, dr->vy, temp_x, temp_y);
 }
 
 void	fix_fish_eye(t_app *app)
@@ -232,16 +254,17 @@ void	draw_mini_rays(t_app *app)
 	y = dr->y;
     x = x * 192.f / RES_X;
     y = y * 192.f / RES_Y;
+	printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
 	while (dr->r < 1)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
-		printf("%f %f  v h \n", dr->vdist, dr->hdist);
-		if (dr->vdist < dr->hdist / 2)
-			dt = dr->vdist * 192.f / RES_Y;
+		printf("%f %f  v h \n--------------\n", dr->vdist, dr->hdist);
+		if (dr->vdist < dr->hdist)
+			dt = dr->vdist * 192.f / app->map_y;
 		else
-			dt = dr->hdist * 192.f / RES_X;
+			dt = dr->hdist * 192.f / app->map_x;
 		i = -1;
 		while (++i < (dt))
 			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
@@ -295,7 +318,7 @@ void	draw_rays_3d(t_app *app)
 		check_vertical_line(app);
 		which_is_dir(app);
 		fix_fish_eye(app);
-		dr->lineH = (64 * app->y)/dr->tdist; // line height
+		dr->lineH = (app->y)/dr->tdist; // line height
 		dr->saveH = dr->lineH;
 		if (dr->lineH > app->y)
 			dr->lineH = app->y;
