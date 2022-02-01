@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:08:54 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 09:30:43 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 09:58:32 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	player_input_body(int key, t_app *app)
 	if (key == FL_LEFT || key == FL_RIGHT
 		||key == LEFT || key == RIGHT || key == DOWN || key == UP)
 	{
+		printf("yoyo\n");
 		if (key == FL_LEFT)
 		{
 			app->sp.game_state.pa -= 0.1;

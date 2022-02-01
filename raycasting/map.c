@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:38:36 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 09:43:50 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 09:55:25 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	drow_element(t_app *app, int x, int y, int color)
 	float		xo;
 	float		yo;
 
-	if (app->map_x > 15 || app->map_y > 15)
-		mod = 0;
 	xo = (float)app->map_x;
 	yo = (float)app->map_y;
 	xo = 192 / xo;
@@ -32,6 +30,34 @@ void	drow_element(t_app *app, int x, int y, int color)
 		while (++j < xo)
 			my_mlx_pixel_put(&(app->img), j + (x * xo), i + (y * yo), color);
 	}
+}
+
+void	add_grid(t_app *app)
+{
+	int i;
+	int j;
+	int	xo;
+	int	yo;
+
+	xo = 192 / app->map_x;
+	yo = 192 / app->map_x;
+	i = xo;
+	while (i < 192)
+	{
+		j = -1;
+		while (++j < 192)
+			my_mlx_pixel_put(&(app->img), i, j, 0x000000);
+		i += xo;
+	}
+	i = yo;
+	while (i < 192)
+	{
+		j = -1;
+		while (++j < 192)
+			my_mlx_pixel_put(&(app->img), j, i, 0x000000);
+		i += yo;
+	}
+			
 }
 
 void	draw_map(t_app *app)
@@ -53,4 +79,5 @@ void	draw_map(t_app *app)
 		}
 		y++;
 	}
+	add_grid(app);
 }
