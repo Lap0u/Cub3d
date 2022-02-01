@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 22:04:29 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:19:50 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	check_vert_left(t_app *app)
 	printf("yolll\n");
 	// offset = RES_X / app->map_x;
 	dr = &(app->dr);
-	dr->rx = (dr->x * offset_x) / 1;
+	dr->rx = ceil(dr->x * offset_x);
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
 	dr->xo = -1;
 	dr->yo = -1  * dr->xo * dr->n_tan;
@@ -158,7 +158,7 @@ void	check_vert_right(t_app *app)
 	// offset = RES_X / app->map_x;
 	// printf("%f off\n", offset);
 	dr = &(app->dr);
-	dr->rx = (dr->x * offset_x) / 1 + 1;
+	dr->rx = floor(dr->x * offset_x);
 	printf("rx %f\n", dr->rx);
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
 	dr->xo = 1;
