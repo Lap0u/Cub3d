@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 22:19:50 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 22:54:37 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ void	 check_hor_down(t_app *app)//en fait check le haut
 	float	offset_y;
 	float	offset_x;
 
+	printf("up\n\n");
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = ceil(dr->y * offset_y);
+	dr->ry = ceil(dr->y * offset_y) - 0.0001;
 	printf("dr->ryrr %f\n\n\n", dr->ry);
 	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
-	dr->yo = -1.000;//a voir sur grande map
+	dr->yo = -1;//a voir sur grande map
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
 
@@ -139,7 +140,7 @@ void	check_vert_left(t_app *app)
 	printf("yolll\n");
 	// offset = RES_X / app->map_x;
 	dr = &(app->dr);
-	dr->rx = ceil(dr->x * offset_x);
+	dr->rx = ceil(dr->x * offset_x) - 0.0001;
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
 	dr->xo = -1;
 	dr->yo = -1  * dr->xo * dr->n_tan;
