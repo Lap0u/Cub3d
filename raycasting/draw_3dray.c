@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 22:54:37 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:07:21 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	check_hor_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (dr->rx) / 1;
-	dr->my = (dr->ry) / 1;
+	dr->mx = floor(dr->rx);
+	dr->my = floor(dr->ry);
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
@@ -109,7 +109,7 @@ void	check_horizont_line(t_app *app)
 	dr = &(app->dr);
 	dr->dof = 0; // nbr des cases que l'on a deja checke
 	dr->mp = 0; // numero de case  que l'on check
-	dr->a_tan = -1 / tan(dr->ra);
+	dr->a_tan = -1.f / tan(dr->ra);
 	if (dr->ra > PI) //looking down
 		check_hor_down(app);
 	if (dr->ra < PI) //looking up
@@ -182,8 +182,8 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
-	dr->mx = (dr->rx) / 1;
-	dr->my = (dr->ry) / 1;
+	dr->mx = floor(dr->rx);
+	dr->my = floor(dr->ry);
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("vert dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
@@ -207,7 +207,7 @@ void	check_vertical_line(t_app *app)
 
 	dr = &(app->dr);
 	dr->dof = 0;
-	dr->n_tan = -1 * tan(dr->ra);
+	dr->n_tan = -1.f * tan(dr->ra);
 	if (dr->ra > PI2 && dr->ra < PI3)
 		check_vert_left(app);
 	if (dr->ra < PI2 || dr->ra > PI3)
