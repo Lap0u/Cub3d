@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/02 12:18:46 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:08:22 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	dr->ra = app->ray.game_state.pa;
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	// dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -43,7 +43,7 @@ void	 check_hor_down(t_app *app)//en fait check le haut
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = ceil(dr->y * offset_y) - 0.0001;
+	dr->ry = floor(dr->y * offset_y) - 0.0001;
 	printf("dr->ryrr %f\n\n\n", dr->ry);
 	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
 	dr->yo = -1;//a voir sur grande map
@@ -59,7 +59,7 @@ void	check_hor_up(t_app *app)// en fait check en bas, foncitonne 02/01
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
-	dr->ry = floor(dr->y * offset_y);
+	dr->ry = ceil(dr->y * offset_y);
 	printf("dr->ryoo %f\n\n\n", dr->ry);
 	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
 	dr->yo = 1;
@@ -142,8 +142,9 @@ void	check_vert_left(t_app *app)
 	printf("yolll\n");
 	// offset = RES_X / app->map_x;
 	dr = &(app->dr);
-	dr->rx = ceil(dr->x * offset_x) - 0.0001;
+	dr->rx = floor(dr->x * offset_x) - 0.0001;
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
+	printf("rx ry left%f %f\n", dr->rx, dr->ry);
 	dr->xo = -1;
 	dr->yo = -1  * dr->xo * dr->n_tan;
 }
@@ -161,7 +162,7 @@ void	check_vert_right(t_app *app)
 	// offset = RES_X / app->map_x;
 	// printf("%f off\n", offset);
 	dr = &(app->dr);
-	dr->rx = floor(dr->x * offset_x);
+	dr->rx = ceil(dr->x * offset_x);
 	printf("rx %f\n", dr->rx);
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
 	dr->xo = 1;
@@ -266,7 +267,7 @@ void	draw_mini_rays(t_app *app)
     y = y * 192.f / RES_Y;
 	printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
-	while (dr->r < 1)
+	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
