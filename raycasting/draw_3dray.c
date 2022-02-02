@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/02 16:08:22 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:09:24 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	// dr->ra = app->ray.game_state.pa;
+	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -122,6 +122,8 @@ void	check_horizont_line(t_app *app)
 		check_hor_action(app);
 	dr->hx = dr->rx;
 	dr->hy = dr->ry;
+	if (dr->ra > PI)
+		dr->ry += 0.0001;
 	temp_x = dr->x / ((float)RES_X / (float)app->map_x);
 	temp_y = dr->y / ((float)RES_Y / (float)app->map_y);
 	// temp_x = dr->x * (app->map_x / RES_X);
@@ -224,6 +226,8 @@ void	check_vertical_line(t_app *app)
 	
 	dr->vx = dr->rx;
 	dr->vy = dr->ry;
+	if (dr->ra > PI2 && dr->ra < PI3)
+		dr->vx += 0.0001;
 	temp_x = dr->x / ((float)RES_X / (float)app->map_x);
 	temp_y = dr->y / ((float)RES_Y / (float)app->map_y);
 	// temp_x = dr->x * (app->map_x / RES_X);
@@ -267,16 +271,19 @@ void	draw_mini_rays(t_app *app)
     y = y * 192.f / RES_Y;
 	printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
-	while (dr->r < RES_X)
+	while (dr->r < 1)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
 		printf("%f %f  v h \n--------------\n", dr->vdist, dr->hdist);
+		printf("%d %d mapx mapy\n", app->map_x, app->map_y);
 		if (dr->vdist < dr->hdist)
-			dt = dr->vdist * 192.f / app->map_y;
+			dt = dr->vdist * 192.f / app->map_x;
 		else
-			dt = dr->hdist * 192.f / app->map_x;
+			dt = dr->hdist * 192.f / app->map_y;
+		printf("%f dt\n", dt);
 		i = -1;
+		printf("start x y %f %f\n", x, y);
 		while (++i < (dt))
 			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
 			(((i * sin(dr->ra))) + y), 0x003ABFF7);
