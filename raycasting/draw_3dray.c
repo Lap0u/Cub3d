@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/01 23:07:21 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/02 12:18:46 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	check_hor_left_right(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->rx = RES_X * 2;
-	dr->ry = RES_X * 2;
+	dr->rx = app->map_x * 3;
+	dr->ry = app->map_y * 3;
 	dr->dof = app->map_y;
 }
 
@@ -87,6 +87,8 @@ void	check_hor_action(t_app *app)
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
+		if (dr->my < 0 || dr->my > app->map_x || dr->mx < 0 || dr->mx > app->map_x)
+		check_hor_left_right(app);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1)) // hit wall
 	{
@@ -171,8 +173,8 @@ void	check_vert_down_up(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	dr->rx = RES_X * 2;
-	dr->ry = RES_X * 2;
+	dr->rx = app->map_x * 3;
+	dr->ry = app->map_y * 3;
 	dr->dof = app->map_x;
 }
 
@@ -187,6 +189,8 @@ void	check_vert_action(t_app *app)
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
 	printf("vert dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
+	if (dr->my < 0 || dr->my > app->map_x || dr->mx < 0 || dr->mx > app->map_x)
+		check_vert_down_up(app);
 	dr->mp = dr->my * app->map_x + dr->mx;
 	// printf("mp = %d\n", dr->mp);
 	if (dr->mp > 0 && dr->mp < (app->map_x * app->map_y) && (app->map[dr->mp] == 1))
@@ -216,6 +220,9 @@ void	check_vertical_line(t_app *app)
 		check_vert_down_up(app);		
 	while (dr->dof < app->map_x)
 		check_vert_action(app);
+	
+	dr->vx = dr->rx;
+	dr->vy = dr->ry;
 	temp_x = dr->x / ((float)RES_X / (float)app->map_x);
 	temp_y = dr->y / ((float)RES_Y / (float)app->map_y);
 	// temp_x = dr->x * (app->map_x / RES_X);
