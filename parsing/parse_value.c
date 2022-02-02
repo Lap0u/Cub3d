@@ -17,7 +17,7 @@ void	add_col(t_vars *data, char *val, char c)
 {
 	char	**tab;
 
-	printf("val = %s\n", val);
+	// printf("val = %s\n", val);
 	tab = ft_split(val, ',');
 	if (tab == NULL)
 		return ;

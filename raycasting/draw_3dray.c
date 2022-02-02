@@ -38,14 +38,17 @@ void	 check_hor_down(t_app *app)//en fait check le haut
 	t_draw	*dr;
 	float	offset_y;
 	float	offset_x;
+	float	kof;
 
-	printf("up\n\n");
+	kof = app->map_y / app->map_x;
+
+	// printf("up\n\n");
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
 	dr->ry = floor(dr->y * offset_y) - 0.0001;
-	printf("dr->ryrr %f\n\n\n", dr->ry);
-	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
+	// printf("dr->ryrr %f\n\n\n", dr->ry);
+	dr->rx = (((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x)) * kof;
 	dr->yo = -1;//a voir sur grande map
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
@@ -55,13 +58,16 @@ void	check_hor_up(t_app *app)// en fait check en bas, foncitonne 02/01
 	t_draw	*dr;
 	float	offset_y;
 	float	offset_x;
+	float	kof;
+
+	kof = app->map_x / app->map_y;
 
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	dr = &(app->dr);
 	dr->ry = ceil(dr->y * offset_y);
-	printf("dr->ryoo %f\n\n\n", dr->ry);
-	dr->rx = ((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x);
+	// printf("dr->ryoo %f\n\n\n", dr->ry);
+	dr->rx = (((dr->y * offset_y) - dr->ry) * dr->a_tan + (dr->x*offset_x)) * kof;
 	dr->yo = 1;
 	dr->xo = (-1 * dr->yo) * dr->a_tan;
 }
@@ -86,7 +92,7 @@ void	check_hor_action(t_app *app)
 	dr->my = floor(dr->ry);
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
-	printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
+	// printf("dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
 		if (dr->my < 0 || dr->my > app->map_x || dr->mx < 0 || dr->mx > app->map_x)
 		check_hor_left_right(app);
 	dr->mp = dr->my * app->map_x + dr->mx;
@@ -127,7 +133,7 @@ void	check_horizont_line(t_app *app)
 	// temp_x = dr->x * (app->map_x / RES_X);
 	// temp_y = dr->y * (app->map_y / RES_Y);
 	dr->hdist = sqrt(pow(dr->rx - temp_x, 2) + (pow(dr->ry - temp_y, 2)));
-	printf("hx hy x y %f %f %f %f\n\n\n", dr->hx, dr->hy, temp_x, temp_y);
+	// printf("hx hy x y %f %f %f %f\n\n\n", dr->hx, dr->hy, temp_x, temp_y);
 }
 
 void	check_vert_left(t_app *app)
@@ -139,12 +145,12 @@ void	check_vert_left(t_app *app)
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 	
-	printf("yolll\n");
+	// printf("yolll\n");
 	// offset = RES_X / app->map_x;
 	dr = &(app->dr);
 	dr->rx = floor(dr->x * offset_x) - 0.0001;
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
-	printf("rx ry left%f %f\n", dr->rx, dr->ry);
+	// printf("rx ry left%f %f\n", dr->rx, dr->ry);
 	dr->xo = -1;
 	dr->yo = -1  * dr->xo * dr->n_tan;
 }
@@ -158,12 +164,12 @@ void	check_vert_right(t_app *app)
 	offset_y = (float)app->map_y / (float)RES_Y;
 	offset_x = (float)app->map_x / (float)RES_X;
 
-	printf("yo\n");
+	// printf("yo\n");
 	// offset = RES_X / app->map_x;
 	// printf("%f off\n", offset);
 	dr = &(app->dr);
 	dr->rx = ceil(dr->x * offset_x);
-	printf("rx %f\n", dr->rx);
+	// printf("rx %f\n", dr->rx);
 	dr->ry = ((dr->x * offset_x) - dr->rx) * dr->n_tan + (dr->y * offset_y);
 	dr->xo = 1;
 	dr->yo = -1 * dr->xo * dr->n_tan;
@@ -189,7 +195,7 @@ void	check_vert_action(t_app *app)
 	dr->my = floor(dr->ry);
 	// dr->mx = (int)(dr->rx) / (app->map_x * 64);
 	// dr->my = (int)(dr->ry) / (app->map_y * 64);
-	printf("vert dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
+	// printf("vert dof x y %d %d %d\n", dr->dof, dr->mx, dr->my);
 	if (dr->my < 0 || dr->my > app->map_x || dr->mx < 0 || dr->mx > app->map_x)
 		check_vert_down_up(app);
 	dr->mp = dr->my * app->map_x + dr->mx;
@@ -229,7 +235,7 @@ void	check_vertical_line(t_app *app)
 	// temp_x = dr->x * (app->map_x / RES_X);
 	// temp_y = dr->y * (app->map_y / RES_Y);
 	dr->vdist = sqrt(pow(dr->rx - temp_x, 2) + (pow(dr->ry - temp_y, 2)));
-	printf("vx vy x y %f %f %f %f\n\n\n", dr->vx, dr->vy, temp_x, temp_y);
+	// printf("vx vy x y %f %f %f %f\n\n\n", dr->vx, dr->vy, temp_x, temp_y);
 }
 
 void	fix_fish_eye(t_app *app)
@@ -265,13 +271,13 @@ void	draw_mini_rays(t_app *app)
 	y = dr->y;
     x = x * 192.f / RES_X;
     y = y * 192.f / RES_Y;
-	printf("x_ray = %f, y_ray = %f\n", x, y);
+	// printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
 	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
-		printf("%f %f  v h \n--------------\n", dr->vdist, dr->hdist);
+		// printf("%f %f  v h \n--------------\n", dr->vdist, dr->hdist);
 		if (dr->vdist < dr->hdist)
 			dt = dr->vdist * 192.f / app->map_y;
 		else

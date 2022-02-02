@@ -173,7 +173,7 @@ int	routine(void *data)
 			&app->img.bpp, &app->img.size, &app->img.endian);
 	app->image_is_destroyed = 0;
 	drow_background(app);
-	// draw_rays_3d(app);
+	draw_rays_3d(app);
 	draw_map(app);
 	draw_sprite(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
