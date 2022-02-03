@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/02 18:09:24 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:28:47 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,10 +265,12 @@ void	draw_mini_rays(t_app *app)
 	float    dt;
 	float i;
 	
-	x = dr->x;
-	y = dr->y;
-    x = x * 192.f / RES_X;
-    y = y * 192.f / RES_Y;
+	// dr->x = app->sp.game_state.player_x;
+	// dr->y = app->sp.game_state.player_y;
+	// x = dr->x;
+	// y = dr->y;
+    x = app->sp.game_state.player_x * 192.f / RES_X;
+    y = app->sp.game_state.player_y * 192.f / RES_Y;
 	printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
 	while (dr->r < 1)

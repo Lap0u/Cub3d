@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 11:20:27 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/01/31 15:34:13 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:23:23 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@
 # define PI2 1.57079632679
 # define PI3 4.71238898038
 # define DR 0.00054541562
-
-# define PATH_TO_NORTH "../textures/north.xpm"
-# define PATH_TO_SOUTH "../textures/south.xpm"
-# define PATH_TO_WEST "../textures/west.xpm"
-# define PATH_TO_EAST "../textures/east.xpm"
 
 # define RES_X	2048
 # define RES_Y 1024
