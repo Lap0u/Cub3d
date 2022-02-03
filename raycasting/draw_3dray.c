@@ -42,11 +42,12 @@ void	check_hor_up(t_app *app)
 void	check_hor_left_right(t_app *app)
 {
 	t_draw	*dr;
+	extern	int map_y;
 
 	dr = &(app->dr);
 	dr->rx = dr->x;
 	dr->ry = dr->y;
-	dr->dof = 8;
+	dr->dof = map_y;
 }
 
 void	check_hor_action(t_app *app)
@@ -63,7 +64,7 @@ void	check_hor_action(t_app *app)
 	dr->mp = dr->my * map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1)) // hit wall
 	{
-		dr->dof = 8;
+		dr->dof = map_y;
 	}
 	else
 	{
@@ -91,7 +92,7 @@ void	check_horizont_line(t_app *app)
 		check_hor_up(app);
 	if ((dr->ra == 0) || (dr->ra == PI)) //looking straight felt or right
 		check_hor_left_right(app);
-	while (dr->dof < 8)
+	while (dr->dof < map_y)
 		check_hor_action(app);
 	dr->hx = dr->rx;
 	dr->hy = dr->ry;
@@ -123,11 +124,12 @@ void	check_vert_right(t_app *app)
 void	check_vert_down_up(t_app *app)
 {
 	t_draw	*dr;
+	extern	int map_x;
 
 	dr = &(app->dr);
 	dr->rx = dr->x;
 	dr->ry = dr->y;
-	dr->dof = 8;
+	dr->dof = map_x;
 }
 
 void	check_vert_action(t_app *app)
@@ -139,11 +141,13 @@ void	check_vert_action(t_app *app)
 
 	dr = &(app->dr);
 	dr->mp = 0;
+	// if (dr->ra > PI2 && dr->ra < PI3)
+	// 	dr->mx = (dr->rx) + 64;
 	dr->mx = (int)(dr->rx) >> 6;
 	dr->my = (int)(dr->ry) >> 6;
 	dr->mp = dr->my * map_x + dr->mx;
 	if (dr->mp > 0 && dr->mp < (map_x * map_y) && (map[dr->mp] == 1))
-		dr->dof = 8;
+		dr->dof = map_x;
 	else
 	{
 		dr->rx += dr->xo;
@@ -169,8 +173,10 @@ void	check_vertical_line(t_app *app)
 		check_vert_right(app);
 	if ((dr->ra == 0) || (dr->ra == PI))
 		check_vert_down_up(app);		
-	while (dr->dof < 8)
+	while (dr->dof < map_x)
 		check_vert_action(app);
+	// if (dr->ra > PI2 && dr->ra < PI3)
+	// 	dr->rx += 0.0001;
 	dr->vx = dr->rx;
 	dr->vy = dr->ry;
 	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
@@ -219,6 +225,37 @@ void	draw_mini_rays(t_app *app)
 			dr->ra -= 2 * PI;
 	}
 }
+// void	draw_mini_rays(t_app *app)
+// {
+// 	t_draw	*dr;
+	
+// 	dr = &(app->dr);
+// 	float x = 192 / (float)RES_X;
+// 	float y = 192 / (float)RES_Y;
+// 	float hd = dr->hdist * x;
+// 	float vd =  dr->vdist * y;
+// 	printf(" RES_X = %d, x = %f, y = %f, hdist = %f, hd = %f, vdist = %f, vd = %f\n",RES_X, x, y, dr->hdist, hd, dr->vdist, vd);
+// 	prepa_init_ray(app);
+// 	while (dr->r < RES_X)
+// 	{
+// 		check_horizont_line(app);
+// 		check_vertical_line(app);
+// 		if (dr->vdist < dr->hdist)
+// 			dr->tdist = dr->vdist * x;
+// 		if (dr->hdist < dr->vdist)
+// 			dr->tdist = dr->hdist * y;
+// 		dr->i = -1;
+// 		while (++dr->i < (int)(dr->tdist))
+// 			my_mlx_pixel_put(&(app->img), (((dr->i * cos(dr->ra))) + dr->x * 192 /512),
+// 			(((dr->i * sin(dr->ra))) + dr->y * 192/512), 0x003ABFF7);
+// 		dr->r++;
+// 		dr->ra += DR;
+// 		if (dr->ra < 0)
+// 			dr->ra += 2 * PI;
+// 		if (dr->ra > 2 * PI)
+// 			dr->ra -= 2 * PI;
+// 	}
+// }
 
 void	which_is_dir(t_app *app)
 {
@@ -254,6 +291,9 @@ void	draw_rays_3d(t_app *app)
 	extern	int map_y;
 	extern	int map[];
 	extern	int map_s;
+	int res;
+
+	res =  (map_x * map_y) / 64;
 	
 	dr = &(app->dr);
 	prepa_init_ray(app);
@@ -263,7 +303,7 @@ void	draw_rays_3d(t_app *app)
 		check_vertical_line(app);
 		which_is_dir(app);
 		fix_fish_eye(app);
-		dr->lineH = (map_s * app->y)/dr->tdist; // line height
+		dr->lineH = ((map_s * app->y)/dr->tdist) / res; // line height
 		dr->saveH = dr->lineH;
 		if (dr->lineH > app->y)
 			dr->lineH = app->y;

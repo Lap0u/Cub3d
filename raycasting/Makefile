@@ -12,7 +12,8 @@ NAME			= raycasting
 
 CC			= gcc -g 
 
-CFLAGS		= 
+CFLAGS		= -fsanitize=address
+
 # -fsanitize=address
 
 RM	= rm -f

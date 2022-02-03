@@ -20,8 +20,8 @@ float modul(float n)
 
 void	init_sprite(t_app *app)
 {
-	app->sp.game_state.player_x = 200;
-	app->sp.game_state.player_y = 200;
+	app->sp.game_state.player_x = 1216;
+	app->sp.game_state.player_y = 192;
 	app->sp.game_state.player_old_x = 0;
 	app->sp.game_state.player_old_y = 0;
 	app->sp.game_state.pa = PI / -2;
@@ -58,7 +58,7 @@ void	draw_sprite(t_app *app)
 	x = app->sp.game_state.player_x;
 	y = app->sp.game_state.player_y;
 	draw_line(app);
-	draw_mini_rays(app);
+	// draw_mini_rays(app);
 	while (++i < 10)
 	{
 		j = -1;
@@ -109,6 +109,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 		exit (1);
 	init_path(app);
 	init_texture(app);
+	printf("dans init_app: &img = %p, addr = %p\n", app->txr[0].img, app->txr[0].addr);
 	app->x = w;
 	app->y = h;
 	app->bool_map = 1;

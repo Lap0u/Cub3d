@@ -35,12 +35,14 @@ void	init_texture(t_app *app)
 	i = 0;
 	txr = app->txr;
 	m_path = app->path;
+	write(1, "_1\n", 3);
 	while (i < 4)
 	{
 		txr[i].img = mlx_xpm_file_to_image(app->mlx, m_path[i],
 				&txr[i].w, &txr[i].h);
 		txr[i].addr = mlx_get_data_addr(txr[i].img, &(txr[i].bpp),
 				&(txr[i].size), &(txr[i].endian));
+		printf("&img = %p, addr = %p\n", txr[i].img, txr[i].addr);
 		i++;
 	}
 }

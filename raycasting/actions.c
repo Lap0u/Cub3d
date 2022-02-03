@@ -23,6 +23,9 @@ int	player_input_body(int key, t_app *app)
 	extern int map_y;
 	int xo, yo, posx, posx_add_xo, posx_sub_xo, posy, posy_add_yo, posy_sub_yo;
 	int posx_add_yo, posx_sub_yo, posy_add_xo, posy_sub_xo;
+	int	res;
+
+	res = map_x * map_y;
 
 	if (app->sp.game_state.delta_x < 0)
 		xo = -10; //modifier ces valeurs pour choisir l'ecart min avec le mur 
@@ -174,16 +177,16 @@ int	routine(void *data)
 	app->img.img = mlx_new_image(app->mlx, app->x, app->y);
 	app->img.addr = mlx_get_data_addr(app->img.img,
 			&app->img.bpp, &app->img.size, &app->img.endian);
-	open_images(app);
+	// open_images(app);
 	app->image_is_destroyed = 0;
 	drow_background(app);
 	draw_rays_3d(app);
-	draw_map(app);
+	// draw_map(app);
 	draw_sprite(app);
-	draw_mini_rays(app);
+	// draw_mini_rays(app);
 	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 	mlx_destroy_image(app->mlx, app->img.img);
-	close_images(app);
+	// close_images(app);
 	app->img.img = NULL;
 	app->image_is_destroyed = 1;
 	return (0);
