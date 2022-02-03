@@ -195,7 +195,7 @@ void	init_map(t_app *app, char **map)
 	if (app->map == NULL)
 		printf("faut gerer l'erreur lol\n");
 	app->map_x = longest;
-	app->map_y = i - 1;
+	app->map_y = i;
 	printf("map: x %d y %d\n", app->starting_x, app->starting_y);
 }
 
@@ -244,6 +244,7 @@ void	init_app(t_app *app, char *title, int w, int h)
 	init_colors(app);
 	free(app->vars);
 	printf("boucle\n");
+	exit(1);
 }
 
 int	destroy_game_data(void *data)
