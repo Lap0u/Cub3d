@@ -6,7 +6,7 @@
 /*   By: cbeaurai <cbeaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:18:40 by cbeaurai          #+#    #+#             */
-/*   Updated: 2022/02/03 08:28:47 by cbeaurai         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:16:18 by cbeaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	prepa_init_ray(t_app *app)
 	t_draw	*dr;
 
 	dr = &(app->dr);
-	// dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
-	dr->ra = app->ray.game_state.pa;
+	dr->ra = app->ray.game_state.pa - DR * (RES_X / 2);
+	// dr->ra = app->ray.game_state.pa;
 	if (dr->ra < 0)
 		dr->ra += 2 * PI;
 	if (dr->ra > 2 * PI)
@@ -273,11 +273,12 @@ void	draw_mini_rays(t_app *app)
     y = app->sp.game_state.player_y * 192.f / RES_Y;
 	printf("x_ray = %f, y_ray = %f\n", x, y);
 	prepa_init_ray(app);
-	while (dr->r < 1)
+	while (dr->r < RES_X)
 	{
 		check_horizont_line(app);
 		check_vertical_line(app);
-		printf("%f %f  v h \n--------------\n", dr->vdist, dr->hdist);
+		printf("ra : %f\n", dr->ra);
+		printf("%f %f  v h \n", dr->vdist, dr->hdist);
 		printf("%d %d mapx mapy\n", app->map_x, app->map_y);
 		if (dr->vdist < dr->hdist)
 			dt = dr->vdist * 192.f / app->map_x;
@@ -286,6 +287,7 @@ void	draw_mini_rays(t_app *app)
 		printf("%f dt\n", dt);
 		i = -1;
 		printf("start x y %f %f\n", x, y);
+		printf("------------\n");
 		while (++i < (dt))
 			my_mlx_pixel_put(&(app->img), (((i * cos(dr->ra))) + x),
 			(((i * sin(dr->ra))) + y), 0x003ABFF7);
