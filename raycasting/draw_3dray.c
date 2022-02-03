@@ -153,7 +153,7 @@ void	check_vert_action(t_app *app)
 		dr->rx += dr->xo;
 		dr->ry += dr->yo;  
 		dr->dof += 1;
-		dr->mp = 100;
+		// dr->mp = 100;
 	}
 }
 
@@ -163,6 +163,7 @@ void	check_vertical_line(t_app *app)
 	extern	int map_x;
 	extern	int map_y;
 	extern	int map[];
+	float	ry;
 
 	dr = &(app->dr);
 	dr->dof = 0;
@@ -175,8 +176,12 @@ void	check_vertical_line(t_app *app)
 		check_vert_down_up(app);		
 	while (dr->dof < map_x)
 		check_vert_action(app);
-	// if (dr->ra > PI2 && dr->ra < PI3)
-	// 	dr->rx += 0.0001;
+	if (dr->ra > PI2 && dr->ra < PI3)
+	// {
+	// 	dr->rx = dr->rx - ((((int)dr->x >> 6)<< 6) - 0.0001);
+	// 	dr->ry = (dr->x - dr->rx) * dr->n_tan + dr->y;
+	// }
+		check_vert_left(app);
 	dr->vx = dr->rx;
 	dr->vy = dr->ry;
 	dr->vdist = sqrt(pow(dr->rx - dr->x, 2) + (pow(dr->ry - dr->y, 2)));
